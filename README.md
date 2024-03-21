@@ -6,13 +6,19 @@
 Ich hoffe, ihr habt git schon mal benutzt. Hier sind ein paar Refresher:
 
 1. Erstellt einen Ordner, in welches ihr das Repository klonen möchtet.
+
 2. Navigiert im Terminal/CMD in diesen Ordner.
+
 3. Klont das Repository mit dem Command:
 ```bash
 git clone https://gitlab.oth-regensburg.de/vod32585/dt-g5.git
 ```
+
 4. Ihr werdet nach euren Zugangsdaten gefragt. Einfach eintippen.
+
+
 5. Jetzt könnt ihr an der repo arbeiten wie ihr möchtet.
+
 6. Um eure Änderungen ins Repository zu pushen, müsst ihr diese zu erst adden:
 ```bash
 git add filename.text documentation/documentation.tex
@@ -22,11 +28,13 @@ oder
 git add .
 ```
 falls ihr alle Änderungen hinzufügen wollt.
+
 7. Mit
 ```bash
 git status
 ```
 könnt ihr noch mal überprüfen, welche Änderungen hinzugefügt werden.
+
 8. Als nächstes commitet ihr die Änderungen mit
 ```bash
 git commit -m "Aussagekräftiger Kommentar, der kurz beschreibt, was geändert wurde"
@@ -37,6 +45,7 @@ Wenn ihr das erste mal commitet, werdet ihr vermutlich gefragt, wer ihr seid. Da
 git config --global user.name "abc12345"
 ```
 angeben. Mit der E-Mail funktioniert das denke ich nicht.
+
 9. Als letztes müsst ihr die Änderungen pushen. Ihr könnt das in eine bestimmte branch pushen, oder in die main branch. Alles, was nicht sourcecode ist, wird wahrscheinlich keine extra branch brauchen.
 ```bash
 git push origin main
