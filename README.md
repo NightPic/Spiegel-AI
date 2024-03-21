@@ -14,12 +14,18 @@ Bitte bei JEDEM commit einen Kommentar hinzufügen. Deutsch oder Englisch ist eg
 
 ### DON'Ts
 "Added something"
+
 "Fixed problem"
+
 "Läuft wieder"
+
 "Merged branch ..."
 
 ### DOs
 "ADDED function that increases speed of facial recognition"
+
 "REMOVED functionality of genital rating"
+
 "FIXED Algorithmus, der die verschiedenen Wettervorhersagen sortiert"
+
 "ADDED a couple of paragraphs in the documentation under the section 'Einführung'"
