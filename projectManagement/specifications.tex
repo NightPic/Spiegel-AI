@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{enumitem}
+
+\title{Lastenheft für das Projekt Spiegel AI}
+\author{Gruppe 5}
+\date{\today}
+
+% TODO: Anforderungen an die Benutzeroberfläche: mögliche Redundanz entfernen, evtl. diese Anforderungen nur in funktionale Anforderungen angeben.
+% TODO: Tatsächliches Budget angeben.
+% TODO: Einführung, Zielsetzung und Zielgruppe überdenken, evtl. umformulieren
+% TODO: Bestehende Anforderungen noch mal überprüfen, evtl. neue Anforderungen hinzufügen.
+% Bei neuer Version des Lastenhefts bitte die Änderungshistorie anpassen. Danke :)
+
+\begin{document}
+\maketitle
+
+\section{Einführung}
+Dieses Lastenheft beschreibt die Anforderungen und Spezifikationen für das Projekt Spiegel AI.
+
+\section{Zielsetzung}
+Das Ziel dieses Projekts ist es, einen smarten Spiegel mit KI-Funktionalitäten zu konstruieren und zu implementieren.
+
+\section{Zielgruppe}
+Dieses Produkt ist vor allem für technikaffine Menschen vorgesehen, die sich für das Thema künstliche Intelligenz interessieren.
+
+\section{Funktionale Anforderungen}
+\begin{enumerate}[label=\textbf{FA\arabic*:}]
+    \item Anzeige von Informationen: Der Smart-Spiegel muss in der Lage sein, die aktuelle Wetterlage eines Ortes und Kalenderereignisse anzuzeigen.
+    \item Personalisierungsoptionen: Der Benutzer soll in der Lage sein, Widgets und ausgewählte Kalenderereignisse nach seinen persönlichen Vorlieben anzupassen.
+    \item Interaktive Funktionen: Der Smart-Spiegel muss interaktive Funktionen bieten. Dazu hat der Benutzer die Möglichkeit, mit einer mobilen Kontroll-Applikation oder durch Sprachsteuerung das Interface zu navigieren.
+    \item Gesichtserkennung: Möglichkeit zur Gesichtserkennung für die Identifizierung von Benutzern und Anpassung der angezeigten Inhalte entsprechend den individuellen Präferenzen mithilfe von künstlicher Intelligenz.
+    \item Datenschutz und Sicherheit: Implementierung von Sicherheitsfunktionen, um die Privatsphäre der Benutzer zu schützen, wie die Verschlüsselung von Datenübertragungen und Optionen zur Deaktivierung von der Gesichtserkennung.
+    \item Automatisches Einschalten: Das Display des Spiegels wird aktiviert, sobald sich die Person dem Spiegel nähert.
+\end{enumerate}
+
+\section{Nicht-funktionale Anforderungen}
+\begin{enumerate}[label=\textbf{NFA\arabic*:}]
+    \item Benutzerfreundlichkeit: Der Smart-Spiegel soll eine intuitive Benutzeroberfläche bieten und einfach zu bedienen sein, auch für Benutzer ohne technische Vorkenntnisse.
+    \item Zuverlässigkeit: Der Smart-Spiegel soll stabil und zuverlässig funktionieren, ohne häufige Ausfälle oder Systemabstürze.
+    \item Performance: Das System soll eine schnelle Reaktionszeit auf Benutzereingaben bieten und Inhalte flüssig und ohne Verzögerungen anzeigen.
+    \item Skalierbarkeit: Die Architektur des Smart-Spiegels soll skalierbar sein, um zukünftiges Wachstum und die Integration neuer Funktionen zu unterstützen, ohne dass die Leistung beeinträchtigt wird.
+    \item Sicherheit: Der Smart-Spiegel soll robuste Sicherheitsmaßnahmen implementieren, um Benutzerdaten vor unbefugtem Zugriff und Datenschutzverletzungen zu schützen.
+    \item Barrierefreiheit: Das System soll barrierefrei sein und die Bedürfnisse von Benutzern mit verschiedenen Fähigkeiten berücksichtigen, z. B. durch alternative Bedienungsmöglichkeiten für Menschen mit motorischen Einschränkungen.
+    \item Datenschutz: Es soll klare Richtlinien und Mechanismen geben, um die Privatsphäre der Benutzer zu schützen und sicherzustellen, dass persönliche Daten angemessen gesichert und verarbeitet werden.
+    \item Wartbarkeit: Das System sollte wartungsfreundlich sein, mit klarem Code und dokumentierten Prozessen für die Fehlerbehebung und Aktualisierung.
+    \item Energieeffizienz: Der Smart-Spiegel sollte energieeffizient sein und den Stromverbrauch optimieren, um die Umweltauswirkungen zu minimieren und die Betriebskosten zu senken.
+\end{enumerate}
+
+\section{Anforderungen an die Benutzeroberfläche}
+\begin{enumerate}[label=\textbf{B\arabic*:}]
+    \item Benutzeroberfläche muss ansprechend und intuitiv gestaltet sein, um eine reibungslose Interaktion mit dem Smart-Spiegel zu ermöglichen.
+    \item Es soll eine klare Navigation vorhanden sein, die es dem Benutzer ermöglicht, mühelos zwischen verschiedenen Funktionen und Bildschirmen zu wechseln.
+    \item Die Benutzeroberfläche soll personalisierbar sein, so dass Benutzer ihre eigenen Layouts und Einstellungen definieren können.
+\end{enumerate}
+
+\section{Anforderungen an die Datenbank}
+\begin{enumerate}[label=\textbf{D\arabic*:}]
+    \item Die Datenbank muss eine hohe Leistungsfähigkeit aufweisen, um eine schnelle Datenabfrage und -aktualisierung zu ermöglichen.
+    \item Es sollte eine zuverlässige Datensicherung und Wiederherstellungsfunktion geben, um Datenverlust im Falle eines Systemausfalls zu verhindern.
+    \item Die Datenbank muss skalierbar sein, um das Wachstum des Systems und die Zunahme der Datenmenge zu bewältigen.
+    \item Datenschutz und Sicherheit sollten in der Datenbankimplementierung berücksichtigt werden, um den Schutz sensibler Benutzerdaten zu gewährleisten.
+\end{enumerate}
+
+\section{Budget}
+Das Budget für die Materialien liegt bei x €.
+
+\section{Abnahmekriterien}
+Das Projekt Spiegel AI wird als abgeschlossen betrachtet, wenn folgende Kriterien erfüllt sind:
+
+\begin{enumerate}
+    \item Alle funktionalen Anforderungen gemäß Abschnitt 4 wurden erfolgreich implementiert und getestet.
+    \item Das System wurde auf Zuverlässigkeit und Performance getestet und erfüllt die Anforderungen gemäß Abschnitt 5.
+    \item Die Sicherheitsmaßnahmen des Smart-Spiegels, einschließlich Datenschutz und Datenschutz, wurden gemäß Abschnitt 5 implementiert und getestet.
+    \item Die Benutzeroberfläche des Smart-Spiegels erfüllt die Anforderungen gemäß Abschnitt 6 und bietet eine intuitive und ansprechende Benutzererfahrung.
+    \item Die Datenbank des Systems erfüllt die Anforderungen gemäß Abschnitt 7 und gewährleistet eine zuverlässige und performante Speicherung sowie den Schutz sensibler Benutzerdaten.
+    \item Das System wurde einem umfassenden Benutzertest unterzogen, bei dem technikaffine Benutzer mit verschiedenen Hintergründen die Benutzerfreundlichkeit und Funktionalität bewertet haben. Das Feedback wurde berücksichtigt und etwaige Mängel wurden behoben.
+    \item Alle dokumentierten Änderungen und Anpassungen, einschließlich eventueller Iterationen, wurden gemäß Abschnitt 10 in die endgültige Version des Lastenhefts aufgenommen.
+\end{enumerate}
+
+Die Zustimmung zur Abnahme erfolgt durch das Projektmanagement oder den Auftraggeber nach erfolgreicher Überprüfung der oben genannten Kriterien.
+
+
+\section{Änderungshistorie}
+\begin{tabular}{|c|c|c|l|}
+    \hline
+    Version & Datum & Autor & Beschreibung \\
+    \hline
+    1.0 & 27.03.2024 & David Vollmer & erstes Exemplar des Lastenhefts \\
+    \hline
+\end{tabular}
+
+\end{document}
