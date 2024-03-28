@@ -7,7 +7,7 @@
 
 % TODO: Anforderungen an die Benutzeroberfläche: mögliche Redundanz entfernen, evtl. diese Anforderungen nur in funktionale Anforderungen angeben.
 % TODO: Tatsächliches Budget angeben.
-% TODO: Einführung, Zielsetzung und Zielgruppe überdenken, evtl. umformulieren
+% TODO: Einführung, Zielsetzung und Zielgruppe überdenken, evtl. umformulieren !DONE!
 % TODO: Bestehende Anforderungen noch mal überprüfen, evtl. neue Anforderungen hinzufügen.
 % Bei neuer Version des Lastenhefts bitte die Änderungshistorie anpassen. Danke :)
 
@@ -15,13 +15,18 @@
 \maketitle
 
 \section{Einführung}
-Dieses Lastenheft beschreibt die Anforderungen und Spezifikationen für das Projekt Spiegel AI.
+Dieses Lastenheft beschreibt die Anforderungen und Spezifikationen für die Entwicklung eines Smart-Spiegels. Der Smart-Spiegel ist ein innovatives Gerät, das traditionelle Spiegeltechnologie mit moderner Informationstechnologie kombiniert, um dem Benutzer eine Vielzahl von Funktionen und Diensten zu bieten. Entwickelt wird dieser Smart-Spiegel, um den täglichen Lebensstil der Benutzer zu bereichern, indem er relevante Informationen und Dienste direkt während des Morgenrituals im Badezimmer oder an anderen strategischen Standorten im Haushalt zur Verfügung stellt. Dieses Dokument dient als Leitfaden für die Entwicklungsteams, um die spezifischen Anforderungen, Funktionen und Qualitäten festzulegen, die in den Smart-Spiegel integriert werden sollen, um ein hochwertiges und benutzerfreundliches Produkt zu liefern.
 
 \section{Zielsetzung}
-Das Ziel dieses Projekts ist es, einen smarten Spiegel mit KI-Funktionalitäten zu konstruieren und zu implementieren.
+
+Ziel des Projekts ist es, einen Smart-Spiegel zu entwickeln, der die tägliche Routine der Benutzer verbessert, indem er relevante Informationen und Funktionen in einem intuitiven und benutzerfreundlichen Format bereitstellt. Der Smart-Spiegel soll dazu beitragen, den Alltag der Benutzer effizienter zu gestalten, indem er wichtige Informationen wie Wettervorhersagen, Verkehrsinformationen und Kalenderereignisse auf einen Blick zugänglich macht.  
 
 \section{Zielgruppe}
-Dieses Produkt ist vor allem für technikaffine Menschen vorgesehen, die sich für das Thema künstliche Intelligenz interessieren.
+\begin{itemize}
+    \item Technikbegeisterte: Personen, die an innovativen Technologien interessiert sind und gerne neue Gadgets und intelligente Geräte ausprobieren.
+    \item Smart-Home-Enthusiasten: Menschen, die bereits Smart-Home-Systeme verwenden oder ihr Zuhause mit vernetzten Geräten ausstatten möchten und nach neuen Möglichkeiten suchen, ihr Zuhause zu automatisieren und zu verbessern.
+    \item Ältere Menschen und Menschen mit besonderen Bedürfnissen: Personen, die von Assistenzfunktionen wie Gesichtserkennung, Sprachsteuerung und Notfallbenachrichtigungen profitieren könnten, um ihre Unabhängigkeit zu fördern und ihre Sicherheit zu verbessern.
+\end{itemize}
 
 \section{Funktionale Anforderungen}
 \begin{enumerate}[label=\textbf{FA\arabic*:}]
@@ -35,7 +40,6 @@ Dieses Produkt ist vor allem für technikaffine Menschen vorgesehen, die sich f�
 
 \section{Nicht-funktionale Anforderungen}
 \begin{enumerate}[label=\textbf{NFA\arabic*:}]
-    \item Benutzerfreundlichkeit: Der Smart-Spiegel soll eine intuitive Benutzeroberfläche bieten und einfach zu bedienen sein, auch für Benutzer ohne technische Vorkenntnisse.
     \item Zuverlässigkeit: Der Smart-Spiegel soll stabil und zuverlässig funktionieren, ohne häufige Ausfälle oder Systemabstürze.
     \item Performance: Das System soll eine schnelle Reaktionszeit auf Benutzereingaben bieten und Inhalte flüssig und ohne Verzögerungen anzeigen.
     \item Skalierbarkeit: Die Architektur des Smart-Spiegels soll skalierbar sein, um zukünftiges Wachstum und die Integration neuer Funktionen zu unterstützen, ohne dass die Leistung beeinträchtigt wird.
@@ -62,7 +66,7 @@ Dieses Produkt ist vor allem für technikaffine Menschen vorgesehen, die sich f�
 \end{enumerate}
 
 \section{Budget}
-Das Budget für die Materialien liegt bei x €.
+Das Budget für die Materialien liegt bei 200 bis 300 €. (siehe CSV-Datei)
 
 \section{Abnahmekriterien}
 Das Projekt Spiegel AI wird als abgeschlossen betrachtet, wenn folgende Kriterien erfüllt sind:
@@ -86,6 +90,8 @@ Die Zustimmung zur Abnahme erfolgt durch das Projektmanagement oder den Auftragg
     Version & Datum & Autor & Beschreibung \\
     \hline
     1.0 & 27.03.2024 & David Vollmer & erstes Exemplar des Lastenhefts \\
+    \hline
+    2.0 & 28.03.2024 & Leon Kranner & Redundanzen behoben. Abschnitt 1 bis 3 überarbeitet \\
     \hline
 \end{tabular}
 
