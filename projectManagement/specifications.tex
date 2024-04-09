@@ -42,7 +42,7 @@ Ziel des Projekts ist es, einen Smart-Spiegel zu entwickeln, der die tägliche R
 \section{Funktionale Anforderungen}
 \begin{enumerate}[label=\textbf{FA\arabic*:}]
     \item Anzeige von Informationen: Der Smart-Spiegel muss in der Lage sein, die aktuelle Wetterlage eines Ortes und Kalenderereignisse anzuzeigen.
-    \item Personalisierungsoptionen: Der Benutzer soll in der Lage sein, Widgets und ausgewählte Kalenderereignisse nach seinen persönlichen Vorlieben anzupassen.
+    \item Personalisierungsoptionen: Der Benutzer soll in der Lage sein, mindestens 10 Widgets und  5 ausgewählte Kalenderereignisse nach seinen persönlichen Vorlieben anzupassen.
     \item Interaktive Funktionen: Der Smart-Spiegel muss interaktive Funktionen bieten. Dazu hat der Benutzer die Möglichkeit, mit einer mobilen Kontroll-Applikation oder durch Sprachsteuerung das Interface zu navigieren.
     \item Gesichtserkennung: Möglichkeit zur Gesichtserkennung für die Identifizierung von Benutzern und Anpassung der angezeigten Inhalte entsprechend den individuellen Präferenzen mithilfe von künstlicher Intelligenz.
     \item Datenschutz und Sicherheit: Implementierung von Sicherheitsfunktionen, um die Privatsphäre der Benutzer zu schützen, wie die Verschlüsselung von Datenübertragungen und Optionen zur Deaktivierung von der Gesichtserkennung.
@@ -51,29 +51,20 @@ Ziel des Projekts ist es, einen Smart-Spiegel zu entwickeln, der die tägliche R
 
 \section{Nicht-funktionale Anforderungen}
 \begin{enumerate}[label=\textbf{NFA\arabic*:}]
-    \item Zuverlässigkeit: Der Smart-Spiegel soll stabil und zuverlässig funktionieren, ohne häufige Ausfälle oder Systemabstürze.
-    \item Performance: Das System soll eine schnelle Reaktionszeit auf Benutzereingaben bieten und Inhalte flüssig und ohne Verzögerungen anzeigen.
-    \item Skalierbarkeit: Die Architektur des Smart-Spiegels soll skalierbar sein, um zukünftiges Wachstum und die Integration neuer Funktionen zu unterstützen, ohne dass die Leistung beeinträchtigt wird.
+    \item Sprache: Der Displaytext und alle Informationen sollen in Deutsch angezeigt werden.
+    \item Zuverlässigkeit: Der Smart-Spiegel soll stabil und zuverlässig funktionieren. Der Spiegel soll maximal 3x im Monat abstürzen oder ausfallen.
+    \item Performance: Das System soll eine schnelle Reaktionszeit auf Benutzereingaben bieten . Das System soll innerhalb einer Sekunde nach einer Benutzereingabe die Aktion ausführen
     \item Sicherheit: Der Smart-Spiegel soll robuste Sicherheitsmaßnahmen implementieren, um Benutzerdaten vor unbefugtem Zugriff und Datenschutzverletzungen zu schützen.
-    \item Barrierefreiheit: Das System soll barrierefrei sein und die Bedürfnisse von Benutzern mit verschiedenen Fähigkeiten berücksichtigen, z. B. durch alternative Bedienungsmöglichkeiten für Menschen mit motorischen Einschränkungen.
+    \item Barrierefreiheit: Das System soll mindestens 95 Prozent der persönlichen Benutzerdaten durch eine Ende-zu-Ende-Verschlüsselung schützen und eine Datenschutzrichtlinie enthalten, die den geltenden Datenschutzgesetzen entspricht.
     \item Datenschutz: Es soll klare Richtlinien und Mechanismen geben, um die Privatsphäre der Benutzer zu schützen und sicherzustellen, dass persönliche Daten angemessen gesichert und verarbeitet werden.
-    \item Wartbarkeit: Das System sollte wartungsfreundlich sein, mit klarem Code und dokumentierten Prozessen für die Fehlerbehebung und Aktualisierung.
-    \item Energieeffizienz: Der Smart-Spiegel sollte energieeffizient sein und den Stromverbrauch optimieren, um die Umweltauswirkungen zu minimieren und die Betriebskosten zu senken.
+    \item Wartbarkeit: Der Code des Systems sollte eine Testabdeckung von mindestens 80 Prozent erreichen und es sollte eine Dokumentation für Entwickler bereitgestellt werden, die die Einrichtung, Wartung und Aktualisierung des Systems detailliert beschreibt
 \end{enumerate}
 
 \section{Anforderungen an die Benutzeroberfläche}
 \begin{enumerate}[label=\textbf{B\arabic*:}]
-    \item Benutzeroberfläche muss ansprechend und intuitiv gestaltet sein, um eine reibungslose Interaktion mit dem Smart-Spiegel zu ermöglichen.
-    \item Es soll eine klare Navigation vorhanden sein, die es dem Benutzer ermöglicht, mühelos zwischen verschiedenen Funktionen und Bildschirmen zu wechseln.
+    \item Die Benutzeroberfläche der Software muss intuitiv und benutzerfreundlich gestaltet sein, um eine einfache Navigation und Interaktion für alle Arten von Benutzern zu ermöglichen. Dies beinhaltet klare Beschriftungen, leicht verständliche Symbole und eine konsistente Designsprache, die die Benutzererfahrung verbessert und die Lernkurve minimiert.
+    \item Es soll eine klare Navigation vorhanden sein, die es dem Benutzer ermöglicht, mühelos zwischen verschiedenen Funktionen und Bildschirmen zu wechseln. 
     \item Die Benutzeroberfläche soll personalisierbar sein, so dass Benutzer ihre eigenen Layouts und Einstellungen definieren können.
-\end{enumerate}
-
-\section{Anforderungen an die Datenbank}
-\begin{enumerate}[label=\textbf{D\arabic*:}]
-    \item Die Datenbank muss eine hohe Leistungsfähigkeit aufweisen, um eine schnelle Datenabfrage und -aktualisierung zu ermöglichen.
-    \item Es sollte eine zuverlässige Datensicherung und Wiederherstellungsfunktion geben, um Datenverlust im Falle eines Systemausfalls zu verhindern.
-    \item Die Datenbank muss skalierbar sein, um das Wachstum des Systems und die Zunahme der Datenmenge zu bewältigen.
-    \item Datenschutz und Sicherheit sollten in der Datenbankimplementierung berücksichtigt werden, um den Schutz sensibler Benutzerdaten zu gewährleisten.
 \end{enumerate}
 
 \section{Budget}
@@ -108,6 +99,7 @@ Die Zustimmung zur Abnahme erfolgt durch das Projektmanagement oder den Auftragg
     \hline
     3.0 & 07.04.2024 & David Vollmer & Hinzufügen der Namen der Teilnehmer \\
     \hline
+    4.0 & 09.04.2024 & Leon Kranner & Quantifizierung bei einigen Anforderungen ergänzt
 \end{tabular}
 
 \end{document}
