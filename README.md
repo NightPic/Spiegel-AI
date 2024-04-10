@@ -57,7 +57,7 @@ git push origin main
 Hier müsst ihr wieder eure Zugangsdaten eingeben.
 
 ## Dokumentation
-In der documentation directory bitte NUR die documentation.tex und documentation.pdf hochladen. Bitte nicht die anderen Dateien, die beim Kompilieren erzeugt werden. TBD in gitignore hinzufügen.
+In der documentation directory bitte NUR die documentation.tex und documentation.pdf hochladen. Bitte nicht die anderen Dateien, die beim Kompilieren erzeugt werden.
 
 ## Organisation
 Bitte auf saubere directory-Strukturen achten, die Sinn ergeben. Bitte alles so intuitiv hinzufügen, dass man alles schnell finden kann. Keinen Sourcecode in documentations, etc.
