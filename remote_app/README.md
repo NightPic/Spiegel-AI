@@ -1,6 +1,6 @@
 # remote_app
 
-Remote control application for Spiegel AI
+A new Flutter project.
 
 ## Getting Started
 
