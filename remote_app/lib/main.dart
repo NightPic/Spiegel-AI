@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remote_app/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,12 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.blue,
-            title: const Text('Spiegel AI Remote')),
-      ),
+    return const MaterialApp(
+      home: HomePage(),
     );
   }
 }
