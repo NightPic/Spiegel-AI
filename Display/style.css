@@ -1,0 +1,135 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 40px);
+    margin: 20px;
+}
+.box {
+    width: calc((100vw - 40px) / 3);
+    height: calc((100vh - 40px) / 3);
+    border: 1px solid #000;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1em;
+    background-color: #e0e0e0;
+    overflow: hidden;
+}
+
+/* Widget 1: Clock */
+
+#clock {
+    font-family: Arial, sans-serif;
+    font-size: 3em;
+    text-align: center;
+    padding-top: 15%;
+  }
+
+/* Widget 2: Forecast */
+
+#weather {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+#forecast {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 6px;
+}
+.forecast-container {
+    display: flex;
+    flex-direction: column;
+    width: 33%; /* Drei Spalten */
+    box-sizing: border-box;
+}
+.day {
+    flex: 1;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Widget 3: Calender */
+
+.current-day {
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.calendar-table th, .calendar-table td {
+    border: 1px solid #ccc;
+    width: 14.28%; /* 100% divided by 7 days */
+    height: 40px;
+    text-align: center;
+}
+#calendarWidget {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+}
+#calendar, #nextMonthCalendar {
+    width: 48%;
+}
+
+/* Widget 4: Notes */
+
+#notesWidget {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+#notesTextarea {
+    resize: vertical;
+    width: calc(100% - 40px); /* Subtrahiert den linken und rechten Padding */
+    margin: 0; /* Entfernt den Standardabstand des Textbereichs */
+    padding: 10px; /* Fügt den gewünschten Abstand ein */
+}
+
+/* Widget 5: Appointments*/
+
+#appointmentsWidget {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+#appointmentsList {
+    list-style: none;
+    padding: 0;
+}
+.appointment-item {
+    margin-bottom: 10px;
+}
