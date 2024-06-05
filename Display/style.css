@@ -173,4 +173,21 @@ body, html {
 }
 
 
-  
+/* Widget 8: Gas Station*/
+
+.widget-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#station-info {
+    font-size: 18px;
+}
