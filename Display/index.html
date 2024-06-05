@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>3x3 Feld</title>
+    <title>Spiegel AI</title>
 </head>
 <body>
     <div class="container">
@@ -29,7 +29,7 @@
         </div>
         <div class="box">
             <h2>Notizen</h2>
-            <textarea id="notesTextarea" rows="10" ></textarea>
+            <textarea id="notesTextarea" rows="10" readonly="true" >Semesterferien beginnen am: 27. Juli 2024</textarea>
             <script src="Widgets/notes.js"></script>
         </div>
         <div class="box">5</div>
@@ -48,7 +48,11 @@
             <ul id="news-feed"></ul>
             <script src="Widgets/NewsFeed.js"></script>
         </div>
-        <div class="box">9</div>
+        <div class="box">
+            <h2>Günstigste Tankstelle in Regensburg</h2>
+            <div id="station-info">
+            <script src="Widgets/GasStation.js"></script>
+        </div>
     </div>
 </body>
 </html>
