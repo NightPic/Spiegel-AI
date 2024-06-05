@@ -140,3 +140,37 @@ body, html {
     font-size: 18px;
     font-weight: bold;
 }
+
+/* Widget 7: News Feed*/
+
+#news-widget {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+#news-widget h2 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 24px;
+}
+
+#news-feed {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+#news-feed li {
+    margin-bottom: 10px;
+}
+
+#news-feed li a {
+    color: #000000;
+    text-decoration: none;
+}
+
+
+  
