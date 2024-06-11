@@ -11,7 +11,7 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 212, 230, 25),
+              color: Colors.orangeAccent,
             ),
             child: Text(
               'Spiegel AI',

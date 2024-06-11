@@ -7,6 +7,7 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -30,6 +31,9 @@ class _HomePageState extends State<HomePage> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
+        backgroundColor: Colors.orangeAccent, // Change the color here
+        selectedItemColor: Colors.indigoAccent,
+        unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

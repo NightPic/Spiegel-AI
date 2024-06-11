@@ -9,7 +9,7 @@ class ProfileContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 212, 230, 25),
+        backgroundColor: Colors.orangeAccent,
         title: const Text('Profile'),
       ),
       endDrawer: const AppDrawer(),
