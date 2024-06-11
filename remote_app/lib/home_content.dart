@@ -5,18 +5,21 @@ class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeContentState createState() => _HomeContentState();
 }
 
 class _HomeContentState extends State<HomeContent> {
   late List<int> _buttonIndexes;
-  final List<String> _buttonLabels = List.generate(9, (index) => 'Widget ${index + 1}');
-  final List<bool> _buttonClicked = List.generate(9, (index) => false);
+  late List<String> _buttonLabels;
+  late List<bool> _buttonClicked;
 
   @override
   void initState() {
     super.initState();
     _buttonIndexes = List.generate(9, (index) => index);
+    _buttonLabels = ['Kalender', 'Uhr', 'Wetter', 'Notizen', 'Name des Profils', 'Termine', 'Verkehr', 'Nachrichten', 'Tanken'];
+    _buttonClicked = List.generate(9, (index) => false);
   }
 
   @override
@@ -47,6 +50,33 @@ class _HomeContentState extends State<HomeContent> {
           ),
           itemCount: 9,
           itemBuilder: (context, index) {
+            if (index == 4) {
+              return SizedBox(
+                width: buttonWidth,
+                height: buttonHeight,
+                child: ElevatedButton(
+                  onPressed: null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      side: const BorderSide(
+                        color: Colors.transparent,
+                        width: 0.0,
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    'Name des Profils',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              );
+            }
             return DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
                 return Draggable<int>(
@@ -65,6 +95,10 @@ class _HomeContentState extends State<HomeContent> {
                     final temp = _buttonIndexes[oldIndex];
                     _buttonIndexes[oldIndex] = _buttonIndexes[newIndex];
                     _buttonIndexes[newIndex] = temp;
+
+                    final tempClicked = _buttonClicked[oldIndex];
+                    _buttonClicked[oldIndex] = _buttonClicked[newIndex];
+                    _buttonClicked[newIndex] = tempClicked;
                   });
                 }
               },
@@ -86,12 +120,12 @@ class _HomeContentState extends State<HomeContent> {
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: _buttonClicked[index] ? Colors.grey.withOpacity(0.5) : Colors.orangeAccent, // Change color when clicked
-          foregroundColor: Colors.black, // Text color
+          backgroundColor: _buttonClicked[index] ? Colors.grey.withOpacity(0.5) : Colors.orangeAccent,
+          foregroundColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
             side: const BorderSide(
-              color: Colors.orangeAccent, // Border color
+              color: Colors.orangeAccent,
               width: 1.0,
             ),
           ),
