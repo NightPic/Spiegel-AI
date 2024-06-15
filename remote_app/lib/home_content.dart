@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remote_app/drawer.dart';
+import 'web_socket_manager.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
@@ -13,13 +13,64 @@ class _HomeContentState extends State<HomeContent> {
   late List<int> _buttonIndexes;
   late List<String> _buttonLabels;
   late List<bool> _buttonClicked;
+  late WebSocketManager _webSocketManager;
 
   @override
   void initState() {
     super.initState();
     _buttonIndexes = List.generate(9, (index) => index);
-    _buttonLabels = ['Kalender', 'Uhr', 'Wetter', 'Notizen', 'Name des Profils', 'Termine', 'Verkehr', 'Nachrichten', 'Tanken'];
+    _buttonLabels = [
+      'Kalender',
+      'Uhr',
+      'Wetter',
+      'Notizen',
+      'Name des Profils',
+      'Termine',
+      'Verkehr',
+      'Nachrichten',
+      'Tanken'
+    ];
     _buttonClicked = List.generate(9, (index) => false);
+
+    _webSocketManager = WebSocketManager(_handleMessage);
+    _webSocketManager.initialize();
+  }
+
+  void _handleMessage(String message) {
+    print('Received: $message');
+    if (message.startsWith('swap')) {
+      List<String> parts = message.split(' ');
+      int oldIndex = int.parse(parts[1]);
+      int newIndex = int.parse(parts[2]);
+      _swapWidgets(oldIndex, newIndex);
+    } else if (message.startsWith('disable')) {
+      int index = int.parse(message.split(' ')[1]);
+      _disableWidget(index);
+    }
+  }
+
+  void _swapWidgets(int oldIndex, int newIndex) {
+    setState(() {
+      final temp = _buttonIndexes[oldIndex];
+      _buttonIndexes[oldIndex] = _buttonIndexes[newIndex];
+      _buttonIndexes[newIndex] = temp;
+
+      final tempClicked = _buttonClicked[oldIndex];
+      _buttonClicked[oldIndex] = _buttonClicked[newIndex];
+      _buttonClicked[newIndex] = tempClicked;
+    });
+  }
+
+  void _disableWidget(int index) {
+    setState(() {
+      _buttonClicked[index] = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _webSocketManager.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,7 +88,6 @@ class _HomeContentState extends State<HomeContent> {
         backgroundColor: Colors.orangeAccent,
         title: const Text('Spiegel AI Remote'),
       ),
-      endDrawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
@@ -83,6 +133,9 @@ class _HomeContentState extends State<HomeContent> {
                   data: _buttonIndexes[index],
                   feedback: _buildButton(index, buttonWidth, buttonHeight),
                   childWhenDragging: Container(),
+                  onDragEnd: (details) {
+                    // Handle drag end here if needed
+                  },
                   child: _buildButton(index, buttonWidth, buttonHeight),
                 );
               },
@@ -91,15 +144,8 @@ class _HomeContentState extends State<HomeContent> {
                 final oldIndex = _buttonIndexes.indexOf(details.data);
                 final newIndex = index;
                 if (oldIndex != newIndex) {
-                  setState(() {
-                    final temp = _buttonIndexes[oldIndex];
-                    _buttonIndexes[oldIndex] = _buttonIndexes[newIndex];
-                    _buttonIndexes[newIndex] = temp;
-
-                    final tempClicked = _buttonClicked[oldIndex];
-                    _buttonClicked[oldIndex] = _buttonClicked[newIndex];
-                    _buttonClicked[newIndex] = tempClicked;
-                  });
+                  _swapWidgets(oldIndex, newIndex);
+                  _webSocketManager.sendMessage('swap $oldIndex $newIndex');
                 }
               },
             );
@@ -118,9 +164,12 @@ class _HomeContentState extends State<HomeContent> {
           setState(() {
             _buttonClicked[index] = !_buttonClicked[index];
           });
+          _webSocketManager.sendMessage('disable $index');
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: _buttonClicked[index] ? Colors.grey.withOpacity(0.5) : Colors.orangeAccent,
+          backgroundColor: _buttonClicked[index]
+              ? Colors.grey.withOpacity(0.5)
+              : Colors.orangeAccent,
           foregroundColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
