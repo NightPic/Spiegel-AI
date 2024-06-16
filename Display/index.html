@@ -11,49 +11,66 @@
 <body>
     <div id="widgetContainer" class="container">
         <div class="box">
-            <div id="calendarWidget">
+            <div id="calendarWidget" class="widget">
                 <div id="calendar"></div>
                 <div id="nextMonthCalendar"></div>
                 <script src="Widgets/calender.js"></script>
             </div>
         </div>
         <div class="box">
-            <div id="clock">
+            <div id="clockWidget" class="widget">
+                <div id="clock"></div>
                 <script src="Widgets/clock.js"></script>
             </div>
         </div>
         <div class="box">
-            <h1>Wettervorhersage App</h1>
-            <div id="weather">
-                <div id="forecast"></div>
-                <script src="Widgets/forecast.js"></script>
+            <div id="weatherWidget" class="widget">
+                <h1>Wettervorhersage App</h1>
+                <div id="weather">
+                    <div id="forecast"></div>
+                    <script src="Widgets/forecast.js"></script>
+                </div>
             </div>
         </div>
         <div class="box">
-            <h2>Notizen</h2>
-            <textarea id="notesTextarea" rows="10" readonly="true">Semesterferien beginnen am: 27. Juli 2024</textarea>
-            <script src="Widgets/notes.js"></script>
-        </div>
-        <div class="box">5</div>
-        <div class="box">
-            <h2>Nächste Termine</h2>
-            <ul id="appointmentsList"></ul>
-            <script src="Widgets/appointments.js"></script>
+            <div id="notesWidget" class="widget">
+                <h2>Notizen</h2>
+                <textarea id="notesTextarea" rows="10" readonly="true">Semesterferien beginnen am: 27. Juli 2024</textarea>
+                <script src="Widgets/notes.js"></script>
+            </div>
         </div>
         <div class="box">
-            <h2>Verkehrslage in Regensburg</h2>
-            <p id="stau-status">Lade...</p>
-            <script src="Widgets/TrafficInformation.js"></script>
+            <div id="profileNameWidget" class="widget">
+                <h1>Name des Profils</h1>
+            </div>
         </div>
         <div class="box">
-            <h2>Neusten Nachrichten</h2>
-            <ul id="news-feed"></ul>
-            <script src="Widgets/NewsFeed.js"></script>
+            <div id="appointmentsWidget" class="widget">
+                <h2>Nächste Termine</h2>
+                <ul id="appointmentsList"></ul>
+                <script src="Widgets/appointments.js"></script>
+            </div>
         </div>
         <div class="box">
-            <h2>Günstigste Tankstelle in Regensburg</h2>
-            <div id="station-info">
-                <script src="Widgets/GasStation.js"></script>
+            <div id="trafficWidget" class="widget">
+                <h2>Verkehrslage in Regensburg</h2>
+                <p id="stau-status">Lade...</p>
+                <script src="Widgets/TrafficInformation.js"></script>
+            </div>
+        </div>
+        <div class="box">
+            <div id="newsWidget" class="widget">
+                <h2>Neueste Nachrichten</h2>
+                <ul id="news-feed"></ul>
+                <script src="Widgets/NewsFeed.js"></script>
+            </div>
+        </div>
+        <div class="box">
+            <div id="gasStationWidget" class="widget">
+                <h2>Günstigste Tankstelle in Regensburg</h2>
+                <div id="station-info">
+                    <script src="Widgets/GasStation.js"></script>
+                </div>
             </div>
         </div>
     </div>

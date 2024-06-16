@@ -7,7 +7,13 @@ socket.onmessage = function (event) {
 
     if (action === 'enable' || action === 'disable') {
         let widget = document.querySelectorAll('.box')[index];
-        widget.style.display = action === 'disable' ? 'none' : 'block';
+        let content = widget.querySelector('.widget');
+
+        if (action === 'disable') {
+            content.style.visibility = 'hidden';
+        } else {
+            content.style.visibility = 'visible';
+        }
     } else if (action === 'swap') {
         let oldIndex = message.old_index;
         let newIndex = message.new_index;
@@ -18,5 +24,13 @@ socket.onmessage = function (event) {
 function swapWidgets(oldIndex, newIndex) {
     let boxes = document.querySelectorAll('.box');
     let parent = boxes[0].parentElement;
-    parent.insertBefore(boxes[oldIndex], boxes[newIndex]);
+
+    let oldWidget = boxes[oldIndex];
+    let newWidget = boxes[newIndex];
+
+    let clonedOldWidget = oldWidget.cloneNode(true);
+    let clonedNewWidget = newWidget.cloneNode(true);
+
+    parent.replaceChild(clonedNewWidget, oldWidget);
+    parent.replaceChild(clonedOldWidget, newWidget);
 }
