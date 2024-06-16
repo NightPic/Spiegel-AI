@@ -21,7 +21,7 @@ class WebSocketManager {
 
       // Connect to WebSocket with custom HttpClient
       channel = WebSocketChannel.connect(
-        Uri.parse('wss://raspberrypi.local:8000'),
+        Uri.parse('ws://raspberrypi.local:8000'),
       );
 
       // Listen for incoming messages

@@ -1,4 +1,4 @@
-let socket = new WebSocket("wss://raspberrypi.local:8000");
+let socket = new WebSocket("ws://raspberrypi.local:8000");
 
 socket.onmessage = function (event) {
     let message = JSON.parse(event.data);
