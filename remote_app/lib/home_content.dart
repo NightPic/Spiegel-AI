@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'web_socket_manager.dart';
 
@@ -45,7 +47,10 @@ class _HomeContentState extends State<HomeContent> {
       _swapWidgets(oldIndex, newIndex);
     } else if (message.startsWith('disable')) {
       int index = int.parse(message.split(' ')[1]);
-      _disableWidget(index);
+      _disableWidget(index, true);
+    } else if (message.startsWith('enable')) {
+      int index = int.parse(message.split(' ')[1]);
+      _disableWidget(index, false);
     }
   }
 
@@ -59,12 +64,21 @@ class _HomeContentState extends State<HomeContent> {
       _buttonClicked[oldIndex] = _buttonClicked[newIndex];
       _buttonClicked[newIndex] = tempClicked;
     });
+    _webSocketManager.sendMessage(jsonEncode({
+      'action': 'swap',
+      'old_index': oldIndex,
+      'new_index': newIndex,
+    }));
   }
 
-  void _disableWidget(int index) {
+  void _disableWidget(int index, bool disable) {
     setState(() {
-      _buttonClicked[index] = false;
+      _buttonClicked[index] = disable;
     });
+    _webSocketManager.sendMessage(jsonEncode({
+      'action': disable ? 'disable' : 'enable',
+      'index': index,
+    }));
   }
 
   @override
@@ -145,7 +159,6 @@ class _HomeContentState extends State<HomeContent> {
                 final newIndex = index;
                 if (oldIndex != newIndex) {
                   _swapWidgets(oldIndex, newIndex);
-                  _webSocketManager.sendMessage('swap $oldIndex $newIndex');
                 }
               },
             );
@@ -164,7 +177,7 @@ class _HomeContentState extends State<HomeContent> {
           setState(() {
             _buttonClicked[index] = !_buttonClicked[index];
           });
-          _webSocketManager.sendMessage('disable $index');
+          _disableWidget(index, _buttonClicked[index]);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: _buttonClicked[index]

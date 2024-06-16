@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Spiegel AI</title>
 </head>
+
 <body>
-    <div class="container">
+    <div id="widgetContainer" class="container">
         <div class="box">
             <div id="calendarWidget">
                 <div id="calendar"></div>
                 <div id="nextMonthCalendar"></div>
-                <script src="Widgets/calender.js"></script>      
-              </div>
+                <script src="Widgets/calender.js"></script>
+            </div>
         </div>
         <div class="box">
             <div id="clock">
                 <script src="Widgets/clock.js"></script>
-            </div> 
+            </div>
         </div>
         <div class="box">
             <h1>Wettervorhersage App</h1>
             <div id="weather">
                 <div id="forecast"></div>
                 <script src="Widgets/forecast.js"></script>
-            </div>   
+            </div>
         </div>
         <div class="box">
             <h2>Notizen</h2>
-            <textarea id="notesTextarea" rows="10" readonly="true" >Semesterferien beginnen am: 27. Juli 2024</textarea>
+            <textarea id="notesTextarea" rows="10" readonly="true">Semesterferien beginnen am: 27. Juli 2024</textarea>
             <script src="Widgets/notes.js"></script>
         </div>
         <div class="box">5</div>
@@ -51,8 +53,11 @@
         <div class="box">
             <h2>Günstigste Tankstelle in Regensburg</h2>
             <div id="station-info">
-            <script src="Widgets/GasStation.js"></script>
+                <script src="Widgets/GasStation.js"></script>
+            </div>
         </div>
     </div>
+    <script src="Websocket/websocket.js"></script>
 </body>
+
 </html>
