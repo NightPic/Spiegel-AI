@@ -1,10 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'web_socket_manager.dart';
+import 'websocket_manager.dart';
 
 class HomeContent extends StatefulWidget {
-  const HomeContent({super.key});
+  final WebSocketManager webSocketManager;
+
+  const HomeContent({required this.webSocketManager, super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -15,7 +16,6 @@ class _HomeContentState extends State<HomeContent> {
   late List<int> _buttonIndexes;
   late List<String> _buttonLabels;
   late List<bool> _buttonClicked;
-  late WebSocketManager _webSocketManager;
 
   @override
   void initState() {
@@ -34,8 +34,8 @@ class _HomeContentState extends State<HomeContent> {
     ];
     _buttonClicked = List.generate(9, (index) => false);
 
-    _webSocketManager = WebSocketManager(_handleMessage);
-    _webSocketManager.initialize();
+    // Ensure onMessageReceived is set correctly
+    widget.webSocketManager.onMessageReceived = _handleMessage;
   }
 
   void _handleMessage(String message) {
@@ -64,7 +64,7 @@ class _HomeContentState extends State<HomeContent> {
       _buttonClicked[oldIndex] = _buttonClicked[newIndex];
       _buttonClicked[newIndex] = tempClicked;
     });
-    _webSocketManager.sendMessage(jsonEncode({
+    widget.webSocketManager.sendMessage(jsonEncode({
       'action': 'swap',
       'old_index': oldIndex,
       'new_index': newIndex,
@@ -75,16 +75,10 @@ class _HomeContentState extends State<HomeContent> {
     setState(() {
       _buttonClicked[index] = disable;
     });
-    _webSocketManager.sendMessage(jsonEncode({
+    widget.webSocketManager.sendMessage(jsonEncode({
       'action': disable ? 'disable' : 'enable',
       'index': index,
     }));
-  }
-
-  @override
-  void dispose() {
-    _webSocketManager.dispose();
-    super.dispose();
   }
 
   @override

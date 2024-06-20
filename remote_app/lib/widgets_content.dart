@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:remote_app/drawer.dart';
+import 'package:remote_app/websocket_manager.dart';
 
 class WidgetsContent extends StatelessWidget {
-  const WidgetsContent({super.key});
+  final WebSocketManager webSocketManager;
+  
+  const WidgetsContent({super.key, required this.webSocketManager});
 
   @override
   Widget build(BuildContext context) {

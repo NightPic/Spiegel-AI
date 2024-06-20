@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remote_app/home_content.dart';
 import 'package:remote_app/widgets_content.dart';
 import 'package:remote_app/profile_content.dart';
+import 'package:remote_app/websocket_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,13 +12,27 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int _selectedIndex = 0;
-  static const List<Widget> _pages = <Widget>[
-    HomeContent(),
-    WidgetsContent(),
-    ProfileContent(),
-  ];
+  final WebSocketManager _webSocketManager = WebSocketManager();
+
+  @override
+  void initState() {
+    super.initState();
+    _webSocketManager.initialize(_onMessageReceived);
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    _webSocketManager.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  void _onMessageReceived(String message) {
+    // Handle incoming messages if needed (profiles later on)
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,12 +41,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _webSocketManager.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      _webSocketManager.initialize(_onMessageReceived);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = <Widget>[
+      HomeContent(webSocketManager: _webSocketManager),
+      WidgetsContent(webSocketManager: _webSocketManager),
+      ProfileContent(webSocketManager: _webSocketManager),
+    ];
+
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        backgroundColor: Colors.orangeAccent, // Change the color here
+        backgroundColor: Colors.orangeAccent,
         selectedItemColor: Colors.indigoAccent,
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
