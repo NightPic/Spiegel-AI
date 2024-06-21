@@ -16,14 +16,10 @@ async def handler(websocket, path):
                 print(f"Received message: {message}")
                 data = json.loads(message)
                 action = data.get('action')
-                index = data.get('index')
 
-                if action in ['enable', 'disable']:
-                    await broadcast(json.dumps({'action': action, 'index': index}))
-                elif action == 'swap':
-                    old_index = data.get('old_index')
-                    new_index = data.get('new_index')
-                    await broadcast(json.dumps({'action': action, 'old_index': old_index, 'new_index': new_index}))
+                if action == 'update_state':
+                    state = data.get('state')
+                    await broadcast(json.dumps({'action': 'update_state', 'state': state}))
             except json.JSONDecodeError as e:
                 print(f"JSON decode error with message {message}: {e}")
     except websockets.exceptions.ConnectionClosed as e:
@@ -43,4 +39,3 @@ start_server = websockets.serve(handler, '0.0.0.0', 8000)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
-

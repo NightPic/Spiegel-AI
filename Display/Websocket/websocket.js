@@ -2,35 +2,46 @@ let socket = new WebSocket("ws://raspberrypi.local:8000");
 
 socket.onmessage = function (event) {
     let message = JSON.parse(event.data);
-    let action = message.action;
-    let index = message.index;
-
-    if (action === 'enable' || action === 'disable') {
-        let widget = document.querySelectorAll('.box')[index];
-        let content = widget.querySelector('.widget');
-
-        if (action === 'disable') {
-            content.style.visibility = 'hidden';
-        } else {
-            content.style.visibility = 'visible';
-        }
-    } else if (action === 'swap') {
-        let oldIndex = message.old_index;
-        let newIndex = message.new_index;
-        swapWidgets(oldIndex, newIndex);
+    if (message.action === 'update_state') {
+        let state = message.state;
+        updateState(state);
     }
 };
 
-function swapWidgets(oldIndex, newIndex) {
-    let boxes = document.querySelectorAll('.box');
-    let parent = boxes[0].parentElement;
+function updateState(state) {
+    // Get the widgetContainer element
+    let widgetContainer = document.getElementById('widgetContainer');
 
-    let oldWidget = boxes[oldIndex];
-    let newWidget = boxes[newIndex];
+    // Copy the current children of widgetContainer
+    let currentChildren = Array.from(widgetContainer.children);
 
-    let clonedOldWidget = oldWidget.cloneNode(true);
-    let clonedNewWidget = newWidget.cloneNode(true);
+    // Clear existing children from widgetContainer
+    widgetContainer.innerHTML = '';
 
-    parent.replaceChild(clonedNewWidget, oldWidget);
-    parent.replaceChild(clonedOldWidget, newWidget);
+    // Reorder and append boxes based on state array
+    state.forEach((item, index) => {
+        // Find the original box element by its box-id
+        let originalBox = currentChildren.find(child => child.getAttribute('box-id') === `box-${item.id}`);
+        console.log(item.id);
+        console.log(originalBox)
+        if (originalBox) {
+            // Adjust visibility based on the 'enabled' property
+            let widget = originalBox.querySelector('.widget');
+            if (!widget) {
+                console.error('Widget not found in original box:', originalBox);
+                return;
+            }
+
+            if (!item.enabled) {
+                widget.style.display = 'none'; // Hide widget if not enabled
+            } else {
+                widget.style.display = 'block'; // Show widget if enabled
+            }
+
+            // Append the original box to widgetContainer
+            widgetContainer.appendChild(originalBox);
+        } else {
+            console.error(`Original box not found for index ${index}`);
+        }
+    });
 }
