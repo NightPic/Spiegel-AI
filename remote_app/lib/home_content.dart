@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:remote_app/drawer.dart';
 import 'websocket_manager.dart';
 
 class HomeContent extends StatefulWidget {
@@ -96,6 +97,7 @@ class _HomeContentState extends State<HomeContent> {
         backgroundColor: Colors.orangeAccent,
         title: const Text('Spiegel AI Remote'),
       ),
+      endDrawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
