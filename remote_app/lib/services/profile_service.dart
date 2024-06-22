@@ -30,16 +30,8 @@ class ProfileService {
   Future<void> saveProfiles(List<Profile> profiles) async {
     try {
       final file = await _localFile;
-      final jsonString = await file.readAsString();
-      final List<dynamic> jsonList = json.decode(jsonString);
-
-      final updatedJsonList = jsonList.map((json) {
-        final profile = Profile.fromJson(json);
-        final updatedProfile = profiles.firstWhere((p) => p.id == profile.id,
-            orElse: () => profile);
-        return updatedProfile.toJson();
-      }).toList();
-
+      final updatedJsonList =
+          profiles.map((profile) => profile.toJson()).toList();
       await file.writeAsString(json.encode(updatedJsonList));
     } catch (e) {
       print('Error saving profiles to file: $e');

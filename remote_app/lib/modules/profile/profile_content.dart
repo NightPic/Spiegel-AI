@@ -18,8 +18,7 @@ class ProfileContentState extends State<ProfileContent> {
   String? _errorMessage;
   List<Profile> profiles = [];
   Profile? selectedProfile;
-  final ProfileService _profileService =
-      ProfileService(); // Initialize profile service
+  final ProfileService _profileService = ProfileService();
 
   @override
   void initState() {
@@ -67,68 +66,75 @@ class ProfileContentState extends State<ProfileContent> {
   }
 
   void _showAddProfileDialog() {
-    setState(() {
-      _errorMessage = null;
-    });
+    _profileNameController.clear();
+    _errorMessage = null;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Profil hinzufügen'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _profileNameController,
-                decoration: InputDecoration(
-                  labelText: 'Profilname',
-                  errorText: _errorMessage,
-                ),
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setDialogState) {
+            return AlertDialog(
+              title: const Text('Profil hinzufügen'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: _profileNameController,
+                    decoration: InputDecoration(
+                      labelText: 'Profilname',
+                      errorText: _errorMessage,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Abbrechen'),
-              onPressed: () {
-                _profileNameController.clear();
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Bestätigen'),
-              onPressed: () {
-                setState(() {
-                  if (_profileNameController.text.isNotEmpty) {
-                    if (profiles.any((profile) =>
-                        profile.name == _profileNameController.text)) {
-                      _errorMessage = 'Dieser Name ist bereits vergeben.';
-                    } else {
-                      String id =
-                          DateTime.now().millisecondsSinceEpoch.toString();
-                      Profile newProfile =
-                          Profile(id: id, name: _profileNameController.text);
-                      profiles.add(newProfile);
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Abbrechen'),
+                  onPressed: () {
+                    _profileNameController.clear();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text('Bestätigen'),
+                  onPressed: () {
+                    if (_profileNameController.text.isNotEmpty) {
+                      if (profiles.any((profile) =>
+                          profile.name == _profileNameController.text)) {
+                        setDialogState(() {
+                          _errorMessage = 'Dieser Name ist bereits vergeben.';
+                        });
+                      } else {
+                        String id =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        Profile newProfile =
+                            Profile(id: id, name: _profileNameController.text);
 
-                      if (selectedProfile != null) {
-                        selectedProfile!.deselect();
+                        setState(() {
+                          profiles.add(newProfile);
+                          if (selectedProfile != null) {
+                            selectedProfile!.deselect();
+                          }
+                          selectedProfile = newProfile;
+                          newProfile.select();
+                          _errorMessage = null;
+                        });
+
+                        _saveProfiles();
+                        _profileNameController.clear();
+                        Navigator.of(context).pop();
                       }
-
-                      selectedProfile = newProfile;
-                      newProfile.select();
-
-                      _saveProfiles(); // Save profiles after adding new profile
-                      _errorMessage = null;
-                      _profileNameController.clear();
-                      Navigator.of(context).pop();
+                    } else {
+                      setDialogState(() {
+                        _errorMessage = 'Name darf nicht leer sein.';
+                      });
                     }
-                  } else {
-                    _errorMessage = 'Name darf nicht leer sein.';
-                  }
-                });
-              },
-            ),
-          ],
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -154,10 +160,9 @@ class ProfileContentState extends State<ProfileContent> {
                   if (profiles[index].isSelected) {
                     selectedProfile = null;
                   }
-
                   profiles.removeAt(index);
-                  _saveProfiles(); // Save profiles after deleting profile
                 });
+                _saveProfiles();
                 Navigator.of(context).pop();
               },
             ),
@@ -188,8 +193,8 @@ class ProfileContentState extends State<ProfileContent> {
             }
             final Profile item = profiles.removeAt(oldIndex);
             profiles.insert(newIndex, item);
-            _saveProfiles(); // Save profiles after reordering
           });
+          _saveProfiles();
         },
         children: <Widget>[
           for (int index = 0; index < profiles.length; index++)
@@ -211,9 +216,8 @@ class ProfileContentState extends State<ProfileContent> {
                       selectedProfile = profiles[index];
                       selectedProfile!.select();
                     }
-
-                    _saveProfiles(); // Save profiles after selecting or deselecting a profile
                   });
+                  _saveProfiles();
                 },
                 child: Container(
                   decoration: BoxDecoration(
