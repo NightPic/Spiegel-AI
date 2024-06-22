@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:remote_app/services/profile_service.dart';
 import 'package:remote_app/shared/drawer.dart';
 import 'package:remote_app/shared/websocket_manager.dart';
 import 'profile.dart';
-import 'file_operations.dart';
 
 class ProfileContent extends StatefulWidget {
   final WebSocketManager webSocketManager;
@@ -21,6 +18,8 @@ class ProfileContentState extends State<ProfileContent> {
   String? _errorMessage;
   List<Profile> profiles = [];
   Profile? selectedProfile;
+  final ProfileService _profileService =
+      ProfileService(); // Initialize profile service
 
   @override
   void initState() {
@@ -30,7 +29,7 @@ class ProfileContentState extends State<ProfileContent> {
 
   Future<void> _loadProfiles() async {
     try {
-      final List<Profile> loadedProfiles = await FileOperations.loadProfiles();
+      final List<Profile> loadedProfiles = await _profileService.loadProfiles();
       setState(() {
         profiles = loadedProfiles;
 
@@ -61,17 +60,10 @@ class ProfileContentState extends State<ProfileContent> {
 
   Future<void> _saveProfiles() async {
     try {
-      final jsonString = json.encode(profiles.map((profile) => profile.toJson()).toList());
-      final file = await _localFile;
-      await file.writeAsString(jsonString);
+      await _profileService.saveProfiles(profiles);
     } catch (e) {
       print('Error saving profiles to file: $e');
     }
-  }
-
-  Future<File> get _localFile async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File('${directory.path}/profiles.json');
   }
 
   void _showAddProfileDialog() {
@@ -108,11 +100,14 @@ class ProfileContentState extends State<ProfileContent> {
               onPressed: () {
                 setState(() {
                   if (_profileNameController.text.isNotEmpty) {
-                    if (profiles.any((profile) => profile.name == _profileNameController.text)) {
+                    if (profiles.any((profile) =>
+                        profile.name == _profileNameController.text)) {
                       _errorMessage = 'Dieser Name ist bereits vergeben.';
                     } else {
-                      String id = DateTime.now().millisecondsSinceEpoch.toString();
-                      Profile newProfile = Profile(id: id, name: _profileNameController.text);
+                      String id =
+                          DateTime.now().millisecondsSinceEpoch.toString();
+                      Profile newProfile =
+                          Profile(id: id, name: _profileNameController.text);
                       profiles.add(newProfile);
 
                       if (selectedProfile != null) {
@@ -200,7 +195,8 @@ class ProfileContentState extends State<ProfileContent> {
           for (int index = 0; index < profiles.length; index++)
             Padding(
               key: Key(profiles[index].id),
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: GestureDetector(
                 onTap: () {
                   setState(() {

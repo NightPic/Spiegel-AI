@@ -27,8 +27,10 @@ class WidgetsContent extends StatefulWidget {
 }
 
 class WidgetsContentState extends State<WidgetsContent> {
-  final ProfileService _profileService = ProfileService(); // Initialize profile service
-  List<bool> widgetSelected = List.filled(WidgetsContent.widgetNames.length, false);
+  final ProfileService _profileService =
+      ProfileService(); // Initialize profile service
+  List<bool> widgetSelected =
+      List.filled(WidgetsContent.widgetNames.length, false);
   String _selectedProfileTitle = 'Widgets';
   Profile? _selectedProfile;
 
@@ -42,11 +44,16 @@ class WidgetsContentState extends State<WidgetsContent> {
     try {
       final List<Profile> profiles = await _profileService.loadProfiles();
 
-      final selectedProfile = profiles.firstWhere((profile) => profile.isSelected, orElse: () => Profile(id: '', name: ''));
+      final selectedProfile = profiles.firstWhere(
+          (profile) => profile.isSelected,
+          orElse: () => Profile(id: '', name: ''));
 
       setState(() {
-        _selectedProfileTitle = selectedProfile.name.isEmpty ? 'Widgets' : 'Widgets von ${selectedProfile.name}';
-        _selectedProfile = selectedProfile.name.isEmpty ? null : selectedProfile;
+        _selectedProfileTitle = selectedProfile.name.isEmpty
+            ? 'Widgets'
+            : 'Widgets von ${selectedProfile.name}';
+        _selectedProfile =
+            selectedProfile.name.isEmpty ? null : selectedProfile;
         if (selectedProfile.name.isNotEmpty) {
           _loadWidgetSelections(selectedProfile);
         }
@@ -61,7 +68,8 @@ class WidgetsContentState extends State<WidgetsContent> {
 
     if (selectedWidgetIds != null) {
       setState(() {
-        widgetSelected = List.generate(WidgetsContent.widgetNames.length, (index) {
+        widgetSelected =
+            List.generate(WidgetsContent.widgetNames.length, (index) {
           return selectedWidgetIds.contains(index);
         });
       });
@@ -77,7 +85,9 @@ class WidgetsContentState extends State<WidgetsContent> {
       } else {
         if (widgetSelected.where((selected) => selected).length >= 8) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Es können nur bis zu 8 Widgets ausgewählt werden.')),
+            const SnackBar(
+                content:
+                    Text('Es können nur bis zu 8 Widgets ausgewählt werden.')),
           );
           return;
         }
@@ -86,14 +96,18 @@ class WidgetsContentState extends State<WidgetsContent> {
     });
 
     if (_selectedProfile != null) {
-      final updatedWidgetIds = List.generate(widgetSelected.length, (i) => widgetSelected[i] ? i : null).whereType<int>().toList();
+      final updatedWidgetIds = List.generate(
+              widgetSelected.length, (i) => widgetSelected[i] ? i : null)
+          .whereType<int>()
+          .toList();
       _selectedProfile!.selectedWidgetIds = updatedWidgetIds;
       await _saveProfileSelections();
     }
   }
 
   Future<void> _saveProfileSelections() async {
-    await _profileService.saveProfiles([_selectedProfile!]); // Pass the profile wrapped in a list
+    await _profileService.saveProfiles(
+        [_selectedProfile!]); // Pass the profile wrapped in a list
   }
 
   @override
@@ -113,7 +127,8 @@ class WidgetsContentState extends State<WidgetsContent> {
         itemCount: WidgetsContent.widgetNames.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.orangeAccent,

@@ -35,7 +35,8 @@ class ProfileService {
 
       final updatedJsonList = jsonList.map((json) {
         final profile = Profile.fromJson(json);
-        final updatedProfile = profiles.firstWhere((p) => p.id == profile.id, orElse: () => profile);
+        final updatedProfile = profiles.firstWhere((p) => p.id == profile.id,
+            orElse: () => profile);
         return updatedProfile.toJson();
       }).toList();
 
