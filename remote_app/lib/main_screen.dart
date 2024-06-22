@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:remote_app/home_content.dart';
-import 'package:remote_app/widgets_content.dart';
-import 'package:remote_app/profile_content.dart';
-import 'package:remote_app/websocket_manager.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:remote_app/modules/remote/remote_content.dart';
+import 'package:remote_app/modules/widgets/widgets_content.dart';
+import 'package:remote_app/modules/profile/profile_content.dart';
+import 'package:remote_app/shared/websocket_manager.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _HomePageState createState() => _HomePageState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   int _selectedIndex = 0;
   final WebSocketManager _webSocketManager = WebSocketManager();
 
   @override
   void initState() {
     super.initState();
+    FlutterNativeSplash.remove();
     _webSocketManager.initialize(_onMessageReceived);
     WidgetsBinding.instance.addObserver(this);
   }
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = <Widget>[
-      HomeContent(webSocketManager: _webSocketManager),
+      RemoteContent(webSocketManager: _webSocketManager),
       WidgetsContent(webSocketManager: _webSocketManager),
       ProfileContent(webSocketManager: _webSocketManager),
     ];

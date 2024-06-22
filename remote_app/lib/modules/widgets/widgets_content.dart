@@ -1,10 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:remote_app/drawer.dart';
-import 'package:remote_app/websocket_manager.dart';
-import 'package:remote_app/profile_content.dart';
+import 'package:remote_app/modules/profile/profile.dart';
+import 'package:remote_app/shared/drawer.dart';
+import 'package:remote_app/shared/websocket_manager.dart';
+import 'package:remote_app/services/profile_service.dart'; // Import your profile service
 
 class WidgetsContent extends StatefulWidget {
   final WebSocketManager webSocketManager;
@@ -25,11 +23,11 @@ class WidgetsContent extends StatefulWidget {
   ];
 
   @override
-  // ignore: library_private_types_in_public_api
-  _WidgetsContentState createState() => _WidgetsContentState();
+  WidgetsContentState createState() => WidgetsContentState();
 }
 
-class _WidgetsContentState extends State<WidgetsContent> {
+class WidgetsContentState extends State<WidgetsContent> {
+  final ProfileService _profileService = ProfileService(); // Initialize profile service
   List<bool> widgetSelected = List.filled(WidgetsContent.widgetNames.length, false);
   String _selectedProfileTitle = 'Widgets';
   Profile? _selectedProfile;
@@ -42,13 +40,9 @@ class _WidgetsContentState extends State<WidgetsContent> {
 
   Future<void> _loadSelectedProfileName() async {
     try {
-      final file = await _localFile;
-      final jsonString = await file.readAsString();
-      final List<dynamic> jsonList = json.decode(jsonString);
+      final List<Profile> profiles = await _profileService.loadProfiles();
 
-      final selectedProfile = jsonList
-          .map((json) => Profile.fromJson(json))
-          .firstWhere((profile) => profile.isSelected, orElse: () => Profile(id: '', name: ''));
+      final selectedProfile = profiles.firstWhere((profile) => profile.isSelected, orElse: () => Profile(id: '', name: ''));
 
       setState(() {
         _selectedProfileTitle = selectedProfile.name.isEmpty ? 'Widgets' : 'Widgets von ${selectedProfile.name}';
@@ -63,23 +57,17 @@ class _WidgetsContentState extends State<WidgetsContent> {
   }
 
   void _loadWidgetSelections(Profile selectedProfile) {
-  final selectedWidgetIds = selectedProfile.selectedWidgetIds;
-  
-  if (selectedWidgetIds != null) {
-    setState(() {
-      widgetSelected = List.generate(WidgetsContent.widgetNames.length, (index) {
-        return selectedWidgetIds.contains(index);
+    final selectedWidgetIds = selectedProfile.selectedWidgetIds;
+
+    if (selectedWidgetIds != null) {
+      setState(() {
+        widgetSelected = List.generate(WidgetsContent.widgetNames.length, (index) {
+          return selectedWidgetIds.contains(index);
+        });
       });
-    });
-  } else {
-    print('Selected widget IDs is null');
-  }
-}
-
-
-  Future<File> get _localFile async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File('${directory.path}/profiles.json');
+    } else {
+      print('Selected widget IDs is null');
+    }
   }
 
   void _handleSelection(int index) async {
@@ -96,7 +84,7 @@ class _WidgetsContentState extends State<WidgetsContent> {
         widgetSelected[index] = true;
       }
     });
-    
+
     if (_selectedProfile != null) {
       final updatedWidgetIds = List.generate(widgetSelected.length, (i) => widgetSelected[i] ? i : null).whereType<int>().toList();
       _selectedProfile!.selectedWidgetIds = updatedWidgetIds;
@@ -105,21 +93,7 @@ class _WidgetsContentState extends State<WidgetsContent> {
   }
 
   Future<void> _saveProfileSelections() async {
-    try {
-      final file = await _localFile;
-      final jsonString = await file.readAsString();
-      final List<dynamic> jsonList = json.decode(jsonString);
-      final updatedJsonList = jsonList.map((json) {
-        final profile = Profile.fromJson(json);
-        if (profile.id == _selectedProfile!.id) {
-          return _selectedProfile!.toJson();
-        }
-        return json;
-      }).toList();
-      await file.writeAsString(json.encode(updatedJsonList));
-    } catch (e) {
-      print('Error saving profiles to file: $e');
-    }
+    await _profileService.saveProfiles([_selectedProfile!]); // Pass the profile wrapped in a list
   }
 
   @override
