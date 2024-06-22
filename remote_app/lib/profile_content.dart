@@ -6,30 +6,32 @@ import 'package:remote_app/drawer.dart';
 import 'package:remote_app/websocket_manager.dart';
 
 class Profile {
-  final String id;
-  final String name;
+  String id;
+  String name;
   bool isSelected;
+  List<int>? selectedWidgetIds;
+  List<Map<String, dynamic>>? selectedHomeContent;
 
-  Profile({
-    required this.id,
-    required this.name,
-    this.isSelected = false,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'isSelected': isSelected,
-    };
-  }
+  Profile({required this.id, required this.name, this.isSelected = false, this.selectedWidgetIds, this.selectedHomeContent});
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
       id: json['id'],
       name: json['name'],
       isSelected: json['isSelected'] ?? false,
+      selectedWidgetIds: (json['selectedWidgetIds'] as List<dynamic>?)?.map((id) => id as int).toList(),
+      selectedHomeContent: (json['selectedHomeContent'] as List<dynamic>?)?.map((item) => item as Map<String, dynamic>).toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'isSelected': isSelected,
+      'selectedWidgetIds': selectedWidgetIds,
+      'selectedHomeContent': selectedHomeContent,
+    };
   }
 
   void select() {
@@ -44,13 +46,13 @@ class Profile {
 class ProfileContent extends StatefulWidget {
   final WebSocketManager webSocketManager;
 
-  const ProfileContent({Key? key, required this.webSocketManager})
-      : super(key: key);
+  const ProfileContent({super.key, required this.webSocketManager});
 
   static List<Profile> profiles = [];
   static Profile? selectedProfile;
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProfileContentState createState() => _ProfileContentState();
 }
 
@@ -102,7 +104,6 @@ class _ProfileContentState extends State<ProfileContent> {
     try {
       final jsonString = json.encode(
           ProfileContent.profiles.map((profile) => profile.toJson()).toList());
-      print(jsonString);
       final file = await _localFile;
       await file.writeAsString(jsonString);
     } catch (e) {

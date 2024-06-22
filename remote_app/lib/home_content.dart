@@ -9,9 +9,10 @@ import 'websocket_manager.dart';
 class HomeContent extends StatefulWidget {
   final WebSocketManager webSocketManager;
 
-  const HomeContent({required this.webSocketManager, Key? key}) : super(key: key);
+  const HomeContent({required this.webSocketManager, super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeContentState createState() => _HomeContentState();
 }
 
@@ -20,31 +21,31 @@ class _HomeContentState extends State<HomeContent> {
   late List<int> _buttonLabels;
   late List<bool> _buttonClicked;
   String _selectedProfileName = '';
+  Profile? _selectedProfile;
 
   @override
   void initState() {
     super.initState();
     _buttonIndexes = List.generate(9, (index) => index);
-    _buttonLabels = [
-      0,1,2,3,4,5,6,7,8
-    ];
+    _buttonLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     _buttonClicked = List.generate(9, (index) => false);
 
-    _loadSelectedProfileName(); // Load selected profile name during initialization
+    _loadSelectedProfileName();
 
-    widget.webSocketManager.onMessageReceived = _handleMessage;
+    // widget.webSocketManager.onMessageReceived = _handleMessage;
   }
 
-  void _handleMessage(String message) {
-    print('Received: $message');
-    Map<String, dynamic> state = jsonDecode(message);
-    if (state.containsKey('state')) {
-      setState(() {
-        _buttonIndexes = state['state'].map<int>((item) => item['index']).toList();
-        _buttonClicked = state['state'].map<bool>((item) => item['enabled']).toList();
-      });
-    }
-  }
+  // void _handleMessage(String message) {
+  //   // Handle incoming WebSocket message
+  //   Map<String, dynamic> state = jsonDecode(message);
+  //   if (state.containsKey('state')) {
+  //     List<dynamic> stateList = state['state'];
+  //     setState(() {
+  //       _buttonIndexes = stateList.map<int>((item) => item['index'] as int).toList();
+  //       _buttonClicked = stateList.map<bool>((item) => item['enabled'] as bool).toList();
+  //     });
+  //   }
+  // }
 
   Future<void> _loadSelectedProfileName() async {
     try {
@@ -59,7 +60,15 @@ class _HomeContentState extends State<HomeContent> {
 
       setState(() {
         _selectedProfileName = selectedProfile.name;
+        _selectedProfile = selectedProfile.name.isEmpty ? null : selectedProfile;
+
+        if (_selectedProfile != null && _selectedProfile!.selectedHomeContent != null) {
+          _buttonIndexes = _selectedProfile!.selectedHomeContent!.map<int>((item) => item['index']).toList();
+          _buttonLabels = _selectedProfile!.selectedHomeContent!.map<int>((item) => item['id']).toList();
+          _buttonClicked = _selectedProfile!.selectedHomeContent!.map<bool>((item) => !item['enabled']).toList();
+        }
       });
+      _sendState();
     } catch (e) {
       print('Error loading profiles from file: $e');
     }
@@ -74,7 +83,39 @@ class _HomeContentState extends State<HomeContent> {
         'enabled': !_buttonClicked[i],
       });
     }
+
     widget.webSocketManager.sendMessage(jsonEncode({'action': 'update_state', 'state': state}));
+
+    if (_selectedProfile != null) {
+      _selectedProfile!.selectedHomeContent = state;
+      await _saveProfileSelections();
+    }
+  }
+
+  Future<void> _saveProfileSelections() async {
+    try {
+      final file = await _localFile;
+      final jsonString = await file.readAsString();
+      final List<dynamic> jsonList = json.decode(jsonString);
+
+      final updatedJsonList = jsonList.map((json) {
+        final profile = Profile.fromJson(json);
+        if (profile.id == _selectedProfile!.id) {
+          profile.selectedHomeContent = List.generate(9, (index) {
+            return {
+              'index': index,
+              'id': _buttonLabels[_buttonIndexes[index]],
+              'enabled': !_buttonClicked[index],
+            };
+          });
+          return profile.toJson();
+        }
+        return json;
+      }).toList();
+      await file.writeAsString(json.encode(updatedJsonList));
+    } catch (e) {
+      print('Error saving profiles to file: $e');
+    }
   }
 
   void _swapWidgets(int oldIndex, int newIndex) {
@@ -148,7 +189,7 @@ class _HomeContentState extends State<HomeContent> {
                     ),
                   ),
                   child: Text(
-                    _selectedProfileName == '' ? 'Kein Profil geladen' : _selectedProfileName,
+                    _selectedProfileName.isEmpty ? 'Kein Profil geladen' : _selectedProfileName,
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -190,10 +231,7 @@ class _HomeContentState extends State<HomeContent> {
       height: buttonHeight,
       child: ElevatedButton(
         onPressed: () {
-          setState(() {
-            _buttonClicked[index] = !_buttonClicked[index];
-          });
-          _disableWidget(index, _buttonClicked[index]);
+          _disableWidget(index, !_buttonClicked[index]); // Toggle the clicked state
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: _buttonClicked[index]
