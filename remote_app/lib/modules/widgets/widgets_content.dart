@@ -27,6 +27,7 @@ class WidgetsContent extends StatefulWidget {
 }
 
 class WidgetsContentState extends State<WidgetsContent> {
+  List<Profile> profiles = [];
   final ProfileService _profileService =
       ProfileService(); // Initialize profile service
   List<bool> widgetSelected =
@@ -42,7 +43,7 @@ class WidgetsContentState extends State<WidgetsContent> {
 
   Future<void> _loadSelectedProfileName() async {
     try {
-      final List<Profile> profiles = await _profileService.loadProfiles();
+      profiles = await _profileService.loadProfiles();
 
       final selectedProfile = profiles.firstWhere(
           (profile) => profile.isSelected,
@@ -107,7 +108,7 @@ class WidgetsContentState extends State<WidgetsContent> {
 
   Future<void> _saveProfileSelections() async {
     await _profileService.saveProfiles(
-        [_selectedProfile!]); // Pass the profile wrapped in a list
+        profiles); // Pass the profile wrapped in a list
   }
 
   @override

@@ -20,6 +20,7 @@ class RemoteContentState extends State<RemoteContent> {
   late List<bool> _buttonClicked;
   String _selectedProfileName = '';
   Profile? _selectedProfile;
+  List<Profile> profiles = [];
   final ProfileService _profileService = ProfileService();
 
   @override
@@ -32,7 +33,7 @@ class RemoteContentState extends State<RemoteContent> {
   }
 
   Future<void> _loadSelectedProfileName() async {
-    final List<Profile> profiles = await _profileService.loadProfiles();
+    profiles = await _profileService.loadProfiles();
     final selectedProfile = profiles.firstWhere((profile) => profile.isSelected,
         orElse: () => Profile(id: '', name: ''));
 
@@ -72,7 +73,7 @@ class RemoteContentState extends State<RemoteContent> {
 
     if (_selectedProfile != null) {
       _selectedProfile!.selectedRemoteContent = state;
-      await _profileService.saveProfiles([_selectedProfile!]);
+      await _profileService.saveProfiles(profiles);
     }
   }
 
