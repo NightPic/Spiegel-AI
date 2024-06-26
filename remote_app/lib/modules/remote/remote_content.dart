@@ -1,14 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:remote_app/modules/profile/profile.dart';
 import 'package:remote_app/services/profile_service.dart';
 import 'package:remote_app/shared/drawer.dart';
-import 'package:remote_app/shared/websocket_manager.dart';
 
 class RemoteContent extends StatefulWidget {
-  final WebSocketManager webSocketManager;
-
-  const RemoteContent({required this.webSocketManager, super.key});
+  const RemoteContent({super.key});
 
   @override
   RemoteContentState createState() => RemoteContentState();
@@ -72,9 +68,6 @@ class RemoteContentState extends State<RemoteContent> {
       _selectedProfile!.state = state;
       await _profileService.saveProfiles(profiles);
     }
-
-    widget.webSocketManager
-        .sendMessage(jsonEncode({'action': 'update_profiles', 'profiles': profiles}));
   }
 
   void _swapWidgets(int oldIndex, int newIndex) {

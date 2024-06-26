@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:remote_app/modules/profile/profile.dart';
 import 'package:remote_app/shared/drawer.dart';
-import 'package:remote_app/shared/websocket_manager.dart';
 import 'package:remote_app/services/profile_service.dart'; // Import your profile service
 
 class WidgetsContent extends StatefulWidget {
-  final WebSocketManager webSocketManager;
 
-  const WidgetsContent({super.key, required this.webSocketManager});
+  const WidgetsContent({super.key});
 
   static const List<String> widgetNames = [
     'Kalender',

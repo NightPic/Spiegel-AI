@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:remote_app/modules/profile/profile.dart';
+import 'package:remote_app/shared/websocket_manager.dart';
 
 class ProfileService {
+  final WebSocketManager webSocketManager = WebSocketManager();
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
@@ -33,6 +36,7 @@ class ProfileService {
       final updatedJsonList =
           profiles.map((profile) => profile.toJson()).toList();
       await file.writeAsString(json.encode(updatedJsonList));
+      webSocketManager.sendMessage(jsonEncode({'action': 'update_profiles', 'profiles': profiles}));
     } catch (e) {
       print('Error saving profiles to file: $e');
     }

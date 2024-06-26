@@ -25,7 +25,7 @@ async def handler(websocket, path):
     except websockets.exceptions.ConnectionClosed as e:
         print(f"Connection closed with error: {e}")
     except websockets.exceptions.ConnectionClosedOK:
-                print("Connection closed normally")
+        print("Connection closed normally")
     finally:
         # Remove client from connected_clients set when connection closes
         connected_clients.remove(websocket)

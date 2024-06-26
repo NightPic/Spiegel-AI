@@ -53,9 +53,9 @@ class MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = <Widget>[
-      RemoteContent(webSocketManager: _webSocketManager),
-      WidgetsContent(webSocketManager: _webSocketManager),
-      ProfileContent(webSocketManager: _webSocketManager),
+      const RemoteContent(),
+      const WidgetsContent(),
+      const ProfileContent(),
     ];
 
     return Scaffold(

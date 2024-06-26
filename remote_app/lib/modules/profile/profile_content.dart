@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:remote_app/services/profile_service.dart';
 import 'package:remote_app/shared/drawer.dart';
-import 'package:remote_app/shared/websocket_manager.dart';
 import 'profile.dart';
 
 class ProfileContent extends StatefulWidget {
-  final WebSocketManager webSocketManager;
-
-  const ProfileContent({super.key, required this.webSocketManager});
+  const ProfileContent({super.key});
 
   @override
   ProfileContentState createState() => ProfileContentState();
