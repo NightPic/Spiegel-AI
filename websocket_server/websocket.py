@@ -17,9 +17,9 @@ async def handler(websocket, path):
                 data = json.loads(message)
                 action = data.get('action')
 
-                if action == 'update_state':
-                    state = data.get('state')
-                    await broadcast(json.dumps({'action': 'update_state', 'state': state}))
+                if action == 'update_profiles':
+                    profiles = data.get('profiles')
+                    await broadcast(json.dumps({'action': 'update_profiles', 'profiles': profiles}))
             except json.JSONDecodeError as e:
                 print(f"JSON decode error with message {message}: {e}")
     except websockets.exceptions.ConnectionClosed as e:

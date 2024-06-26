@@ -3,14 +3,14 @@ class Profile {
   String name;
   bool isSelected;
   List<int>? selectedWidgetIds;
-  List<Map<String, dynamic>>? selectedRemoteContent;
+  List<Map<String, dynamic>>? state;
 
   Profile({
     required this.id,
     required this.name,
     this.isSelected = false,
     this.selectedWidgetIds,
-    this.selectedRemoteContent,
+    this.state,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) {
@@ -21,7 +21,7 @@ class Profile {
       selectedWidgetIds: (json['selectedWidgetIds'] as List<dynamic>?)
           ?.map((id) => id as int)
           .toList(),
-      selectedRemoteContent: (json['selectedRemoteContent'] as List<dynamic>?)
+      state: (json['state'] as List<dynamic>?)
           ?.map((item) => item as Map<String, dynamic>)
           .toList(),
     );
@@ -33,7 +33,7 @@ class Profile {
       'name': name,
       'isSelected': isSelected,
       'selectedWidgetIds': selectedWidgetIds,
-      'selectedRemoteContent': selectedRemoteContent,
+      'state': state,
     };
   }
 

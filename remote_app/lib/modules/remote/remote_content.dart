@@ -42,14 +42,14 @@ class RemoteContentState extends State<RemoteContent> {
       _selectedProfile = selectedProfile.name.isEmpty ? null : selectedProfile;
 
       if (_selectedProfile != null &&
-          _selectedProfile!.selectedRemoteContent != null) {
-        _buttonIndexes = _selectedProfile!.selectedRemoteContent!
+          _selectedProfile!.state != null) {
+        _buttonIndexes = _selectedProfile!.state!
             .map<int>((item) => item['index'])
             .toList();
-        _buttonLabels = _selectedProfile!.selectedRemoteContent!
+        _buttonLabels = _selectedProfile!.state!
             .map<int>((item) => item['id'])
             .toList();
-        _buttonClicked = _selectedProfile!.selectedRemoteContent!
+        _buttonClicked = _selectedProfile!.state!
             .map<bool>((item) => !item['enabled'])
             .toList();
       }
@@ -68,13 +68,13 @@ class RemoteContentState extends State<RemoteContent> {
       });
     }
 
-    widget.webSocketManager
-        .sendMessage(jsonEncode({'action': 'update_state', 'state': state}));
-
     if (_selectedProfile != null) {
-      _selectedProfile!.selectedRemoteContent = state;
+      _selectedProfile!.state = state;
       await _profileService.saveProfiles(profiles);
     }
+
+    widget.webSocketManager
+        .sendMessage(jsonEncode({'action': 'update_profiles', 'profiles': profiles}));
   }
 
   void _swapWidgets(int oldIndex, int newIndex) {
