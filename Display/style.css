@@ -111,12 +111,16 @@ body, html {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 20px;
+    background-color: #000000;
+    color: #FFFFFF;
 }
 #notesTextarea {
     resize: vertical;
     width: calc(100% - 40px); /* Subtrahiert den linken und rechten Padding */
     margin: 0; /* Entfernt den Standardabstand des Textbereichs */
     padding: 10px; /* Fügt den gewünschten Abstand ein */
+    background-color: #000000;
+    color: #FFFFFF;
 }
 
 /* Widget 5: Appointments*/
