@@ -36,7 +36,8 @@ class ProfileService {
       final updatedJsonList =
           profiles.map((profile) => profile.toJson()).toList();
       await file.writeAsString(json.encode(updatedJsonList));
-      webSocketManager.sendMessage(jsonEncode({'action': 'update_profiles', 'profiles': profiles}));
+      webSocketManager
+          .sendMessage(jsonEncode({'sender': 'remote', 'profiles': profiles}));
     } catch (e) {
       print('Error saving profiles to file: $e');
     }
