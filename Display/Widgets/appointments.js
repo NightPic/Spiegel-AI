@@ -2,9 +2,9 @@
 function loadAppointments() {
     // Beispieltermine (kann durch echte Termine ersetzt werden)
     const appointments = [
-        { date: '2024-06-05', time: '10:00', description: 'Meeting with client' },
-        { date: '2024-06-06', time: '14:30', description: 'Team brainstorming session' },
-        { date: '2024-06-07', time: '16:00', description: 'Phone call with supplier' }
+        { date: '2024-08-08', time: '10:00', description: 'Meeting with client' },
+        { date: '2024-09-10', time: '14:30', description: 'Team brainstorming session' },
+        { date: '2024-07-07', time: '16:00', description: 'Phone call with supplier' }
     ];
 
     const today = new Date(); // Heutiges Datum
