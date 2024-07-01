@@ -84,5 +84,5 @@ function init() {
 // Initialisieren beim Laden des Dokuments
 document.addEventListener('DOMContentLoaded', init);
 
-// Aktualisieren der Widgets alle 30 Sekunden
+// Aktualisieren der Widgets alle 5 Sekunden
 setInterval(init, 5000);
