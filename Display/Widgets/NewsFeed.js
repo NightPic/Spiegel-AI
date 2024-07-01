@@ -62,4 +62,8 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchNewsFeed(rssUrl, 2); // Zeigt die neuesten 5 Nachrichten an
 });
 
+function RefreshNews(){
+    fetchNewsFeed(rssUrl, 2);
+}
+
 
