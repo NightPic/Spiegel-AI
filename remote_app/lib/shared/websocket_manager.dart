@@ -20,7 +20,7 @@ class WebSocketManager {
     try {
       print("websocket opened");
       channel = IOWebSocketChannel.connect(
-        Uri.parse('ws://192.168.178.20:8000'),
+        Uri.parse('ws://10.126.213.241:8000'),
       );
 
       // Listen for incoming messages
@@ -31,6 +31,7 @@ class WebSocketManager {
           print('Received a non-string message: $message');
         }
       });
+      sendMessage('fetch');
       _isInitialized = true;
     } catch (e) {
       print('WebSocket initialization error: $e');

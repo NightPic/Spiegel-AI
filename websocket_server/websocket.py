@@ -12,16 +12,16 @@ async def handler(websocket, path):
 
     try:
         async for message in websocket:
-            try:
-                print(f"Received message: {message}")
-                data = json.loads(message)
-                action = data.get('action')
-
-                if action == 'update_profiles':
-                    profiles = data.get('profiles')
-                    await broadcast(json.dumps({'action': 'update_profiles', 'profiles': profiles}))
-            except json.JSONDecodeError as e:
-                print(f"JSON decode error with message {message}: {e}")
+            print(f"Received message: {message}")
+            if message == 'fetch':
+                await broadcast(message)
+                continue
+            
+            data = json.loads(message)
+            action = data.get('action')
+            if action == 'update_profiles':
+                profiles = data.get('profiles')
+                await broadcast(json.dumps({'action': 'update_profiles', 'profiles': profiles}))
     except websockets.exceptions.ConnectionClosed as e:
         print(f"Connection closed with error: {e}")
     except websockets.exceptions.ConnectionClosedOK:

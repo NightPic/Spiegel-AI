@@ -37,21 +37,16 @@ class RemoteContentState extends State<RemoteContent> {
       _selectedProfileName = selectedProfile.name;
       _selectedProfile = selectedProfile.name.isEmpty ? null : selectedProfile;
 
-      if (_selectedProfile != null &&
-          _selectedProfile!.state != null) {
-        _buttonIndexes = _selectedProfile!.state!
-            .map<int>((item) => item['index'])
-            .toList();
-        _buttonLabels = _selectedProfile!.state!
-            .map<int>((item) => item['id'])
-            .toList();
+      if (_selectedProfile != null && _selectedProfile!.state != null) {
+        _buttonIndexes =
+            _selectedProfile!.state!.map<int>((item) => item['index']).toList();
+        _buttonLabels =
+            _selectedProfile!.state!.map<int>((item) => item['id']).toList();
         _buttonClicked = _selectedProfile!.state!
             .map<bool>((item) => !item['enabled'])
             .toList();
       }
     });
-
-    _sendState();
   }
 
   Future<void> _sendState() async {
