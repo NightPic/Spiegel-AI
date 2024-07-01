@@ -41,6 +41,11 @@ body, html {
 
 /* Widget 2: Forecast */
 
+body {
+    background-color: black; /* Setzt den Hintergrund der Seite auf schwarz */
+    color: white; /* Setzt die Schriftfarbe auf weiß */
+}
+
 #weather {
     width: 100%;
     height: 100%;
@@ -53,16 +58,18 @@ body, html {
 #forecast {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 6px;
+    flex-wrap: nowrap; /* Keine Umbrüche */
+    justify-content: space-around; /* Platzierung der Tage nebeneinander */
+    font-size: 16px; /* Lesbare Schriftgröße */
 }
+
 .forecast-container {
     display: flex;
     flex-direction: column;
-    width: 33%; /* Drei Spalten */
+    width: 30%; /* Drei Container nebeneinander */
     box-sizing: border-box;
 }
+
 .day {
     flex: 1;
     margin: 10px;
@@ -70,38 +77,41 @@ body, html {
     border: 1px solid #ccc;
     padding: 10px;
     box-sizing: border-box;
+    background-color: black; /* Setzt die Hintergrundfarbe der Zellen auf schwarz */
+    color: white; /* Setzt die Schriftfarbe auf weiß */
 }
+
 
 /* Widget 3: Calender */
 
 .current-day {
-    background-color: red;
-    border-radius: 50%;
-    color: white;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
+    color: red; /* Setzt die Schriftfarbe für den aktuellen Tag auf rot */
 }
+
 .calendar-table {
     width: 100%;
     border-collapse: collapse;
+    color: white; /* Setzt die Schriftfarbe in der Tabelle auf weiß */
 }
+
 .calendar-table th, .calendar-table td {
     border: 1px solid #ccc;
     width: 14.28%; /* 100% divided by 7 days */
     height: 40px;
     text-align: center;
+    background-color: black; /* Setzt die Hintergrundfarbe der Zellen auf schwarz */
 }
+
 #calendarWidget {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between; /* Stellt sicher, dass die Kalender gleichmäßig verteilt sind */
     align-items: flex-start;
     width: 100%;
 }
-#calendar, #nextMonthCalendar {
+
+#currentMonthCalendar, #nextMonthCalendar {
     width: 48%;
+    box-sizing: border-box; /* Stellt sicher, dass Padding und Border die Breite nicht beeinflussen */
 }
 
 /* Widget 4: Notes */

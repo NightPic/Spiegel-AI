@@ -20,7 +20,6 @@ function displayForecast(data) {
     const forecastDiv = document.getElementById('forecast');
     forecastDiv.innerHTML = '';
 
-    // Daten nach Tagen gruppieren
     const days = {};
     data.list.forEach(item => {
         const date = new Date(item.dt_txt);
@@ -32,17 +31,8 @@ function displayForecast(data) {
         days[day].push(item);
     });
 
-    let columnDiv = null;
-    let dayCount = 0;
-
-    // Wettervorhersage für jeden Tag anzeigen
-    for (const day in days) {
-        if (dayCount % 2 === 0) {
-            columnDiv = document.createElement('div');
-            columnDiv.className = 'forecast-container';
-            forecastDiv.appendChild(columnDiv);
-        }
-
+    const daysKeys = Object.keys(days).slice(0, 3); // Zeigt nur die ersten drei Tage an
+    daysKeys.forEach(day => {
         const dayDiv = document.createElement('div');
         dayDiv.className = 'day';
         dayDiv.innerHTML = `<h3>${day}</h3>`;
@@ -54,9 +44,12 @@ function displayForecast(data) {
             dayDiv.innerHTML += `<p>${time}: ${description}, ${temp}°C</p>`;
         });
 
+        const columnDiv = document.createElement('div');
+        columnDiv.className = 'forecast-container';
         columnDiv.appendChild(dayDiv);
-        dayCount++;
-    }
+
+        forecastDiv.appendChild(columnDiv);
+    });
 }
 
 getForecast();
