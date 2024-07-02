@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:remote_app/services/profile_service.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -20,13 +23,18 @@ class WebSocketManager {
     try {
       print("websocket opened");
       channel = IOWebSocketChannel.connect(
-        Uri.parse('ws://10.126.213.241:8000'),
+        Uri.parse('ws://192.168.178.42:8000'),
       );
 
       // Listen for incoming messages
       channel.stream.listen((message) {
+        if (message == 'fetch') return;
         if (message is String && this.onMessageReceived != null) {
           this.onMessageReceived!(message);
+          Map<String, dynamic> messageM = jsonDecode(message);
+          if (messageM['sender'] == 'mirror') {
+            ProfileService().saveProfiles(messageM['profiles']);
+          }
         } else {
           print('Received a non-string message: $message');
         }
