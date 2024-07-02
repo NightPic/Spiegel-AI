@@ -1,7 +1,13 @@
 import json
 import time
 
-def output_detected_profile(profiles, label):
+def save_profiles(profiles, send_profiles):
+    with open("profiles.json", "w") as json_file:
+        json.dump(profiles, json_file, indent=4)
+    # Send updated profiles to WebSocket server
+    send_profiles(profiles)
+
+def output_detected_profile(profiles, label, send_profiles):
     for profile in profiles:
         profile["isSelected"] = False
 
@@ -18,9 +24,7 @@ def output_detected_profile(profiles, label):
         }
         profiles.append(new_profile)
 
-    # Save JSON to file
-    with open("profiles.json", "w") as json_file:
-        json.dump(profiles, json_file, indent=4)
+    save_profiles(profiles, send_profiles)
 
 def load_profiles():
     try:

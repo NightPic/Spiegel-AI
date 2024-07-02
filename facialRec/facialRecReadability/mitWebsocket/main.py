@@ -5,6 +5,10 @@ import os
 
 from face_utils import save_face_data, load_face_data, add_new_face, recognize_face
 from profile_utils import output_detected_profile, load_profiles
+from websocket_utils import initiate_websocket_connection, send_profiles
+
+# Start WebSocket connection
+initiate_websocket_connection()
 
 # Load models
 detector = dlib.get_frontal_face_detector()
@@ -46,7 +50,7 @@ while True:
             label_index += 1
 
         # Output the detected profile as JSON and save it
-        output_detected_profile(profiles, label)
+        output_detected_profile(profiles, label, send_profiles)
 
         # Display the label
         cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)

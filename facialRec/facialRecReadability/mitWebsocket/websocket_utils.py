@@ -1,7 +1,7 @@
 import json
 import threading
 import websocket
-from profile_utils import load_profiles, save_profiles
+from profile_utils import load_profiles
 
 def on_message(ws, message):
     message_data = json.loads(message)
