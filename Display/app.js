@@ -8,7 +8,6 @@ function checkForProfileChanges() {
             // Compare with previousProfiles
             if (!isEqual(profiles, previousProfiles)) {
                 // Update detected, call updateState
-                console.log(profiles);
                 updateState(profiles);
                 // Update previousProfiles
                 previousProfiles = profiles;

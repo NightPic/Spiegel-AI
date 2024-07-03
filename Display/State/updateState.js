@@ -2,13 +2,10 @@ function updateState(profiles) {
     let selectedProfile = findSelectedProfile(profiles);
     let state = getState(selectedProfile);
 
-    // Get the widgetContainer element
     let widgetContainer = document.getElementById('widgetContainer');
 
     // Copy the current children of widgetContainer
     let currentChildren = Array.from(widgetContainer.children);
-
-    // Clear existing children from widgetContainer
     widgetContainer.innerHTML = '';
 
 
