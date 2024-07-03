@@ -2,7 +2,7 @@ import json
 import time
 
 def save_profiles(profiles, send_profiles):
-    with open("profiles.json", "w") as json_file:
+    with open("../../../Display/profiles.json", "w") as json_file:
         json.dump(profiles, json_file, indent=4)
     # Send updated profiles to WebSocket server
     send_profiles(profiles)
