@@ -2,7 +2,7 @@ import json
 import time
 
 def save_profiles(profiles, send_profiles, force_send=False):
-    with open("profiles.json", "w") as json_file:
+    with open("../../../Display/profiles.json", "w") as json_file:
         json.dump(profiles, json_file, indent=4)
     # Send updated profiles to WebSocket server if required
     if force_send:
@@ -21,7 +21,7 @@ def output_detected_profile(profiles, label, send_profiles):
             "name": label,
             "isSelected": True,
             "selectedWidgetIDs": list(range(8)),
-            "selectedRemoteContent": [{"index": i, "id": i, "enabled": True} for i in range(9)]
+            "state": [{"index": i, "id": i, "enabled": True} for i in range(9)]
         }
         profiles.append(new_profile)
 
@@ -29,7 +29,7 @@ def output_detected_profile(profiles, label, send_profiles):
 
 def load_profiles():
     try:
-        with open("profiles.json", "r") as json_file:
+        with open("../../../Display/profiles.json", "r") as json_file:
             return json.load(json_file)
     except FileNotFoundError:
         return []

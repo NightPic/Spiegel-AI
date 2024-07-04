@@ -11,11 +11,11 @@ def on_message(ws, message):
     sender = message_data.get("sender")
     if sender == "remote":
         profiles = message_data.get("profiles")
-        with open("profiles.json", "w") as json_file:
+        with open("../../../Display/profiles.json", "w") as json_file:
             json.dump(profiles, json_file, indent=4)
     elif sender == "fetch":
         profiles = load_profiles()
-        ws.send(json.dumps({"sender": "spiegel", "profiles": profiles}))
+        ws.send(json.dumps({"sender": "mirror", "profiles": profiles}))
 
 def on_error(ws, error):
     print(error)
@@ -28,7 +28,7 @@ def on_open(ws):
 
 def start_websocket():
     global ws_app
-    ws_app = WebSocketApp(ws_app_url,
+    ws_app = WebSocketApp("ws://192.168.178.42:8000",
                           on_message=on_message,
                           on_error=on_error,
                           on_close=on_close)
@@ -38,7 +38,7 @@ def start_websocket():
 def send_profiles(profiles):
     global ws_app
     if ws_app and ws_app.sock.connected:
-        ws_app.send(json.dumps({"sender": "spiegel", "profiles": profiles}))
+        ws_app.send(json.dumps({"sender": "mirror", "profiles": profiles}))
 
 # Start WebSocket thread
 def initiate_websocket_connection():
