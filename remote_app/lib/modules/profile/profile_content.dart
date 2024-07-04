@@ -69,11 +69,11 @@ class ProfileContentState extends State<ProfileContent> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setDialogState) {
-            return AlertDialog(
-              title: const Text('Profil hinzufügen'),
-              content: Column(
+        return AlertDialog(
+          title: const Text('Profil hinzufügen'),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
@@ -84,54 +84,64 @@ class ProfileContentState extends State<ProfileContent> {
                     ),
                   ),
                 ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Abbrechen'),
-                  onPressed: () {
+              );
+            },
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Abbrechen'),
+              onPressed: () {
+                _profileNameController.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Bestätigen'),
+              onPressed: () {
+                if (_profileNameController.text.isNotEmpty) {
+                  if (profiles.any((profile) =>
+                      profile.name == _profileNameController.text)) {
+                    setState(() {
+                      _errorMessage = 'Dieser Name ist bereits vergeben.';
+                    });
+                  } else {
+                    String id =
+                        DateTime.now().millisecondsSinceEpoch.toString();
+                    Profile newProfile =
+                        Profile(id: id, name: _profileNameController.text);
+
+                    setState(() {
+                      profiles.add(newProfile);
+                      if (selectedProfile != null) {
+                        selectedProfile!.deselect();
+                      }
+                      selectedProfile = newProfile;
+                      newProfile.select();
+                      newProfile.selectedWidgetIds =
+                          List.generate(8, (index) => index);
+                      newProfile.state ??= [];
+                      for (var i = 0; i < 9; i++) {
+                        newProfile.state!.add({
+                          'index': i,
+                          'id': i,
+                          'enabled': true,
+                        });
+                      }
+                      _errorMessage = null;
+                    });
+
+                    _saveProfiles();
                     _profileNameController.clear();
                     Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: const Text('Bestätigen'),
-                  onPressed: () {
-                    if (_profileNameController.text.isNotEmpty) {
-                      if (profiles.any((profile) =>
-                          profile.name == _profileNameController.text)) {
-                        setDialogState(() {
-                          _errorMessage = 'Dieser Name ist bereits vergeben.';
-                        });
-                      } else {
-                        String id =
-                            DateTime.now().millisecondsSinceEpoch.toString();
-                        Profile newProfile =
-                            Profile(id: id, name: _profileNameController.text);
-
-                        setState(() {
-                          profiles.add(newProfile);
-                          if (selectedProfile != null) {
-                            selectedProfile!.deselect();
-                          }
-                          selectedProfile = newProfile;
-                          newProfile.select();
-                          _errorMessage = null;
-                        });
-
-                        _saveProfiles();
-                        _profileNameController.clear();
-                        Navigator.of(context).pop();
-                      }
-                    } else {
-                      setDialogState(() {
-                        _errorMessage = 'Name darf nicht leer sein.';
-                      });
-                    }
-                  },
-                ),
-              ],
-            );
-          },
+                  }
+                } else {
+                  setState(() {
+                    _errorMessage = 'Name darf nicht leer sein.';
+                  });
+                }
+              },
+            ),
+          ],
         );
       },
     );

@@ -4,18 +4,18 @@ from websocket import create_connection, WebSocketApp
 from profile_utils import load_profiles
 
 ws_app = None
-ws_app_url = "ws://localhost:8000"
 
 def on_message(ws, message):
+    if message == "fetch":
+        profiles = load_profiles()
+        ws.send(json.dumps({"sender": "mirror", "profiles": profiles}))
+        return
     message_data = json.loads(message)
     sender = message_data.get("sender")
     if sender == "remote":
         profiles = message_data.get("profiles")
         with open("../../../Display/profiles.json", "w") as json_file:
             json.dump(profiles, json_file, indent=4)
-    elif sender == "fetch":
-        profiles = load_profiles()
-        ws.send(json.dumps({"sender": "mirror", "profiles": profiles}))
 
 def on_error(ws, error):
     print(error)

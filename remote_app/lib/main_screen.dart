@@ -15,6 +15,8 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   int _selectedIndex = 0;
   final WebSocketManager _webSocketManager = WebSocketManager();
+  UniqueKey remotePageKey = UniqueKey();
+  UniqueKey widgetsPageKey = UniqueKey();
 
   @override
   void initState() {
@@ -32,7 +34,24 @@ class MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   }
 
   void _onMessageReceived(String message) {
-    // Handle incoming messages if needed (profiles later on)
+    setState(() {
+      _refreshCurrentPage();
+    });
+  }
+
+  void _refreshCurrentPage() {
+    setState(() {
+      switch (_selectedIndex) {
+        case 0:
+          remotePageKey = UniqueKey();
+          break;
+        case 1:
+          widgetsPageKey = UniqueKey();
+          break;
+        case 2:
+          break;
+      }
+    });
   }
 
   void _onItemTapped(int index) {
@@ -53,8 +72,8 @@ class MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = <Widget>[
-      const RemoteContent(),
-      const WidgetsContent(),
+      RemoteContent(key: remotePageKey),
+      WidgetsContent(key: widgetsPageKey),
       const ProfileContent(),
     ];
 

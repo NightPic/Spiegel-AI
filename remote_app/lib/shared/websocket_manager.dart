@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:remote_app/modules/profile/profile.dart';
 import 'package:remote_app/services/profile_service.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/io.dart';
@@ -30,10 +30,15 @@ class WebSocketManager {
       channel.stream.listen((message) {
         if (message == 'fetch') return;
         if (message is String && this.onMessageReceived != null) {
-          this.onMessageReceived!(message);
           Map<String, dynamic> messageM = jsonDecode(message);
           if (messageM['sender'] == 'mirror') {
-            ProfileService().saveProfiles(messageM['profiles']);
+            List<Profile> profiles = (messageM['profiles'] as List<dynamic>)
+                .map((profileJson) =>
+                    Profile.fromJson(profileJson as Map<String, dynamic>))
+                .toList();
+            ProfileService().saveProfiles(profiles);
+            // Refresh current view
+            this.onMessageReceived!(message);
           }
         } else {
           print('Received a non-string message: $message');
