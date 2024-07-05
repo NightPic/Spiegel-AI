@@ -23,7 +23,6 @@ last_recognized_label = None
 
 cap = cv2.VideoCapture(0)
 load_face_data()
-profiles = load_profiles()
 
 while True:
     ret, frame = cap.read()
@@ -52,6 +51,7 @@ while True:
 
         if label != last_recognized_label:
             # Output the detected profile as JSON and save it
+            profiles = load_profiles()
             output_detected_profile(profiles, label, send_profiles)
             last_recognized_label = label
 
