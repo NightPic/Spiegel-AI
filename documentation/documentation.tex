@@ -1,44 +1,386 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
 
-\usepackage[german]{babel}
+\geometry{a4paper, margin=1in}
+
+\titleformat{\chapter}[hang]{\bf\huge}{\thechapter \hspace{1em}\textcolor{blue}|}{0pt}{\huge\bf}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{
+    \includegraphics[width=0.3\textwidth]{pictures/eggo_icon.jpeg}\\
+    \vspace{1cm}
+    \textbf{Spiegel AI}\\
+    \vspace{0.5cm}
+    \textbf{\large Datenverarbeitung in der Technik}\\
+    \vspace{0.5cm}
+    \textbf{\large Gruppe 5}\\
+    \vspace{1.5cm}
+}
+
+\author{
+    Leon Kranner \\ 
+    \texttt{leon.kranner@st.oth-regensburg.de}
+    \and
+    Marco Kuner \\ 
+    \texttt{marco.kuner@st.oth-regensburg.de}
+    \and
+    David Vollmer \\ 
+    \texttt{david1.vollmer@st.oth-regensburg.de}
+    \and
+    Marcel Wagner \\ 
+    \texttt{marcel.wagner@st.oth-regensburg.de}
+}
+
+\date{15. Juli 2024}
 
 \begin{document}
 
-\title{Spiegel AI}
-\author{
-  Leon Kranner \\
-  \texttt{leon.kranner@st.oth-regensburg.de}
-  \and
-  Marco Kuner \\
-  \texttt{marco.kuner@st.oth-regensburg.de}
-  \and
-  David Vollmer \\
-  \texttt{david1.vollmer@st.oth-regensburg.de}
-  \and
-  Marcel Wagner \\
-  \texttt{marcel.wagner@st.oth-regensburg.de}
-}
-\date{15. Juli 2024}
-
 \maketitle
 
-\begin{abstract}
-Zusammenfassung
-\end{abstract}
+\tableofcontents
+\newpage
 
-\section{Einleitung}
-Einleitung
+\input{einleitung}
 
-\section{Hintergrund}
-Hintergrund
+\input{hardware}
 
-\section{Methodik}
-Methodik
+\input{display}
 
-\section{Ergebnisse}
-Ergebnisse
+\input{spiegel_ai_remote}
 
-\section{Schlussfolgerung}
-Schlussfolgerung
+\input{schnittstelle}
+
+\input{gesichtserkennung}
+
+\input{ergebnisse}
+
+\chapter*{Stundenliste}
+\addcontentsline{toc}{chapter}{Stundenliste}
+
+\begin{longtable}[c]{|c|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{7cm}|}
+\caption*{\textbf{Stundenliste Leon Kranner}} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Fortsetzung auf nächster Seite}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+12 & 3 & Einführungfsveranstaltung \\
+\hline
+13 & 3 & GANNT Diagramm \\
+   & 3 & Teambesprechung \\
+\hline
+14 & 2 & Planung mit Hardware-Team \\
+   & 2 & Teambesprechung \\
+\hline
+15 & 3 & Postererstellung und Hw \\
+   & 1 & Displaymessung + postervorstellung \\
+   & 2 & Teambesprechung \\
+\hline
+16 & 4 & Display-Projekt aufsetzen \\
+   & 2 & Baumarkt Materialien erkunden \\
+\hline
+17 & 2 & Umstrukturierung des Display-Projekts \\
+   & 2 & Neues Widget erstellen \\
+\hline
+18 & 6 & Weitere Widgets und Änderungen an alten Widget \\
+\hline
+19 & 3 & Einkerbungen fräsen \\
+   & 1 & MDF Platte auf Maß schneiden \\
+\hline
+20 & 2 & Teambesprechung \\
+   & 1 & Umstrukturierung des Stundenplans \\
+\hline
+21 & 2 & Teambesprechung \\
+\hline
+22 & 2 & Teambesprechung \\
+\hline
+23 & 2 & Automatische Aktualisierung der Widgets \\
+\hline
+24 & 2 & Teambesprechung \\
+   & 2 & Besprechung Schnittstellen \\
+\hline
+25 & 2 & Teambesprechung \\
+   & 1 & Plexiglas überarbeiten \\
+\hline
+26 & 2 & Teambesprechung \\
+   & 3 & Austausch der Spiegel Folie, Aufbau der Spiegels, Hardware installieren \\
+   & 1 & Testen des Displays mit Aufgebauten Spiegels \\
+\hline
+27 & 2 & Powerpoint erstellung \\
+   & 3 & HMTL neu anordnen auf Basis von Json Datei \\
+   & 2 & Besprechung profiles sync \\
+\end{longtable}
+
+% Neue Seite für die nächste Tabelle
+\newpage
+
+
+\begin{longtable}[c]{|c|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{7cm}|}
+\caption*{\textbf{Stundenliste Marco Kuner}} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Fortsetzung auf nächster Seite}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+12 & 3 & Einführungfsveranstaltung \\
+\hline
+13 & 3 & GANNT Diagramm \\
+\hline
+14 & 3 & Teileliste / GANNT Diagramm \\
+   & 2 & Teambesprechung \\
+   & 3 & Inventur \\
+\hline
+15 & 10 & Technologie-Recherche + Postererstellung \\
+   & 3 & Posterdemütigung ertragen und HW \\
+   & 2 & Teambesprechung \\
+\hline
+16 & 2 & Teambesprechung \\
+   & 8 & Erster Prototyp mit HAAR Cascades \\
+\hline
+17 & 2 & Teambesprechung \\
+   & 8 & Neue Version mit DLIB Bibs geschrieben \\
+\hline
+18 & 2 & Teambesprechung \\
+   & 2 & Recherche über facial Landmark Storage \\
+   & 4 & Neue Iteration mit Storage Technologie \\
+\hline
+19 & 10 & Troubleshoot da extrem langsam \\
+   & 2 & Teambesprechung \\
+\hline
+20 & 2 & Teambesprechung \\
+   & 4 & Recherche zu geeigneter Schnittstelle und Format der Profilerstellung mit profile landsmarks \\
+\hline
+21 & 2 & Teambesprechung \\
+\hline
+22 & 2 & Teambesprechung \\
+\hline
+23 & 2 & Teambesprechung \\
+\hline
+24 & 2 & Teambesprechung \\
+\hline
+25 & 2 & Teambesprechung \\
+   & 6 & Implementieren einer Lösung zur automatischen Erkennung eines neuen Gesichts und output der Daten in .json \\
+   & 2 & Schnittstellen Thinktank mit David \\
+\hline
+26 & 2 & Teambesprechung \\
+   & 5 & Ausgabe und automatische Aktualisierung einer genormten profiles.json \\
+   & 6 & Implementierung eines neuen Websockets zwischen Raspi und Android in Vorbereitung zur Synchronisation \\
+   & 2 & Recherche zu Technologien zur Synchronisation zwischen Raspi und Android (inotify?) \\
+   & 2 & Besprechung mit remote app Spezialist bzgl. Synchronisationsproblemen \\
+\hline
+27 & 4 & Vor- und Aufbereiten der Präsentation \\
+   & 2 & Verbessern der readability des Algorithmus \\
+   & 8 & Implementation des Websockets mitsamt Logik für andauernder Synchronisation \\
+   & 4 & Troubleshooting: Gesichtserkennung stürzt ab auf Raspi \\
+\end{longtable}
+
+% Neue Seite für die nächste Tabelle
+\newpage
+
+
+\begin{longtable}[c]{|c|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{7cm}|}
+\caption*{\textbf{Stundenliste David Vollmer}} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Fortsetzung auf nächster Seite}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+12 & 3 & Einführungsveranstaltung \\
+   & 4 & Setup Gitlab und Drafts \\
+\hline
+13 & 4 & Erstellung GANNT Diagramm und Lastenheft \\
+   & 2 & Teambesprechung \\
+\hline
+14 & 5 & Abgabevorbereitung GANNT und Lastenheft \\
+   & 2 & Teambesprechung \\
+   & 3 & Hardwarediskussion und -suche \\
+   & 2 & Überarbeitung GANNT und Lastenheft \\
+\hline
+15 & 4 & Postererstellung \\
+   & 3 & Vostellung Poster und Hardwaresuche \\
+   & 6 & Setup Flutter und Frontend dev \\
+   & 2 & Teambesprechung \\
+   & 2 & Frontend dev (Navigation) \\
+\hline
+16 & 2 & Teambesprechung \\
+   & 3 & Frontend dev \\
+\hline
+17 & 2 & Setup Raspberry Pi \\
+   & 2 & Teambesprechung \\
+\hline
+18 & 2 & Teambesprechung \\
+\hline
+19 & 2 & Teambesprechung \\
+   & 1 & Frontend dev (Widget buttons) \\
+\hline
+20 & 2 & Teambesprechung \\
+\hline
+21 & 2 & Teambesprechung \\
+\hline
+22 & 2 & Teambesprechung \\
+   & 4 & Troubleshooting Android SDK \\
+\hline
+23 & 2 & Teambesprechung \\
+\hline
+24 & 2 & Besprechung Schnittstellen \\
+   & 4 & Frontend dev (Widgets final) \\
+   & 2 & Teambesprechung \\
+   & 2 & Konfiguration Raspberry Pi \\
+   & 8 & Konfiguration Schnittstellen (Flutter + Server) \\
+   & 5 & Konfiguration Schnittstellen (Spiegel + Server) \\
+\hline
+25 & 2 & Teambesprechung \\
+   & 3 & Konfiguration Raspberry Pi wifi \\
+   & 5 & Troubleshooting + Testing Websocket \\
+   & 2 & Anpassung Android und iOS (icon, splash, usw.) \\
+   & 8 & Anpassung Datenspeicher, Profile und Websocket \\
+   & 3 & Speichern von Widget- und Remotestatus in Profilen \\
+   & 3 & Code Refactoring und Bugfixing \\
+\hline
+26 & 1 & Besprechung Schnittstellen Profile \\
+   & 1 & Überarbeitung Poster \\
+   & 2 & Teambesprechung \\
+   & 1 & Überarbeitung Websocket-Message \\
+   & 2 & Troubleshooting selected Widgets \\
+   & 2 & Konfiguration Raspberry Pi Gesichtserkennung \\
+   & 6 & Erstellung Powerpoint \\
+\hline
+27 & 2 & Besprechung profiles sync \\
+   & 1 & Refactoring File Reader \\
+   & 2 & Implementierung profiles sync \\
+   & 3 & Schreiben des Präsentationsskripts \\
+   & 2 & Übung Präsentation \\
+   & 5 & Testen der Gesichtserkennung am Websocket \\
+   & 3 & Testen und Korrigieren profiles sync \\
+\end{longtable}
+
+% Neue Seite für die nächste Tabelle
+\newpage
+
+\begin{longtable}[c]{|c|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{7cm}|}
+\caption*{\textbf{Stundenliste Marcel Wagner}} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite} \\
+\hline
+\textbf{Kalenderwoche} & \textbf{Stunden} & \textbf{Arbeit} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Fortsetzung auf nächster Seite}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+12 & 3 & Einführungfsveranstaltung \\
+\hline
+13 & 3 & GANNT Diagramm \\
+   & 2 & Teambesprechung \\
+\hline
+14 & 2 & Teambesprechung \\
+   & 3 & Planung und Hardware Suche \\
+\hline
+15 & 3 & Postererstellung \\
+   & 2 & Besprechung Spiegelrahmen \\
+   & 2 & Detallierung der CAD Datei \\
+\hline
+16 & 3 & Einführung Display Programmierung und erste Ansätze \\
+   & 2 & Planung/Besprechung Bilderrahmen \\
+\hline
+17 & 4 & Weitere Setup für Display Programmierung \\
+   & 6 & Projekt Besprechung und weitere Programmierung \\
+\hline
+18 & 2 & Display Programmierung (Fertigstellung Verkehrs Informations Widget) \\
+\hline
+19 & 2 & Teambesprechung \\
+   & 1 & Frontend dev (Widget buttons) \\
+\hline
+20 & 2 & Teambesprechung \\
+\hline
+21 & 2 & Teambesprechung \\
+\hline
+22 & 2 & Teambesprechung \\
+\hline
+23 & 3 & Erstellung weiter Widgets \\
+\hline
+24 & 2 & Teambesprechung \\
+   & 2 & Besprechung Schnittstellen \\
+\hline
+25 & 2 & Teambesprechung \\
+   & 1 & Bugfixing der Widget Ansicht \\
+\hline
+26 & 2 & Teambesprechung \\
+   & 2 & Teambesprechung \\
+\hline
+27 & 2 & Besprechung profiles sync \\
+   & 1 & Refactoring File Reader \\
+   & 2 & Implementierung profiles sync \\
+\end{longtable}
+
+
+\bibliography{literatur}
+
+\listoffigures
 
 \end{document}
