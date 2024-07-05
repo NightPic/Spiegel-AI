@@ -3,3 +3,6 @@
 *.synctex.gz
 *.log
 *.dvi
+*.lof
+*.out
+*.toc
