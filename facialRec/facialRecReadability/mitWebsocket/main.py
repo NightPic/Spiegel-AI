@@ -19,6 +19,7 @@ facerec = dlib.face_recognition_model_v1('dlib_face_recognition_resnet_model_v1.
 face_descriptors = []
 labels = []
 label_index = 0
+last_recognized_label = None
 
 cap = cv2.VideoCapture(0)
 load_face_data()
@@ -49,8 +50,10 @@ while True:
             add_new_face(face_descriptor, label)
             label_index += 1
 
-        # Output the detected profile as JSON and save it
-        output_detected_profile(profiles, label, send_profiles)
+        if label != last_recognized_label:
+            # Output the detected profile as JSON and save it
+            output_detected_profile(profiles, label, send_profiles)
+            last_recognized_label = label
 
         # Display the label
         cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)

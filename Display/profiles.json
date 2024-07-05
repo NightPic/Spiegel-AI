@@ -1,18 +1,9 @@
 [
     {
-        "id": "1719417346209",
-        "name": "profi0",
-        "isSelected": false,
-        "selectedWidgetIDs": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7
-        ],
+        "id": "1720116365001",
+        "name": "profil0",
+        "isSelected": true,
+        "selectedWidgetIds": null,
         "state": [
             {
                 "index": 0,
@@ -32,7 +23,113 @@
             {
                 "index": 3,
                 "id": 3,
+                "enabled": true
+            },
+            {
+                "index": 4,
+                "id": 4,
+                "enabled": true
+            },
+            {
+                "index": 5,
+                "id": 5,
+                "enabled": true
+            },
+            {
+                "index": 6,
+                "id": 6,
                 "enabled": false
+            },
+            {
+                "index": 7,
+                "id": 7,
+                "enabled": true
+            },
+            {
+                "index": 8,
+                "id": 8,
+                "enabled": false
+            }
+        ]
+    },
+    {
+        "id": "1720116336670",
+        "name": "karl",
+        "isSelected": false,
+        "selectedWidgetIds": null,
+        "state": [
+            {
+                "index": 0,
+                "id": 0,
+                "enabled": true
+            },
+            {
+                "index": 1,
+                "id": 1,
+                "enabled": true
+            },
+            {
+                "index": 2,
+                "id": 2,
+                "enabled": true
+            },
+            {
+                "index": 3,
+                "id": 3,
+                "enabled": true
+            },
+            {
+                "index": 4,
+                "id": 4,
+                "enabled": true
+            },
+            {
+                "index": 5,
+                "id": 5,
+                "enabled": false
+            },
+            {
+                "index": 6,
+                "id": 6,
+                "enabled": false
+            },
+            {
+                "index": 7,
+                "id": 8,
+                "enabled": true
+            },
+            {
+                "index": 8,
+                "id": 7,
+                "enabled": true
+            }
+        ]
+    },
+    {
+        "id": "1720117535722",
+        "name": "profil1",
+        "isSelected": false,
+        "selectedWidgetIds": null,
+        "state": [
+            {
+                "index": 0,
+                "id": 0,
+                "enabled": true
+            },
+            {
+                "index": 1,
+                "id": 1,
+                "enabled": true
+            },
+            {
+                "index": 2,
+                "id": 2,
+                "enabled": true
+            },
+            {
+                "index": 3,
+                "id": 3,
+                "enabled": true
             },
             {
                 "index": 4,
@@ -62,10 +159,63 @@
         ]
     },
     {
-        "id": "1719417352718",
-        "name": "profil1",
-        "isSelected": true,
-        "selectedWidgetIDs": [
+        "id": "1720118716157",
+        "name": "profil2",
+        "isSelected": false,
+        "selectedWidgetIds": null,
+        "state": [
+            {
+                "index": 0,
+                "id": 0,
+                "enabled": true
+            },
+            {
+                "index": 1,
+                "id": 1,
+                "enabled": true
+            },
+            {
+                "index": 2,
+                "id": 2,
+                "enabled": true
+            },
+            {
+                "index": 3,
+                "id": 3,
+                "enabled": true
+            },
+            {
+                "index": 4,
+                "id": 4,
+                "enabled": true
+            },
+            {
+                "index": 5,
+                "id": 5,
+                "enabled": true
+            },
+            {
+                "index": 6,
+                "id": 6,
+                "enabled": true
+            },
+            {
+                "index": 7,
+                "id": 7,
+                "enabled": true
+            },
+            {
+                "index": 8,
+                "id": 8,
+                "enabled": true
+            }
+        ]
+    },
+    {
+        "id": "1720119799329",
+        "name": "d",
+        "isSelected": false,
+        "selectedWidgetIds": [
             0,
             1,
             2,
