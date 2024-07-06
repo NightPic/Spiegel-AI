@@ -74,10 +74,31 @@ Zusammenfassend bietet das Nachrichten Widget einen bedeutenden Mehrwert für de
     \centering
     \includegraphics[width=0.4\textwidth]{pictures/news_widget.png}
   \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
-    \caption{Verkehrsinformations Widget\\ Quelle: eigene Darstellung}
+    \caption{News Widget\\ Quelle: eigene Darstellung}
 \end{figure}
 
 \subsection{Tankstellen}
+Erarbeitet von: Marcel Wagner \\ \\
+\noindent
+Die Implementierung des Tankstellen Widgets für den Smart Mirror verfolgt das Ziel, den Nutzern eine praktische und zeitnahe Information über den günstigsten Kraftstoffpreise einer Tankstelle in der Nähe zu bieten. Diese Funktionalität wurde durch die Integration von JavaScript und die Nutzung der Tankerkoenig API realisiert, die speziell auf die Abfrage von Tankstellenpreisen und Tankstelleninformationen ausgerichtet ist. \\ \\
+\noindent
+Zu Beginn des Implementierungsprozesses wird der 'DOMContentLoaded' Eventlistener verwendet, um sicherzustellen, dass sämtliche Inhalte der Webseite geladen sind, bevor die Datenabfrage gestartet wird. Dies gewährleistet eine stabile und zuverlässige Performance des Widgets auf dem Smart Mirror. Die API Anfrage erfolgt unter Verwendung eines spezifischen API Schlüssels, der die Authentifizierung gegenüber der Tankerkoenig API ermöglicht. Der Standortbezug erfolgt für die Stadt Regensburg mit definierten geografischen Koordinaten und einem Suchradius von 5 Kilometern, um die Tankstellen in unmittelbarer Umgebung zu erfassen. \\ \\
+\noindent
+Die Datenabfrage wird asynchron durchgeführt, um eine reibungslose Interaktion mit der API zu gewährleisten. Nachdem die Daten abgerufen wurden, erfolgt eine Überprüfung auf erfolgreiche Antwort und die Verfügbarkeit von Tankstelleninformationen. Falls die API Daten erfolgreich zurückgegeben werden und Tankstelleninformationen vorhanden sind, wird die günstigste Tankstelle ermittelt. Dies geschieht durch einen Vergleich der Kraftstoffpreise der abgerufenen Tankstellen, wobei die preisgünstigste Option ausgewählt und deren Informationen weiterverarbeitet werden. \\ \\
+\noindent
+Ein zentraler Aspekt der Implementierung ist die robuste Fehlerbehandlung, die sicherstellt, dass der Nutzer bei Problemen wie Netzwerkfehlern oder unerwarteten API Antworten angemessen informiert wird.  \\ \\
+\noindent
+Die Darstellung der Tankstelleninformationen auf dem Smart Mirror erfolgt in einer klar strukturierten Form. Dies umfasst den Namen der Tankstelle, die vollständige Adresse inklusive Straße, Hausnummer, Postleitzahl und Ort sowie den aktuellen Preis pro Liter Kraftstoff. Diese Informationen sind leicht zugänglich und ermöglichen es dem Nutzer, schnell die wichtigsten Details zu erfassen und eine informierte Entscheidung zu treffen. \\ \\
+\noindent
+Die Implementierung des Tankstellen Widgets erweitert somit die Funktionalität des Smart Mirrors erheblich, indem sie eine praktische Lösung für die Überwachung und Optimierung der Kraftstoffkosten bietet.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{pictures/gasstation_widget.png}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption{Tankstellen Widget\\ Quelle: eigene Darstellung}
+\end{figure}
+
 \subsection{Test Verfahren}
 Erarbeitet von: Leon Kranner und Marcel Wagner \\ \\
 \noindent
