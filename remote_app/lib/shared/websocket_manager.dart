@@ -21,7 +21,6 @@ class WebSocketManager {
 
     this.onMessageReceived = onMessageReceived;
     try {
-      print("websocket opened");
       channel = IOWebSocketChannel.connect(
         Uri.parse('ws://192.168.178.42:8000'),
       );
@@ -64,7 +63,6 @@ class WebSocketManager {
     try {
       channel.sink.close();
       _isInitialized = false;
-      print("websocket closed");
     } catch (e) {
       print('Error closing WebSocket channel: $e');
     }
