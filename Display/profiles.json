@@ -7,11 +7,11 @@
             0,
             1,
             2,
-            3,
             4,
             5,
             6,
-            7
+            7,
+            8
         ],
         "state": [
             {
@@ -31,7 +31,7 @@
             },
             {
                 "index": 3,
-                "id": 3,
+                "id": 8,
                 "enabled": true
             },
             {
@@ -46,17 +46,17 @@
             },
             {
                 "index": 6,
-                "id": 7,
+                "id": 6,
                 "enabled": true
             },
             {
                 "index": 7,
                 "id": 5,
-                "enabled": true
+                "enabled": false
             },
             {
                 "index": 8,
-                "id": 6,
+                "id": 7,
                 "enabled": true
             }
         ]
@@ -68,12 +68,12 @@
         "selectedWidgetIds": [
             0,
             1,
-            2,
             3,
             4,
             5,
             6,
-            7
+            7,
+            8
         ],
         "state": [
             {
@@ -88,7 +88,7 @@
             },
             {
                 "index": 2,
-                "id": 2,
+                "id": 8,
                 "enabled": true
             },
             {

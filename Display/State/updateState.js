@@ -65,7 +65,7 @@ function updateState(profiles) {
                 break;
             case 8:
                 widget.innerHTML = `
-                    <h2>Profilname</h2>
+                    <h2>${selectedProfile.name}</h2>
                     <div>
                     </div>`;
                 break;
