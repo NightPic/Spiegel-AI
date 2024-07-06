@@ -1,9 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() {
+function fetchTrafficInformation() {
     const stauStatusElement = document.getElementById("stau-status");
 
-    // Funktion zum Abrufen des Verkehrsstatus von OpenStreetMap Overpass API
     function getTrafficStatus() {
-        // Überarbeitete Overpass-Abfrage
         const overpassQuery = `
             [out:json];
             area[name="Regensburg"][admin_level=8]->.searchArea;
@@ -19,24 +17,30 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(overpassUrl)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Netzwerkantwort war nicht ok.');
+                    throw new Error('Network response was not ok.');
                 }
                 return response.json();
             })
             .then(data => {
-                const stauExistiert = data.elements && data.elements.length > 0;
-                const trafficStatus = stauExistiert ? "Es gibt einen Stau" : "Es gibt keinen Stau";
+                const stauExists = data.elements && data.elements.length > 0;
+                const trafficStatus = stauExists ? "Es gibt einen Stau" : "Es gibt keinen Stau";
                 stauStatusElement.textContent = trafficStatus;
             })
             .catch(error => {
-                console.error('Fehler beim Abrufen der Verkehrsdaten:', error);
-                stauStatusElement.textContent = "Fehler beim Abrufen der Verkehrsdaten";
+                console.error('Error fetching traffic data:', error);
+                stauStatusElement.textContent = "Error fetching traffic data";
             });
     }
 
-    // Aktualisiere den Verkehrsstatus beim Laden der Seite
+    // Initial fetch
     getTrafficStatus();
 
-    // Aktualisiere den Verkehrsstatus alle 5 Minuten (300000 Millisekunden)
+    // Update traffic status every 5 minutes
     setInterval(getTrafficStatus, 300000);
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", fetchTrafficInformation);
+} else {
+    fetchTrafficInformation();
+}

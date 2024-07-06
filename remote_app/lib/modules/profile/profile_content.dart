@@ -120,10 +120,18 @@ class ProfileContentState extends State<ProfileContent> {
                       newProfile.selectedWidgetIds =
                           List.generate(8, (index) => index);
                       newProfile.state ??= [];
-                      for (var i = 0; i < 9; i++) {
+                      int id = 0;
+                      for (int i = 0; i < 9; i++) {
+                        if (i == 4) {
+                          id = -1;
+                        } else if (i < 4) {
+                          id = i;
+                        } else {
+                          id = i - 1;
+                        }
                         newProfile.state!.add({
                           'index': i,
-                          'id': i,
+                          'id': id,
                           'enabled': true,
                         });
                       }

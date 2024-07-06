@@ -1,10 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
+function fetchGasStations() {
     const apiKey = "210cf594-7d21-d062-5e5c-415cb748e03e";
     const city = "Regensburg";
-
     const apiUrl = `https://creativecommons.tankerkoenig.de/json/list.php?apikey=${apiKey}&lat=49.0134&lng=12.1016&rad=5&sort=price&type=e5`;
 
-    async function fetchGasStations() {
+    async function getGasStations() {
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
@@ -33,5 +32,11 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
     }
 
+    getGasStations();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", fetchGasStations);
+} else {
     fetchGasStations();
-});
+}

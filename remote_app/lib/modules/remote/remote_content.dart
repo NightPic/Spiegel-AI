@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remote_app/modules/profile/profile.dart';
+import 'package:remote_app/modules/widgets/widgets_content.dart';
 import 'package:remote_app/services/profile_service.dart';
 import 'package:remote_app/shared/drawer.dart';
 
@@ -11,9 +12,9 @@ class RemoteContent extends StatefulWidget {
 }
 
 class RemoteContentState extends State<RemoteContent> {
-  late List<int> _buttonIndexes;
   late List<int> _buttonLabels;
   late List<bool> _buttonClicked;
+  late List<String> _buttonNames;
   String _selectedProfileName = '';
   Profile? _selectedProfile;
   List<Profile> profiles = [];
@@ -22,9 +23,9 @@ class RemoteContentState extends State<RemoteContent> {
   @override
   void initState() {
     super.initState();
-    _buttonIndexes = List.generate(9, (index) => index);
-    _buttonLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    _buttonLabels = List.generate(9, (index) => index);
     _buttonClicked = List.generate(9, (index) => false);
+    _buttonNames = List.from(WidgetsContent.widgetNames);
     _loadSelectedProfileName();
   }
 
@@ -38,23 +39,27 @@ class RemoteContentState extends State<RemoteContent> {
       _selectedProfile = selectedProfile.name.isEmpty ? null : selectedProfile;
 
       if (_selectedProfile != null && _selectedProfile!.state != null) {
-        _buttonIndexes =
-            _selectedProfile!.state!.map<int>((item) => item['index']).toList();
         _buttonLabels =
             _selectedProfile!.state!.map<int>((item) => item['id']).toList();
         _buttonClicked = _selectedProfile!.state!
             .map<bool>((item) => !item['enabled'])
             .toList();
+      } else if (_selectedProfile != null &&
+          _selectedProfile!.selectedWidgetIds != null) {
+        _buttonLabels = List.generate(9, (index) => -1);
+        _selectedProfile!.selectedWidgetIds!.asMap().forEach((i, id) {
+          if (i < 9) _buttonLabels[i] = id;
+        });
       }
     });
   }
 
   Future<void> _sendState() async {
     List<Map<String, dynamic>> state = [];
-    for (int i = 0; i < _buttonIndexes.length; i++) {
+    for (int i = 0; i < 9; i++) {
       state.add({
         'index': i,
-        'id': _buttonLabels[_buttonIndexes[i]],
+        'id': _buttonLabels[i],
         'enabled': !_buttonClicked[i],
       });
     }
@@ -66,10 +71,15 @@ class RemoteContentState extends State<RemoteContent> {
   }
 
   void _swapWidgets(int oldIndex, int newIndex) {
+    if (_selectedProfile == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Bitte wählen Sie zuerst ein Profil aus.')));
+      return;
+    }
     setState(() {
-      final temp = _buttonIndexes[oldIndex];
-      _buttonIndexes[oldIndex] = _buttonIndexes[newIndex];
-      _buttonIndexes[newIndex] = temp;
+      final temp = _buttonLabels[oldIndex];
+      _buttonLabels[oldIndex] = _buttonLabels[newIndex];
+      _buttonLabels[newIndex] = temp;
 
       final tempClicked = _buttonClicked[oldIndex];
       _buttonClicked[oldIndex] = _buttonClicked[newIndex];
@@ -80,6 +90,11 @@ class RemoteContentState extends State<RemoteContent> {
   }
 
   void _disableWidget(int index, bool disable) {
+    if (_selectedProfile == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Bitte wählen Sie zuerst ein Profil aus.')));
+      return;
+    }
     setState(() {
       _buttonClicked[index] = disable;
     });
@@ -152,7 +167,7 @@ class RemoteContentState extends State<RemoteContent> {
             return DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
                 return Draggable<int>(
-                  data: _buttonIndexes[index],
+                  data: index,
                   feedback: _buildButton(index, buttonWidth, buttonHeight),
                   childWhenDragging: Container(),
                   onDragEnd: (details) {
@@ -163,7 +178,7 @@ class RemoteContentState extends State<RemoteContent> {
               },
               onWillAcceptWithDetails: (data) => true,
               onAcceptWithDetails: (details) {
-                final oldIndex = _buttonIndexes.indexOf(details.data);
+                final oldIndex = details.data;
                 final newIndex = index;
                 if (oldIndex != newIndex) {
                   _swapWidgets(oldIndex, newIndex);
@@ -182,8 +197,7 @@ class RemoteContentState extends State<RemoteContent> {
       height: buttonHeight,
       child: ElevatedButton(
         onPressed: () {
-          _disableWidget(
-              index, !_buttonClicked[index]); // Toggle the clicked state
+          _disableWidget(index, !_buttonClicked[index]);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: _buttonClicked[index]
@@ -199,7 +213,7 @@ class RemoteContentState extends State<RemoteContent> {
           ),
         ),
         child: Text(
-          _buttonLabels[_buttonIndexes[index]].toString(),
+          _buttonLabels[index] == -1 ? '' : _buttonNames[_buttonLabels[index]],
           style: const TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,

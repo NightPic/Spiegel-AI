@@ -20,8 +20,12 @@ def output_detected_profile(profiles, label, send_profiles):
             "id": str(int(time.time() * 1000)),
             "name": label,
             "isSelected": True,
-            "selectedWidgetIDs": list(range(8)),
-            "state": [{"index": i, "id": i, "enabled": True} for i in range(9)]
+            "selectedWidgetIds": list(range(8)),
+            "state": [
+                {"index": i, "id": i, "enabled": True} if i < 4 else
+                {"index": i, "id": i - 1, "enabled": True} if i > 4 else
+                {"index": i, "id": -1, "enabled": True}
+                for i in range(9)]
         }
         profiles.append(new_profile)
 

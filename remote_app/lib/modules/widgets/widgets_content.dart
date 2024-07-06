@@ -4,7 +4,6 @@ import 'package:remote_app/shared/drawer.dart';
 import 'package:remote_app/services/profile_service.dart'; // Import your profile service
 
 class WidgetsContent extends StatefulWidget {
-
   const WidgetsContent({super.key});
 
   static const List<String> widgetNames = [
@@ -79,9 +78,18 @@ class WidgetsContentState extends State<WidgetsContent> {
 
   void _handleSelection(int index) async {
     setState(() {
-      if (widgetSelected[index]) {
-        widgetSelected[index] = false;
-      } else {
+      final selectedProfile = profiles.firstWhere(
+          (profile) => profile.isSelected,
+          orElse: () => Profile(id: '', name: ''));
+      // Don't allow slider to be used if no profile selected.
+      if (selectedProfile.name.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Bitte wählen Sie zuerst ein Profil aus.')),
+        );
+        return;
+      }
+      if (!widgetSelected[index]) {
         if (widgetSelected.where((selected) => selected).length >= 8) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -90,11 +98,11 @@ class WidgetsContentState extends State<WidgetsContent> {
           );
           return;
         }
-        widgetSelected[index] = true;
       }
     });
 
     if (_selectedProfile != null) {
+      _updateProfileState(index);
       final updatedWidgetIds = List.generate(
               widgetSelected.length, (i) => widgetSelected[i] ? i : null)
           .whereType<int>()
@@ -105,8 +113,34 @@ class WidgetsContentState extends State<WidgetsContent> {
   }
 
   Future<void> _saveProfileSelections() async {
-    await _profileService.saveProfiles(
-        profiles); // Pass the profile wrapped in a list
+    await _profileService.saveProfiles(profiles);
+  }
+
+  void _updateProfileState(int index) {
+    setState(() {
+      if (_selectedProfile!.state != null) {
+        // If widget to be deselected, then find widget in state to remove it.
+        if (widgetSelected[index]) {
+          for (int i = 0; i < _selectedProfile!.state!.length; i++) {
+            if (_selectedProfile!.state![i]['id'] == index) {
+              _selectedProfile!.state![i]['id'] = -1;
+              widgetSelected[index] = false;
+              break;
+            }
+          }
+        } else {
+          // Look for index with ID == -1 to insert selected widget. Ignore state index 4 (center field).
+          for (int i = 0; i < _selectedProfile!.state!.length; i++) {
+            if (_selectedProfile!.state![i]['id'] == -1 &&
+                _selectedProfile!.state![i]['index'] != 4) {
+              _selectedProfile!.state![i]['id'] = index;
+              widgetSelected[index] = true;
+              break;
+            }
+          }
+        }
+      }
+    });
   }
 
   @override

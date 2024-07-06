@@ -31,39 +31,39 @@
 });
 */
 
-document.addEventListener("DOMContentLoaded", function() {
-    function fetchNewsFeed(rssUrl, numberOfItems) {
-        const newsFeed = document.getElementById("news-feed");
-        newsFeed.innerHTML = ''; // Löscht den vorhandenen Inhalt
-
-        fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`)
-            .then(response => response.json())
-            .then(data => {
-                const items = data.items;
-                for (let i = 0; i < Math.min(numberOfItems, items.length); i++) {
-                    let item = items[i];
-                    let title = item.title;
-                    let link = item.link;
-
-                    const li = document.createElement("li");
-                    const a = document.createElement("a");
-                    a.href = link;
-                    a.target = "_blank";
-                    a.textContent = title;
-                    li.appendChild(a);
-                    newsFeed.appendChild(li);
-                }
-            })
-            .catch(error => console.error("Fehler beim Abrufen des RSS-Feeds:", error));
-    }
-
-    // Die URL des RSS-Feeds der Frankfurter Allgemeinen Zeitung
+function fetchNewsFeed() {
     const rssUrl = "https://www.faz.net/rss/aktuell/";
-    fetchNewsFeed(rssUrl, 2); // Zeigt die neuesten 5 Nachrichten an
-});
+    const numberOfItems = 2;
+    const newsFeed = document.getElementById("news-feed");
+    newsFeed.innerHTML = ''; // Clears the existing content
 
-function RefreshNews(){
-    fetchNewsFeed(rssUrl, 2);
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`)
+        .then(response => response.json())
+        .then(data => {
+            const items = data.items;
+            for (let i = 0; i < Math.min(numberOfItems, items.length); i++) {
+                let item = items[i];
+                let title = item.title;
+                let link = item.link;
+
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = link;
+                a.target = "_blank";
+                a.textContent = title;
+                li.appendChild(a);
+                newsFeed.appendChild(li);
+            }
+        })
+        .catch(error => console.error("Error fetching the RSS feed:", error));
 }
 
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", fetchNewsFeed);
+} else {
+    fetchNewsFeed();
+}
 
+function RefreshNews() {
+    fetchNewsFeed();
+}
