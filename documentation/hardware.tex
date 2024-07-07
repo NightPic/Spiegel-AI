@@ -1,15 +1,103 @@
 \chapter{Hardware}
-
+erarbeitet von Leon Kranner und Marcel Wagner \\ \\
+\noindent
 In diesem Kapitel beschreiben wir die Hardware-Komponenten, die für das Projekt \textbf{Spiegel AI} verwendet wurden. Wir gehen auf die Auswahlkriterien, die Installation und die Konfiguration der Hardware ein.
 
 \section{Komponenten}
-Beschreiben Sie die einzelnen Hardware-Komponenten und deren Spezifikationen.
-
+Im folgenden Abschritt, werden nun die verwendeten Hardware KOmponenten beschrieben und wofür diese genutzt werden. \\ \\
+\noindent
+\textbf{Raspberry Pi 3 Model B} \\ \\
+Der Raspberry Pi 3 Model B ist das Herzstück des Smartmirrors. Für die Speicherung von Betriebssystem und Daten wird eine 64 GB microSD-Karte verwendet, die ausreichend Platz für alle benötigten Software-Anwendungen bietet. Nachfolgend kann der Raspberry Pi entnommen werden\\ \\
+\noindent
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{pictures/raspberry_pi.jpg}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Raspberry Pi Model B]{Raspberry Pi Model B\\ Quelle: siehe \cite{raspberry_pi}}
+\end{figure} \\ \\
+\noindent
+\textbf{Logitech Kamera zur Gesichtserkennung} \\ \\
+Für die Gesichtserkennung wird eine Logitech Kamera verwendet, die eine hohe Bildqualität und eine zuverlässige Leistung bietet. Diese Kamera ist über USB mit dem Raspberry Pi verbunden und ermöglicht es, Benutzer zu erkennen und auf sie zugeschnittene Informationen anzuzeigen. In der nachfolgenden Abbildung kann die Kamera entnommen werden.\\ \\
+\noindent
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{pictures/logitech_kamera.png}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Logitech Kamera]{Logitech Kamera\\ Quelle: siehe \cite{logitech_camera}}
+\end{figure} \\ \\
+\noindent
+\textbf{Monitor} \\ \\
+Der Dell 2208WFP Monitor dient als Display für den Smartmirror. Er ist über den integrierten VGA Anschluss mithilfe eines Adapters mit dem Raspberry PI verbunden und ist in das Spiegelgehäuse integriert. Der Monitori wir in der Nachfolgenden Abbildung ersichtlich. \\ \\
+\noindent
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{pictures/dell_monitor.jpg}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Dell Monitor]{Dell Monitor\\ Quelle:  siehe \cite{dell_monitor}}
+\end{figure} \\ \\
+\noindent
+\textbf{WLAN Stick} \\ \\
+Ein WLAN Stick wird verwendet, um den Raspberry Pi mit dem Internet zu verbinden. Dies ermöglicht die Nutzung von Online-Diensten und die Kommunikation mit anderen Geräten im Netzwerk. Dies ist esentiell um die Funktionsweise des Smart Mirrors zu gewährleisten. \\ \\
+\noindent
+\textbf{Smartphone} \\ \\
+Ein Smartphone dient als mobile Schnittstelle für den Smartmirror. Über eine App können Benutzer Einstellungen vornehmen. Eine genaue beschreibung dieser Schnittstelle erfolgt im Abschnitt (ergänzen). \\ \\
+\noindent
 \section{Auswahlkriterien}
-Erläutern Sie die Kriterien, nach denen die Hardware ausgewählt wurde.
-
+Die Auswahl der Hardware KOmponenten basierte auf mehrere Kriterien, diese werden nun im folgenden genauer beschrieben:
+\begin{itemize}
+    \item \textbf{Kompatibilität:} Alle Komponenten mussten kompatibel miteinander und mit der Software-Plattform des Smartmirrors sein.
+    \item \textbf{Leistung:} Der Raspberry Pi 3 Model B wurde wegen seiner ausreichenden Rechenleistung und Energieeffizienz gewählt.
+    \item \textbf{Bildqualität:} Die Logitech Kamera wurde aufgrund ihrer hohen Auflösung und zuverlässigen Gesichtserkennung ausgewählt.
+    \item \textbf{Displayqualität:} Der Dell Monitor bietet eine klare und scharfe Anzeige, was für die visuelle Darstellung der Informationen wichtig ist.
+    \item \textbf{Konnektivität:} Der WLAN Stick sorgt für eine stabile Internetverbindung, was für die Nutzung von Online-Diensten unerlässlich ist.
+    \item \textbf{Benutzerfreundlichkeit:} Das Smartphone als mobile Schnittstelle erleichtert die Interaktion und die Anpassung der Einstellungen durch den Benutzer.
+\end{itemize}
 \section{Installation}
-Beschreiben Sie den Installationsprozess der Hardware.
+In diesem Abschnitt wird nun die einzelnen schritte beachtet, welche bei der installierung der unterschiedlichen Hardware Komponennten vorgegangen sind. \\ \\
+\noindent
+\textbf{Raspberry Pi 3 Model B}
+\begin{itemize}
+    \item Die microSD-Karte wurde formatiert und das Betriebssystem wurde darauf installiert.
+    \item Der Raspberry Pi wurde in das Gehäuse eingebaut und mit dem Monitor über den VGA auf HDMI Adapter verbunden.
+    \item Die Stromversorgung wurde angeschlossen und der Raspberry Pi wurde gestartet.
+\end{itemize}
+\vspace{0.5cm}
+\noindent\textbf{Logitech Kamera}
+\begin{itemize}
+    \item Die Kamera wurde über USB mit dem Raspberry Pi verbunden.
+\end{itemize}
+\vspace{0.5cm}
+\noindent\textbf{Monitor}
+\begin{itemize}
+    \item Der Monitor wurde in das Spiegelgehäuse integriert und mit dem Raspberry Pi verbunden.
+\end{itemize}
+\vspace{0.5cm}
+\noindent\textbf{WLAN Stick}
+\begin{itemize}
+    \item Der WLAN Stick wurde in einen freien USB-Port des Raspberry Pi eingesteckt.
+\end{itemize}
+\vspace{0.5cm}
+\noindent\textbf{Smartphone}
+\begin{itemize}
+    \item Eine spezielle App wurde auf dem Smartphone installiert, um die Kommunikation mit dem Smartmirror zu ermöglichen.
+    \item Das Smartphone wurde mit dem WLAN des Raspberry Pi verbunden
+\end{itemize}
 
 \section{Konfiguration}
-Erläutern Sie die Konfiguration der Hardware-Komponenten.
+Ich folgenden Abschnitt wird nun beschrieben wie die unterschiedlichen Hardware Komponenten Konfiguriert wurden. \\ \\
+\noindent
+\textbf{Raspberry Pi 3 Model B:}
+Die Konfiguration des Raspberry Pi umfasste die Installation von den beödigten Software Paketen und das Einrichten von Netzwerkeinstellungen. \\ \\
+\noindent
+\textbf{Logitech Kamera:}
+Die Gesichtserkennungssoftware wurde installiert und entsprechend kalibriert. Desweiteren wurden die Kameraeinstellungen angepasst, um eine optimale Erkennungsrate zu gewährleisten. \\ \\
+\noindent
+\textbf{Monitor (Dell 2208WFP):}
+Die Bildschirmeinstellungen wurden so konfiguriert, dass der Monitor im Energiesparmodus bleibt, wenn der Smartmirror nicht verwendet wird. Des weiteren wurde die Anzeigesoftware für den Smartmirror installiert und konfiguriert. \\ \\
+\noindent
+\textbf{WLAN Stick:}
+Die Netzwerkkonfiguration wurde angepasst, um sicherzustellen, dass der Smartmirror eine stabile Verbindung zum Internet hat. \\ \\
+\noindent
+\textbf{Smartphone:}
+Die App auf dem Smartphone wurde installiert. \\ \\
+\noindent
