@@ -12,6 +12,11 @@
 \usepackage{helvet}
 \usepackage{caption}
 \usepackage{wrapfig}
+\usepackage{textcomp}
+
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{literaturverzeichnis.bib}
+\DeclareLanguageMapping{german}{german-ieee-custom}
 \renewcommand{\familydefault}{\sfdefault}
 
 \geometry{a4paper, margin=1in}
@@ -23,6 +28,7 @@
     linkcolor=black,
     filecolor=magenta,      
     urlcolor=cyan,
+    citecolor=cyan,
 }
 
 \begin{document}
@@ -427,8 +433,11 @@ Gesamtstunden: 150
 
 Gesamtstunden: 151
 
+\newpage
 
-\bibliography{literatur}
+\chapter*{Literaturverzeichnis}
+
+\printbibliography[heading=none]
 
 \listoffigures
 

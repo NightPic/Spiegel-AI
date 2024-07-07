@@ -1,31 +1,41 @@
 \chapter{Spiegel AI Remote}
-\textit{Erarbeitet von David Vollmer.}
-\\ \\
+\textit{Erarbeitet von David Vollmer.} \\ \\
 Im folgenden wird die \textbf{Spiegel AI Remote} App - auch \textbf{Remote App} genannt - beschrieben. Es handelt sich dabei um eine mobile Anwendung, dessen Hauptaufgabe die Fernsteuerung des Smart Mirrors ist.
+
+\section{Die Flutter\texttrademark{} SDK}
+Für die Entwicklung einer mobilen Applikation gibt es heutzutage viele Tool-Kits, die verwendet werden können.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\textwidth]{pictures/frameworks_stats.png}
+    \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption{Laut dieser von JetBrains durchgeführten Umfrage war Flutter im Jahr 2023 das am häufigsten verwendete mobile, plattformübergreifende Framework.\cite{jetbrains_survey}}
+    \label{fig:jetbrains_survey}
+\end{figure} \\
+Zusätzlich zu ihrer Popularität ist die von Google entwickelte Flutter SDK in der Lage, mittels AOT-Compiler Programme direkt für die Zielplattform zu kompilieren. Dabei wird die Programmiersprache Dart verwendet.\cite{dart_platform} Flutter unterstützt unter anderem die Entwicklung auf den Plattformen Android SDK, iOS, Windows, macOS und Web.\cite{flutter_supported_platforms} Für die Umsetzung der Fernsteuerungs-App wurde insbesondere mit den Plattformen Android und iOS entwickelt und getestet.
 
 \section{Funktionen}
 Um das Display des Spiegel AIs fernzusteuern, müssen einige Hauptfunktionalitäten vorhanden sein. Die Remote App muss in der Lage sein, mit dem Spiegel zu kommunizieren, die Anzeige der Widgets auf dem Display zu ändern, verfügbare Widgets auszuwählen und Profile zu verwalten. Mit Ausnahme der ersten Anforderung, welche im Kapitel \textbf{Schnittstelle} näher beschrieben wird, werden all diese Punkte in sogenannten Ansichten (englisch: views) behandelt. Diese kann der Nutzer mithilfe einer Navigationsleiste auswählen.
 \begin{figure}[h]
     \centering
-    \begin{minipage}[b]{0.25\textwidth}
+    \begin{minipage}[b]{0.27\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/remote_remote.jpg}
         \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
-        \caption{Remote Ansicht\\ Quelle: eigene Darstellung}
+        \caption{Remote Ansicht}
     \end{minipage}
     \hfill
-    \begin{minipage}[b]{0.25\textwidth}
+    \begin{minipage}[b]{0.27\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/remote_widgets.jpg}
         \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
-        \caption{Widgets Ansicht\\ Quelle: eigene Darstellung}
+        \caption{Widgets Ansicht}
     \end{minipage}
     \hfill
-    \begin{minipage}[b]{0.25\textwidth}
+    \begin{minipage}[b]{0.27\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/remote_profile.jpg}
         \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
-        \caption{Profile Ansicht\\ Quelle: eigene Darstellung}
+        \caption{Profile Ansicht}
     \end{minipage}
 \end{figure}
 
@@ -36,7 +46,7 @@ Die Remote View, welche die Standardansicht nach Öffnen der App ist, bietet die
 In der Widgets Ansicht können für das ausgewählte Profil Widgets ausgewählt werden. Diese View bietet die Widgets Kalender, Uhr, Wetter, Notizen, Termine, Verkehr, Nachrichten, Tanken, Profil und TestWidget an. Bei letzterem handelt es sich um einen Platzhalter, welcher zum Testen der Widgetfunktionalitäten verwendet wurde, aber auch zukünftig mit einem neuen Widget ersetzt werden kann. Die Anwendungen der restlichen Widgets sind im Kapitel \textbf{Display} beschrieben. Mithilfe eines Toggle-Buttons werden bis zu acht Widgets selektiert. Beim Versuch, ein neuntes Widget auszuwählen, schlägt dies fehl und eine Snackbar benachrichtigt über die Obergrenze erlaubter Widgets. Auf die Änderung eines Widgets, ohne ein Profil geladen zu haben, folgt ebenfalls eine dementsprechende Fehlermeldung. Wird ansonsten ein Widget ausgeschaltet, dann wird das im Toggle-Button signalisiert und in der Remote View wird der Name des Widgets mit einem leeren Feld ersetzt. Wenn ein ausgeschaltetes Widget ausgewählt wird, aktualisiert sich auch da der Toggle-Schalter und in der Remote Ansicht wird das erste Feld ohne Textinhalt mit dem Namen des Widgets versehen.
 
 \subsection{Profile View}
-Die letzte navigierbare Ansicht ist die Profile View. Hier findet die Verwaltung der gespeicherten Profile statt. Die Profile werden aufgelistet und können mit einem Klick ausgewählt werden. Hält man ein Profil für eine kurze Zeit gedrückt, kann man diese in ihrer Position in der Auflistung ändern, indem man sie an die gewünschte Stelle zieht. Löschen kann man einen Eintrag, indem auf das Mülleimer-Icon geklickt wird. Darauf öffnet sich ein sogenanntes Alert-Dialog, welches das Abbrechen oder Bestätigen der Löschung durchführt. Ein neues Profil kann erstellt werden, indem auf ein Button, welches sich in der Ansicht rechts unten befindet und mit einem '+'-Symbol gekennzeichnet ist, gedrückt wird. Es erscheint ebenfalls ein Alert-Dialog, welches mithilfe eines Texteingabefeldes einen Profilnamen geben kann. Dieser Prozess kann auch abgebrochen oder bestätigt werden. Falls bei Bestätigung der Name des Profils leer oder schon vergeben ist, wird unterhalb des Textfeldes eine entsprechende Fehlermeldung ausgegeben. Wenn das Erstellen des Profils erfolgreich ist, wird das neue Profil direkt ausgewählt und bekommt die ersten acht Widgets in der Widgets View zugeordnet und werden dementsprechend in der Remote Ansicht angezeigt. Alle Anpassungen, die in diesen beiden Ansichten getätigt werden, werden in den jeweilig ausgewählten Profilen gespeichert.
+Die letzte navigierbare Ansicht ist die Profile View. Hier findet die Verwaltung der gespeicherten Profile statt. Die Profile werden aufgelistet und können mit einem Klick ausgewählt werden. Hält man ein Profil für eine kurze Zeit gedrückt, kann man diese in ihrer Position in der Auflistung ändern, indem man sie an die gewünschte Stelle zieht. Löschen kann man einen Eintrag, indem auf das Mülleimer-Icon geklickt wird. Darauf öffnet sich ein sogenanntes Alert-Dialog, welches das Abbrechen oder Bestätigen der Löschung durchführt. Ein neues Profil kann erstellt werden, indem auf ein Button, welches sich in der Ansicht rechts unten befindet und mit einem '+'-Symbol gekennzeichnet ist, gedrückt wird. Es erscheint ebenfalls ein Alert-Dialog, welches mithilfe eines Texteingabefeldes einen Profilnamen geben kann. Dieser Prozess kann auch abgebrochen oder bestätigt werden. Falls bei Bestätigung der Name des Profils leer oder schon vergeben ist, wird unterhalb des Textfeldes eine entsprechende Fehlermeldung ausgegeben. Wenn das Erstellen des Profils erfolgreich ist, wird das neue Profil direkt ausgewählt und bekommt die ersten acht Widgets in der Widgets View zugeordnet. Sie werden dementsprechend in der Remote Ansicht angezeigt. Alle Anpassungen, die in diesen beiden Ansichten getätigt werden, werden in den jeweilig ausgewählten Profilen gespeichert.
 
 \section{Implementierung}
 
