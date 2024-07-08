@@ -1,17 +1,17 @@
 [
     {
-        "id": "1720272384107",
+        "id": "1720429821634",
         "name": "profil0",
         "isSelected": true,
         "selectedWidgetIds": [
             0,
             1,
             2,
+            3,
             4,
             5,
             6,
-            7,
-            8
+            7
         ],
         "state": [
             {
@@ -31,7 +31,7 @@
             },
             {
                 "index": 3,
-                "id": 8,
+                "id": 3,
                 "enabled": true
             },
             {
@@ -46,13 +46,13 @@
             },
             {
                 "index": 6,
-                "id": 6,
+                "id": 5,
                 "enabled": true
             },
             {
                 "index": 7,
-                "id": 5,
-                "enabled": false
+                "id": 6,
+                "enabled": true
             },
             {
                 "index": 8,
@@ -62,18 +62,18 @@
         ]
     },
     {
-        "id": "1720272897491",
-        "name": "aa",
+        "id": "1720429835040",
+        "name": "profil1",
         "isSelected": false,
         "selectedWidgetIds": [
             0,
             1,
+            2,
             3,
             4,
             5,
             6,
-            7,
-            8
+            7
         ],
         "state": [
             {
@@ -88,7 +88,7 @@
             },
             {
                 "index": 2,
-                "id": 8,
+                "id": 2,
                 "enabled": true
             },
             {

@@ -28,7 +28,7 @@ def on_open(ws):
 
 def start_websocket():
     global ws_app
-    ws_app = WebSocketApp("ws://192.168.178.42:8000",
+    ws_app = WebSocketApp("ws://172.16.11.249:8000",
                           on_message=on_message,
                           on_error=on_error,
                           on_close=on_close)
