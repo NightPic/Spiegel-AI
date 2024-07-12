@@ -12,10 +12,248 @@ Erläutern Sie den Prozess der Installation des Displays.
 Beschreiben Sie etwaige Anpassungen oder Modifikationen am Display.
 
 \subsection{eventuell HTMl seite und Aufbau oder in Installation}
-\subsection{Widget 1}
-\subsection{Widget 2}
-\subsection{Widget 3}
-\subsection{Widget 4}
+
+\subsection{Widgets Aktualisierung}
+Erarbeitet von: Leon Kranner \\ \\
+
+Alle Widgets müssen in regelmäßiger Zeit aktualisiert werden. Wie regelmäßig dies der Fall ist, hängt vom Widget ab. Dies regelt die Timer.js Datei. Hier werden alle Widgets aktualisiert und die neusten Daten geladen. In diesem Abschnitt ist eine kleine Übersicht wie regelmäßig die Widgets geladen werden: \\
+
+\begin{enumerate}
+    \item \textbf{Uhr}
+    Jede Sekunde
+    
+    \item \textbf{Termine:}
+    Alle 60 Sekunden
+    
+    \item \textbf{JKalender:}
+    Jeden Tag um Mitternacht
+    
+    \item \textbf{Wettervorhersage:}
+    Alle 3 Stunden
+    
+    \item \textbf{Tankstellen:}
+    Alle 10 Sekunden
+
+ \item \textbf{Tankstellen:}
+    Alle 10 Sekunden
+
+ \item \textbf{Verkehrsinformationen:}
+    Alle 5 Minuten
+\end{enumerate}
+
+\subsection{Termine Widget}
+Erarbeitet von: Leon Kranner \\ \\
+
+\noindent
+Das Termin-Widget ist eine JavaScript-Anwendung, die dazu dient, die nächsten drei anstehenden Termine auf dem Display anzuzeigen. Dieses Widget filtert die Termine, sortiert sie nach Datum und stellt sicher, dass nur zukünftige Termine angezeigt werden. Die Termine werden dynamisch in eine HTML-Liste eingefügt. \\ \\
+In Zukunft soll die App die nächsten Termine aus der Smartphone Kalender App abrufen und den Raspberry versenden. Somit werden die aktuellen Termine automatisch geladen und müssen nicht manuell eingetragen werden.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{pictures/appointments_widget.png}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Termine Widget]{Termine Widget\\ Quelle: eigene Darstellung}
+\end{figure}
+
+\noindent
+Die Hauptfunktion des Widgets ist \texttt{loadAppointments()}, die beim Laden der Seite ausgeführt wird. Die Funktion filtert, sortiert und rendert die Termine auf dem Display.
+
+\subsection*{Detaillierte Beschreibung der Funktion \texttt{loadAppointments}}
+Die Funktion \texttt{loadAppointments()} führt folgende Schritte aus:
+
+\begin{enumerate}
+    \item \textbf{Terminliste initialisieren:}
+    Ein Array von Terminen (\texttt{appointments}) wird definiert, das Datum, Uhrzeit und Beschreibung jedes Termins enthält.
+    
+    \item \textbf{Heutiges Datum ermitteln:}
+    Das heutige Datum (\texttt{today}) wird mithilfe des \texttt{Date}-Objekts ermittelt.
+    
+    \item \textbf{HTML-Elemente vorbereiten:}
+    Das HTML-Element mit der ID \texttt{appointmentsList} wird selektiert und dessen Inhalt wird geleert.
+    
+    \item \textbf{Filtern der zukünftigen Termine:}
+    Es werden nur die Termine gefiltert, deren Datum gleich oder später als das heutige Datum ist.
+    
+    \item \textbf{Sortieren der Termine:}
+    Die gefilterten Termine werden nach Datum sortiert.
+    
+    \item \textbf{Hinzufügen der Termine zur Liste:}
+    Für jeden gefilterten und sortierten Termin wird ein \texttt{li}-Element erstellt, das die Termininformationen enthält. Diese \texttt{li}-Elemente werden zur \texttt{appointmentsList} hinzugefügt.
+    
+    \item \textbf{Seitenladezustand:}
+    Die Funktion wird beim ersten mal in der appoinment.js Datei aufgerufen. Da sich Termine jederzeit ändern können, soll in regelmäßigen Abständen das Termin Widget aktualisiert werden.
+\end{enumerate}
+
+\noindent
+Das Termin-Widget bietet eine einfache und effektive Lösung zur Anzeige bevorstehender Termine. Es lässt sich leicht in bestehende Webseiten integrieren und an individuelle Bedürfnisse anpassen.
+
+\subsection{Kalender Widget}
+Erarbeitet von Leon Kranner \\ \\
+
+\noindent
+Das Kalender-Widget ist eine JavaScript-Anwendung, die den aktuellen und den nächsten Monat in einem Kalender nebeneinander anzeigt. Der aktuelle Tag wird dabei hervorgehoben. \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{pictures/calendar_widget.png}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Kalender Widget]{Kalender Widget\\ Quelle: eigene Darstellung}
+\end{figure}
+
+\noindent
+Ursprünglich sollte der aktuelle Tag durch einen roten Ring markiert werden. Jedoch gab es Probleme bei der Formatierung, da die Zahl nicht mittig im Ring angezeigt wurde, sondern unübersichtlich an der Seite des Feldes., Gelöst wurde dieses Problem, in dem wir einen anderen Ansatz probiert haben. Der aktuelle Tag wird jetzt rot markiert und nicht eingekreist.\\
+Ein weiteres Problem war die generelle Formatierung des Kalenders: Die Zahlen haben teilweise nicht mit den Wochentag übereingestimmt oder die Tage wurden leicht verschoben und haben nicht mehr gepasst. Außerdem hat der der erste Tag des Monats immer mit einen Montag begonnen. Nach einer längeren Bugfixing-Session und längerer Überarbeitung konnten die Fehler gelöst werden. \\
+Zunächst wurden die Monate untereinander angezeigt. Da wir das Programm noch nicht auf dem Raspberry und den Bildschirm übertragen haben, konnten wir noch nicht testen, ob das Layout passt. Beim Testen viel auf, dass der zweite Monat abgeschnitten wurde, weshalb wir uns dazu entschieden haben, die Monate nebeneinander anzuzeigen.
+
+\noindent
+Die Hauptfunktion des Widgets ist \texttt{createCalendarWidget()}, die beim Laden der Seite ausgeführt wird. Diese Funktion generiert die Kalender für den aktuellen und den nächsten Monat und zeigt sie in definierten Containern nebeneinander an.
+
+\subsection*{Detaillierte Beschreibung der Funktion \texttt{createCalendarWidget}}
+Die Funktion \texttt{createCalendarWidget()} führt folgende Schritte aus:
+
+\begin{enumerate}
+    \item \textbf{Elemente vorbereiten:}
+    \begin{itemize}
+        \item Das HTML-Element mit der ID \texttt{calendarWidget} wird selektiert.
+        \item Die HTML-Elemente für den aktuellen Monat (\texttt{currentMonthCalendar}) und den nächsten Monat (\texttt{nextMonthCalendar}) werden selektiert.
+    \end{itemize}
+
+    \item \textbf{Kalender generieren:}
+    Die Funktion \texttt{generateCalendar()} wird verwendet, um den HTML-Code für die Kalender zu generieren und in die entsprechenden Container einzufügen.
+    
+    \item \textbf{Kalenderfunktion \texttt{generateCalendar()}:}
+    \begin{itemize}
+        \item Berechnung des ersten Tages des Monats und Anzahl der Tage im Monat.
+        \item Aufbau des HTML-Codes für den Kalender mit den Monats- und Wochentagsnamen.
+        \item Hinzufügen der Tage in die Tabelle, wobei der aktuelle Tag rot markiert wird.
+    \end{itemize}
+
+    \item \textbf{Anzeige des Kalenders:}
+    Die Kalender für den aktuellen Monat und den nächsten Monat werden in den jeweiligen Containern angezeigt.
+
+ \item \textbf{Seitenladezustand:}
+    Die Funktion wird beim ersten mal in der Calendar.js Datei aufgerufen. Sollte sich das Profil bzw. der Zustand des Displays nicht ändern, wird jeden Tag um 24 Uhr der Kalender aktualisiert, um den nächsten Tag  bzw. den nächsten Monat anzeigen zu können.
+\end{enumerate}
+
+\noindent
+Das Kalender-Widget bietet eine einfache und effektive Lösung zur Anzeige der aktuellen und kommenden Monatskalender. Es lässt sich leicht in den Smart Mirror integrieren und an individuelle Bedürfnisse anpassen. Die Hervorhebung des aktuellen Tages erleichtert die Orientierung im Kalender.
+
+
+\subsection{Wettervorhersage Widget}
+Erarbeitet von: Leon Kranner \\ \\
+
+\noindent
+Das Wettervorhersage-Widget ist eine JavaScript-Anwendung, die mithilfe der OpenWeatherMap API die Wettervorhersage für die nächsten drei Tage für eine bestimmte Stadt anzeigt. Das Widget lädt die Wetterdaten über eine API und zeigt die Vorhersage für den aktuellen Tag sowie die nächsten zwei Tage an. \\
+In Zukunft soll man in der App den Standort auswählen können, damit der Nutzer entweder den Standort des Spiegels angeben kann oder z.B. auch das Wetter bei der OTH Regensburg ansehen können.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{pictures/forecast_widget.png}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Wettervorhersage Widget]{Wettervorhersage Widget\\ Quelle: eigene Darstellung}
+\end{figure}
+
+\noindent
+Die Hauptfunktionen des Widgets sind \texttt{getForecast()} und \texttt{displayForecast(data)}. \texttt{getForecast()} ruft die Wetterdaten von der API ab, während \texttt{displayForecast(data)} die Daten verarbeitet und auf der Webseite anzeigt.
+
+\subsection*{Detaillierte Beschreibung der Funktion \texttt{getForecast}}
+Die Funktion \texttt{getForecast()} führt folgende Schritte aus:
+
+\begin{enumerate}
+    \item \textbf{API-Schlüssel und Stadt definieren:}
+    Der API-Schlüssel und die Stadt, für die die Wettervorhersage abgerufen werden soll, werden definiert.
+    
+    \item \textbf{URL für den API-Aufruf erstellen:}
+    Eine URL für den API-Aufruf wird mit dem API-Schlüssel und der Stadt erstellt.
+    
+    \item \textbf{API-Aufruf durchführen:}
+    Ein Fetch-Aufruf wird durchgeführt, um die Wetterdaten von der OpenWeatherMap API abzurufen.
+    
+    \item \textbf{Fehlerbehandlung:}
+    Falls die Stadt nicht gefunden wird oder ein anderer Fehler auftritt, wird eine Fehlermeldung angezeigt.
+    
+    \item \textbf{Daten verarbeiten:}
+    Die erhaltenen Daten werden an die Funktion \texttt{displayForecast(data)} übergeben, um sie auf dem Display anzuzeigen.
+\end{enumerate}
+
+\subsection*{Detaillierte Beschreibung der Funktion \texttt{displayForecast(data)}}
+Die Funktion \texttt{displayForecast(data)} führt folgende Schritte aus:
+
+\begin{enumerate}
+    \item \textbf{Vorhersage-Div vorbereiten:}
+    Das HTML-Element mit der ID \texttt{forecast} wird selektiert und dessen Inhalt wird geleert.
+    
+    \item \textbf{Daten nach Tagen gruppieren:}
+    Die Wetterdaten werden nach Tagen gruppiert und in einem Objekt gespeichert.
+    
+    \item \textbf{Vorhersage für drei Tage anzeigen:}
+    Es werden nur die Vorhersagen für den aktuellen Tag und die nächsten zwei Tage angezeigt.
+    
+    \item \textbf{Tagesvorhersagen generieren:}
+    Für jeden Tag wird ein Div-Element erstellt, das die Tagesvorhersage enthält. Jede Tagesvorhersage zeigt die Uhrzeit, eine Beschreibung des Wetters und die Temperatur an.
+    
+    \item \textbf{Vorhersagen in das HTML einfügen:}
+    Die generierten Tagesvorhersagen werden in das HTML-Element \texttt{forecast} eingefügt.
+\end{enumerate}
+
+
+\noindent
+Das Wettervorhersage-Widget bietet eine einfache und effektive Lösung zur Anzeige der Wettervorhersage für die nächsten drei Tage. Es lässt sich leicht im Display integrieren und an individuelle Bedürfnisse anpassen. Die Nutzung der OpenWeatherMap API ermöglicht eine zuverlässige und aktuelle Wettervorhersage.
+
+
+\subsection{Notizen Widget}
+Erarbeitet von: Leon Kranner \\ \\
+
+\noindent
+Das Notizen-Widget ist eine JavaScript-Anwendung, die es dem Benutzer ermöglicht, Notizen zu erstellen und zu speichern. Diese Notizen werden im lokalen Speicher des Browsers gespeichert, sodass sie auch nach dem Schließen des Browsers erhalten bleiben.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{pictures/notes_widget.png}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Notizen Widget]{Notizen Widget\\ Quelle: eigene Darstellung}
+\end{figure}
+
+\noindent
+Die Hauptfunktionen des Widgets sind \texttt{loadNotes()} und \texttt{saveNotes()}. \texttt{loadNotes()} lädt die gespeicherten Notizen aus dem lokalen Speicher, während \texttt{saveNotes()} die Notizen im lokalen Speicher speichert.
+
+\subsection*{Detaillierte Beschreibung der Funktion \texttt{loadNotes}}
+Die Funktion \texttt{loadNotes()} führt folgende Schritte aus:
+
+\begin{enumerate}
+    \item \textbf{Gespeicherte Notizen abrufen:}
+    Die Notizen werden aus dem lokalen Speicher des Browsers abgerufen.
+    
+    \item \textbf{Notizen im Textbereich anzeigen:}
+    Wenn gespeicherte Notizen vorhanden sind, werden sie im Textbereich (\texttt{notesTextarea}) angezeigt.
+\end{enumerate}
+
+\subsection*{Detaillierte Beschreibung der Funktion \texttt{saveNotes}}
+Die Funktion \texttt{saveNotes()} führt folgende Schritte aus:
+
+\begin{enumerate}
+    \item \textbf{Notizen aus dem Textbereich abrufen:}
+    Der Inhalt des Textbereichs (\texttt{notesTextarea}) wird abgerufen.
+    
+    \item \textbf{Notizen im lokalen Speicher speichern:}
+    Die Notizen werden im lokalen Speicher des Browsers gespeichert.
+\end{enumerate}
+
+\subsection*{Eventlistener}
+Die Anwendung nutzt zwei Eventlistener:
+
+\begin{itemize}
+    \item \textbf{\texttt{DOMContentLoaded}-Event:}
+    Lädt die Notizen, sobald die Seite vollständig geladen ist.
+    
+    \item \textbf{\texttt{input}-Event:}
+    Speichert die Notizen, sobald der Benutzer den Text ändert.
+\end{itemize}
+
+\noindent
+Das Notizen-Widget bietet eine einfache und effektive Lösung zur Erstellung und Speicherung von Notizen im lokalen Speicher des Browsers. Es lässt sich leicht in bestehende Webseiten integrieren und an individuelle Bedürfnisse anpassen. Die Nutzung des lokalen Speichers ermöglicht eine persistente Speicherung der Notizen, auch nach dem Schließen des Browsers.
+
+
 \subsection{Uhr Widget}
 Erarbeitet von: Marcel Wagner \\ \\
 \noindent
