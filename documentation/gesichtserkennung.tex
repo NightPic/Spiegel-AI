@@ -19,7 +19,7 @@ Gesichtserkennungstechnologien haben in den letzten Jahren erheblich an Bedeutun
 \section{Recherche und Anfangsphase}
 
 \subsection{Grundlagen der Gesichtserkennung}
-Gesichtserkennung ist ein Bereich der Computer Vision, der sich mit der Identifikation oder Verifizierung von Individuen anhand ihrer Gesichtszüge beschäftigt. Dies geschieht durch den Einsatz von Algorithmen, die charakteristische Merkmale eines Gesichts extrahieren und analysieren. Traditionelle Methoden der Gesichtserkennung umfassen Ansätze wie die Verwendung von Haar-Cascades, während moderne Methoden oft auf tiefen neuronalen Netzwerken basieren.
+Gesichtserkennung ist ein Bereich der Computer Vision, der sich mit der Identifikation von Individuen anhand ihrer Gesichtszüge beschäftigt. Dies geschieht durch den Einsatz von Algorithmen, die charakteristische Merkmale eines Gesichts extrahieren und analysieren. Traditionelle Methoden der Gesichtserkennung umfassen Ansätze wie die Verwendung von Haar-Cascades, während moderne Methoden oft auf tiefen neuronalen Netzwerken basieren.
 
 \subsection{Vergleich von Methoden}
 In der Anfangsphase des Projekts wurde zunächst die Möglichkeit in Betracht gezogen, ein eigenes Deep-Learning-Modell für die Gesichtserkennung zu trainieren. Nach weiterer Recherche und intensiver Absprache mit Kommilitonen aus dem KI-Studiengang wurde jedoch festgestellt, dass das Training eines eigenen Modells aufgrund des hohen Zeitaufwands und der benötigten Rechenressourcen nicht praktikabel wäre.
@@ -31,17 +31,11 @@ Daraufhin wurde eine umfassende Recherche zu verschiedenen existierenden Methode
 \section{Erste Implementierung mit Haar-Cascades}
 
 \subsection{Haar-Cascade-Ansatz}
-Aufgrund des begrenzten Speichers unseres Raspberry Pi entschied ich mich zunächst für den Haar-Cascade-Ansatz, da dieser deutlich weniger komplex aufgebaut ist und weniger Rechenleistung erfordert. Haar-Cascades basieren auf der Viola-Jones-Methode, die einen robusten und schnellen Algorithmus zur Gesichtserkennung darstellt. 
+Aufgrund des begrenzten Speichers unseres Raspberry Pi wurde zunächst der Haar-Cascade-Ansatz gewählt, da dieser deutlich weniger komplex aufgebaut ist und weniger Rechenleistung erfordert. Haar-Cascades basieren auf der Viola-Jones-Methode, die einen robusten Algorithmus zur Gesichtserkennung darstellt. 
 
-Die Haar-Cascade-Methode verwendet eine Kaskade von sogenannten Haar-ähnlichen Merkmalen\cite{haar_quelle}. Eine Kaskade in diesem Kontext bedeutet eine Abfolge von Klassifikatoren, die nacheinander angewendet werden, um die Erkennungsgenauigkeit zu erhöhen und gleichzeitig die Rechenleistung zu optimieren. Diese Merkmale sind einfache Muster, die in unterschiedlichen Größen und Positionen auf das Bild angewendet werden, um Kontraste zu erkennen, die typisch für Gesichtszüge sind. Ein integrales Bild wird verwendet, um diese Merkmale effizient zu berechnen. Die Viola-Jones-Methode besteht aus mehreren Hauptkomponenten:
+Die Haar-Cascade-Methode verwendet eine Kaskade von sogenannten Haar-ähnlichen Merkmalen\cite{haar_quelle}. Eine Kaskade in diesem Kontext bedeutet eine Abfolge von Klassifikatoren, die nacheinander angewendet werden, um die Erkennungsgenauigkeit zu erhöhen und gleichzeitig die Rechenleistung zu optimieren. Diese Merkmale sind einfache Muster, die in unterschiedlichen Größen und Positionen auf das Bild angewendet werden, um Kontraste zu erkennen, die typisch für Gesichtszüge sind. 
 
-\textbf{Merkmalserkennung}: Haar-ähnliche Merkmale bestehen aus einfachen rechteckigen Bereichen, die Intensitätsunterschiede innerhalb des Bildes messen. Es gibt drei Arten von Haar-ähnlichen Merkmalen: Kantenmerkmale, Linienmerkmale und vierrechteckige Merkmale. Diese Merkmale helfen dabei, grundlegende Strukturen wie Kanten, Linien und Ecken zu erfassen, die in Gesichtern häufig vorkommen.
-
-\textbf{Integralbild}: Das Integralbild ist eine Datenstruktur, die verwendet wird, um die Berechnung von Rechteckmerkmalen in konstanter Zeit zu ermöglichen. Dies wird erreicht, indem für jedes Pixel die Summe aller Pixelwerte oben und links davon berechnet wird. Dadurch kann jedes Rechteckmerkmal durch wenige Zugriffe auf das Integralbild effizient berechnet werden.
-
-\textbf{Adaboost-Training}: Um die Merkmale zu einem starken Klassifikator zu kombinieren, wird der Adaboost-Algorithmus verwendet. Adaboost ist eine Methode des maschinellen Lernens, die eine große Anzahl schwacher Klassifikatoren zu einem starken Klassifikator kombiniert. Während des Trainingsprozesses werden die wichtigsten Merkmale ausgewählt und gewichtet, um die Erkennungsrate zu maximieren und gleichzeitig die Fehlerrate zu minimieren.
-
-\textbf{Kaskadenklassifikation}: Die Klassifikatoren werden in einer Kaskade organisiert, wobei jeder Klassifikator die Aufgabe hat, ein Fenster entweder als Gesicht oder Nicht-Gesicht zu klassifizieren. Ein Fenster, das von einem Klassifikator als Nicht-Gesicht klassifiziert wird, wird sofort verworfen, was die Berechnungen erheblich beschleunigt. Nur Fenster, die von allen Klassifikatoren in der Kaskade als Gesicht erkannt werden, werden letztendlich als Gesicht klassifiziert.\begin{figure}[h!]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{pictures/haarcascades.jpg}
     \caption{Beispiel verschiedener Haar-ähnlicher Merkmale}
@@ -49,22 +43,31 @@ Die Haar-Cascade-Methode verwendet eine Kaskade von sogenannten Haar-ähnlichen 
     \cite{haar_cascade_example}
 \end{figure}
 
-Die Implementierung begann mit dem Einbinden der OpenCV-Bibliothek und dem Laden vortrainierter Haar-Cascade-Modelle. Die ersten Versuche konzentrierten sich darauf, Gesichter in verschiedenen Beleuchtungssituationen und Winkeln zu erkennen, um die Robustheit des Ansatzes zu testen.
+Ein integrales Bild wird verwendet, um diese Merkmale effizient zu berechnen. Die Viola-Jones-Methode besteht aus mehreren Hauptkomponenten:
+
+\textbf{Merkmalserkennung}: Haar-ähnliche Merkmale bestehen aus einfachen rechteckigen Bereichen, die Intensitätsunterschiede innerhalb des Bildes messen. Es gibt drei Arten von Haar-ähnlichen Merkmalen: Kantenmerkmale, Linienmerkmale und vierrechteckige Merkmale. Diese Merkmale helfen dabei, grundlegende Strukturen wie Kanten, Linien und Ecken zu erfassen, die in Gesichtern häufig vorkommen.
+
+\textbf{Integralbild}: Das Integralbild ist eine Datenstruktur, die verwendet wird, um die Berechnung von Rechteckmerkmalen in konstanter Zeit zu ermöglichen. Dies wird erreicht, indem für jedes Pixel die Summe aller Pixelwerte oben und links davon berechnet wird. Dadurch kann jedes Rechteckmerkmal durch wenige Zugriffe auf das Integralbild effizient berechnet werden.
+
+\textbf{Adaboost-Training}: Um die Merkmale zu einem starken Klassifikator zu kombinieren, wird der Adaboost-Algorithmus verwendet. Adaboost ist eine Methode des maschinellen Lernens, die eine große Anzahl schwacher Klassifikatoren zu einem starken Klassifikator kombiniert. Während des Trainingsprozesses werden die wichtigsten Merkmale ausgewählt und gewichtet, um die Erkennungsrate zu maximieren und gleichzeitig die Fehlerrate zu minimieren.
+
+\textbf{Kaskadenklassifikation}: Die Klassifikatoren werden in einer Kaskade organisiert, wobei jeder Klassifikator die Aufgabe hat, ein Fenster entweder als Gesicht oder Nicht-Gesicht zu klassifizieren. Ein Fenster, das von einem Klassifikator als Nicht-Gesicht klassifiziert wird, wird sofort verworfen, was die Berechnungen erheblich beschleunigt. Nur Fenster, die von allen Klassifikatoren in der Kaskade als Gesicht erkannt werden, werden letztendlich als Gesicht klassifiziert.
+
+Die ersten Versuche konzentrierten sich darauf, Gesichter in verschiedenen Beleuchtungssituationen und Winkeln zu erkennen, um die Robustheit des Ansatzes zu testen.
 
 
 \subsection{Vorteile und Nachteile}
-Nach der Implementierung des Haar-Cascade-Ansatzes in OpenCV testete ich die Methode intensiv, um ihre Vor- und Nachteile zu ermitteln:
+Nach der Implementierung des Haar-Cascade-Ansatzes in OpenCV wurde die Methode intensiv getestet, um ihre Vor- und Nachteile zu ermitteln:
 
 \textbf{Vorteile}:
 \begin{itemize}
     \item \textbf{Schnelle Berechnung}: Die Methode ist sehr effizient in der Berechnung und kann in Echtzeit auf Geräten mit begrenzten Ressourcen wie dem Raspberry Pi ausgeführt werden.
-    \item \textbf{Einfache Implementierung}: OpenCV bietet vorgefertigte Haar-Cascade-Modelle, die leicht zu integrieren und anzuwenden sind.
+    \item \textbf{Einfache Implementierung}: OpenCV bietet vorgefertigte Haar-Cascade-Modelle, die leicht zu integrieren sind.
 \end{itemize}
 
 \textbf{Nachteile}:
 \begin{itemize}
     \item \textbf{Begrenzte Genauigkeit}: Die Genauigkeit der Erkennung ist begrenzt, insbesondere bei schwierigen Lichtverhältnissen oder seitlich aufgenommenen Gesichtern.
-    \item \textbf{Schlechte Leistung bei variierenden Bedingungen}: Diese Methode erwies sich als sehr schlecht für einen Ort, an dem ein Spiegel steht, da Lichtverhältnisse und Blickwinkel variieren können.
 \end{itemize}
 
 \subsection{Ergebnisse der Tests}
@@ -79,22 +82,22 @@ Zusammenfassend zeigte sich, dass die Haar-Cascade-Methode zwar effizient in der
 \section{Umstieg auf Dlib für höhere Präzision}
 
 \subsection{Wechsel zu Dlib}
-Nach den begrenzten Erfolgen mit Haar-Cascades entschied ich mich, auf die Dlib-Bibliothek umzusteigen, um eine genauere Gesichtserkennung und -erkennung zu erreichen. Dlib ist eine freie Software-Bibliothek, die Algorithmen für maschinelles Lernen, Bildverarbeitung und maschinelles Sehen bereitstellt. Für die Gesichtserkennung in diesem Projekt nutzte ich insbesondere den Histogram of Oriented Gradients (HOG)-Algorithmus und das 68-Facial-Landmarks-Modell zur präzisen Merkmalsextraktion.
+Nach den begrenzten Erfolgen mit Haar-Cascades entschied man sich auf die Dlib-Bibliothek umzusteigen, um eine genauere Gesichtserkennung zu erreichen. Dlib ist eine freie Software-Bibliothek, die Algorithmen für maschinelles Lernen, Bildverarbeitung und maschinelles Sehen bereitstellt. Für die Gesichtserkennung in diesem Projekt wurde insbesondere der Histogram of Oriented Gradients (HOG)-Algorithmus und das 68-Facial-Landmarks-Modell zur präzisen Merkmalsextraktion verwendet.
 
 \subsection{Technologien: HOG und 68-Facial-Landmarks}
 \textbf{Histogram of Oriented Gradients (HOG)}: Der HOG-Algorithmus ist eine Methode zur Merkmalserkennung in Bildern, die darauf basiert, das lokale Auftreten von Gradientenorientierungen zu zählen. Diese Methode funktioniert folgendermaßen:
 
 \begin{itemize}
-    \item \textbf{Gradientenberechnung}: Für jedes Pixel im Bild wird der Gradient berechnet, der die Richtung und die Stärke der größten Helligkeitsänderung anzeigt.
-    \item \textbf{Zellaufteilung}: Das Bild wird in kleine Zellen unterteilt, typischerweise von 8x8 Pixeln.
-    \item \textbf{Orientierungshistogramme}: Für jede Zelle wird ein Histogramm der Gradientenorientierungen erstellt. Die Gradienten innerhalb jeder Zelle werden in Bins sortiert, die verschiedene Richtungen repräsentieren. Jeder Bin enthält die Summe der Gradientenstärken, die in seine Richtung fallen.
-    \item \textbf{Normierung}: Um die Beleuchtungsunterschiede zu kompensieren, werden die Histogramme in Blöcken normalisiert. Ein Block besteht aus mehreren benachbarten Zellen, typischerweise 2x2.
-    \item \textbf{Merkmalsvektor}: Die normalisierten Histogramme aller Blöcke werden zu einem einzigen Merkmalsvektor zusammengefügt, der das Bild repräsentiert.
+    \item \textbf{Gradientenberechnung}: Für jedes Pixel im Bild wird der Gradient berechnet. Der Gradient eines Pixels gibt die Richtung und die Stärke der größten Helligkeitsänderung an\cite{hog_quelle}. Dies geschieht durch die Anwendung von Sobel-Filtern in horizontaler und vertikaler Richtung, wodurch zwei Bilder entstehen, die die Helligkeitsänderungen in x- und y-Richtung darstellen. Der Gradient kann dann durch die Kombination dieser beiden Bilder berechnet werden.
+    
+    \item \textbf{Zellaufteilung}: Das Bild wird in kleine Zellen unterteilt, typischerweise von 8x8 Pixeln. Diese Zellen sind klein genug, um lokale Details zu erfassen, aber groß genug, um signifikante Informationen zu enthalten. Innerhalb jeder Zelle werden die Gradientenorientierungen der Pixel gesammelt und analysiert.
+    
+    \item \textbf{Orientierungshistogramme}: Für jede Zelle wird ein Histogramm der Gradientenorientierungen erstellt. Die Gradienten innerhalb jeder Zelle werden in Bins sortiert, die verschiedene Richtungen repräsentieren, üblicherweise in 9 Bins, die Winkelbereiche von 0 bis 180 Grad abdecken. Jeder Bin enthält die Summe der Gradientenstärken, die in seine Richtung fallen, was eine robuste Darstellung der Orientierungsmuster innerhalb der Zelle ermöglicht.
+    
+    \item \textbf{Normierung}: Um die Beleuchtungsunterschiede zu kompensieren, werden die Histogramme in Blöcken normalisiert. Ein Block besteht aus mehreren benachbarten Zellen, typischerweise 2x2. Die Normierung erfolgt durch Berechnung der Quadratwurzel der Summe der quadrierten Bin-Werte, was eine gleichmäßige Darstellung der Merkmale ermöglicht, unabhängig von lokalen Beleuchtungsunterschieden.
+    
+    \item \textbf{Merkmalsvektor}: Die normalisierten Histogramme aller Blöcke werden zu einem einzigen Merkmalsvektor zusammengefügt, der das Bild repräsentiert. Dieser Merkmalsvektor ist hochdimensional und enthält eine detaillierte Beschreibung der Gradientenorientierungen im gesamten Bild. Er dient als Eingabe für maschinelle Lernalgorithmen, die darauf trainiert sind, Gesichter von Nicht-Gesichtern zu unterscheiden.
 \end{itemize}
-
-
-
-Dieser Merkmalsvektor dient als Eingabe für maschinelle Lernalgorithmen, die darauf trainiert sind, Gesichter von Nicht-Gesichtern zu unterscheiden. Der HOG-Algorithmus ist robust gegenüber Beleuchtungsänderungen und geometrischen Transformationen, da dieser nicht mit absoluten Werten sondern mit der Veränderung der Lichtintensität arbeitet und  daher eine höhere Genauigkeit als Haar-Cascades anbietet\cite{hog_quelle}.
 
 \begin{figure}[h!]
     \centering
@@ -104,16 +107,16 @@ Dieser Merkmalsvektor dient als Eingabe für maschinelle Lernalgorithmen, die da
     \cite{hoganalysis}
 \end{figure}
 
-\textbf{68-Facial-Landmarks}:Da die fehlerfreie Erkennung von verschiedenen Gesichtern eines meiner Hauptziele war nutzte ich zusätzlich zur Gesichtserkennung mit HOG das 68-Facial-Landmarks-Modell von Dlib, um präzise Merkmale innerhalb des erkannten Gesichts zu extrahieren. Diese Landmarks umfassen wichtige Gesichtspunkte wie Augen, Augenbrauen, Nase, Mund und Kieferlinie. Die genaue Platzierung dieser Landmarks ermöglicht eine detaillierte Analyse und weitere Verarbeitungsschritte, wie die Gesichtsausrichtung und -normalisierung.
+\textbf{68-Facial-Landmarks}:Da die fehlerfreie Erkennung von verschiedenen Gesichtern ein wichtiges Ziel war, wurde  zusätzlich zur Gesichtserkennung mit HOG das 68-Facial-Landmarks-Modell von Dlib verwendet, um präzise Merkmale innerhalb des erkannten Gesichts zu extrahieren. Diese Landmarks umfassen wichtige Gesichtspunkte wie Augen, Augenbrauen, Nase, Mund und Kieferlinie.
 
 \subsection{Implementierung und Herausforderungen}
 Die Implementierung von Dlib für die Gesichtserkennung begann mit der Integration der Bibliothek und dem Einbinden der vortrainierten Modelle für HOG und Facial Landmarks. Dies stellte sich jedoch als Herausforderung heraus, da Dlib zwei große Dateien (68-landmarks-modell: ~100MB; resnet-modell: ~21MB) benötigt, die die Modelle zur Gesichtserkennung und Merkmalsextraktion enthalten. Auf dem Raspberry Pi führte dies aufgrund des begrenzten RAMs von einem GB zu erheblichen Leistungsproblemen.
 
 \subsection{Verbesserung der Performance}
-Die initialen Implementierungen mit Dlib ergaben in qualifizierten Tests eine Performance von maximal einer Ausführung pro Sekunde. Um die Performance zu verbessern, implementierte ich verschiedene Techniken:
+Die initiale Implementierung mit Dlib ergab in qualifizierten Tests eine Performance von maximal einer Ausführung pro Sekunde. Um die Performance zu verbessern, wurden verschiedene Techniken implementiert:
 
 \begin{itemize}
-    \item \textbf{Reduzierung der Bildgröße}: Durch die Reduzierung der Bildgröße vor der Verarbeitung konnte die Berechnungszeit verringert werden.
+    \item \textbf{Reduzierung der Bildgröße}: Durch die Reduzierung der Bildgröße vor der Verarbeitung soll die Berechnungszeit verringert werden.
     \item \textbf{Frame Skipping}: Nicht jeder Frame wurde überprüft, um die Verarbeitungslast zu reduzieren.
     \item \textbf{Multithreading}: Implementierung von Multithreading zur gleichzeitigen Verarbeitung mehrerer Aufgaben.
 \end{itemize}
@@ -124,7 +127,7 @@ Trotz Implementierung all dieser Techniken konnte die Performance auf nur maxima
 \section{Feature Extraction und Matching}
 
 \subsection{Feature Extraction}
-Um zu überprüfen, ob ein Gesicht neu oder bereits im System bekannt ist, verwendete ich Dlib's Deep Metric Learning Ansatz. Dieser Ansatz dient der Feature Extraction und nutzt das ResNet-Modell von Dlib, das speziell für die Gesichtserkennung trainiert wurde.
+Um zu überprüfen, ob ein Gesicht neu oder bereits im System bekannt ist, wurde Dlib's Deep Metric Learning Ansatz verwendet. Dieser Ansatz dient der Feature Extraction und nutzt das ResNet-Modell von Dlib, das speziell für die Gesichtserkennung trainiert wurde.
 
 \textbf{Vorgehensweise}:
 \begin{itemize}
@@ -145,47 +148,39 @@ Um zu überprüfen, ob ein Gesicht neu oder bereits im System bekannt ist, verwe
 Die erstellten Embeddings werden zur Identifikation von Personen genutzt, indem sie mit bereits gespeicherten Embeddings verglichen werden. 
 
 \textbf{Vergleichsmethode}:
-Zur Identifikation wird der euklidische Abstand zwischen den Embeddings berechnet. Der euklidische Abstand ist eine Maßzahl für die Distanz zwischen zwei Punkten in einem n-dimensionalen Raum, die durch die Wurzel der Summe der quadrierten Differenzen ihrer Koordinaten berechnet wird. Wenn der Abstand gering ist (unter einem bestimmten Schwellenwert, z.B. 0.6), wird angenommen, dass es sich um dieselbe Person handelt. Der Schwellenwert von 0,6 wurde durch eine Reihe von Tests empirisch bestimmt, um eine Balance zwischen False Positives und False Negatives zu erreichen, was eine zuverlässige Unterscheidung zwischen verschiedenen Personen ermöglicht.
-
-Die Kombination aus der genauen Landmark-Detektion und der robusten Feature Extraction durch das ResNet-Modell führte zu einer erheblichen Verbesserung der Erkennungsgenauigkeit. Die resultierenden Gesichtsembeddings sind stabil und konsistent, was die Grundlage für eine zuverlässige Gesichtserkennung und -identifikation bildet.
+Zur Identifikation wird der euklidische Abstand zwischen den Embeddings berechnet. Der euklidische Abstand ist eine Maßzahl für die Distanz zwischen zwei Punkten in einem n-dimensionalen Raum, die durch die Wurzel der Summe der quadrierten Differenzen ihrer Koordinaten berechnet wird. Wenn der Abstand gering ist (unter einem bestimmten Schwellenwert, z.B. 0.6), wird angenommen, dass es sich um dieselbe Person handelt. Der Schwellenwert von 0,6 wurde durch eine Reihe von Tests empirisch bestimmt, um eine Balance zwischen False Positives und False Negatives zu erreichen, was eine zuverlässige Unterscheidung zwischen verschiedenen Personen ermöglichen soll.
 
 \section{Speichern und Verwalten der Profile}
 
-An diesem Zeitpunkt im Projekt war der Kern der Gesichtserkennung, also das Erkennen eines Gesichts, das Erstellen eines Face Embeddings und die Logik für das Matching mit bereits erkannten Gesichtern fertiggestellt. Es folgte also nun die Integration in unser bestehendes System. Die Kommunikation mit dem Display-Webserver lief reibungslos, da dieser auf dem gleichen Gerät gehostet wird und somit nur der Ablagepfad der Profildaten geändert werden musste. Ein größeres Problem war jedoch die Kommunikation mit der Remote-App. Da diese ebenfalls Änderungen an den Profilen vornehmen kann, mussten wir sicherstellen, dass die Profile samt Einstellungen auf beiden Seiten synchron sind, um Informationsverlust oder Schlimmeres zu verhindern. Dafür gab es einige Besprechungen mit dem Entwickler der App, David Vollmer. Wir einigten uns auf ein genormtes Format der Profildatenspeicherung (profiles.json), welche dann über einen Websocket vom Spiegel an die Remote und vice versa gesendet werden kann.
+An diesem Zeitpunkt im Projekt war der Kern der Gesichtserkennung, also das Erkennen eines Gesichts, das Erstellen eines Face Embeddings und die Logik für den Vergleich mit bereits erkannten Gesichtern fertiggestellt. Es folgte also nun die Integration in unser bestehendes System. Die Kommunikation mit dem Display-Webserver lief reibungslos, da dieser auf dem gleichen Gerät gehostet wird und somit nur der Ablagepfad der Profildaten geändert werden musste. Ein größeres Problem war jedoch die Kommunikation mit der Remote-App. Da diese ebenfalls Änderungen an den Profilen vornehmen kann, mussten wir sicherstellen, dass die Profile samt Einstellungen auf beiden Seiten synchron sind, um Informationsverlust oder Schlimmeres zu verhindern. Dafür gab es einige Besprechungen mit dem Entwickler der App, David Vollmer. Wir einigten uns auf ein genormtes Format der Profildatenspeicherung (profiles.json), welches dann über einen Websocket vom Spiegel an die Remote und vice versa gesendet werden kann.
 \subsection{Speichern der Profile}
- Wenn ein neues Gesichtsembedding erkannt wird, wird ein neues Profil mit Standardwerten in der JSON-Datei erstellt. Diese Datei enthält die Informationen darüber, welche Profile existieren, welches Profil gerade aktiv ist und für jedes Profil welche Widgets (IDs) an welcher Stelle (index) angezeigt werden sollen. Wird ein Gesichtsembedding wiedererkannt, wird jediglich das dazugehörige 'isSelected' Flag gesetzt und das vorherige gecleared.
+ Wenn ein unbekanntes Gesichtsembedding identifiziert wird, wird ein neues Profil mit Standardwerten in der JSON-Datei erstellt. Diese Datei enthält die Informationen darüber, welche Profile existieren, welches Profil gerade aktiv ist und für jedes Profil, welche Widgets (IDs) an welcher Stelle (index) angezeigt werden sollen. Wird ein Gesichtsembedding wiedererkannt, wird jediglich das dazugehörige 'isSelected' Flag gesetzt und das vorherige gecleared.
 
 
 \subsection{Verbindung zum Websocket}
-Zur Synchronisation der Profile mit einer Android-Remote wurde eine Websocket-Verbindung implementiert. Diese Verbindung ermöglicht die Echtzeitsynchronisation von Profiländerungen zwischen dem Smart Mirror und der Android-App.
+Um die Profile mit der Android-Remote zu synchronisieren wurde eine Websocket-Verbindung implementiert. Diese Verbindung ermöglicht die Echtzeitsynchronisation von Profiländerungen zwischen dem Smart Mirror und der Android-App.
 
 \textbf{Vorgehensweise}:
 \begin{itemize}
-    \item \textbf{Websocket-Listener}: Sowohl die Remote-App als auch der Smart Mirror haben jeweils einen Listener am Websocket, um Nachrichten zu empfangen und zu senden.
+    \item \textbf{Websocket-Listener}: Sowohl die Remote-App als auch der Smart Mirror haben jeweils einen Listener am Websocket, um Nachrichten zu empfangen.
     
-    \item \textbf{Synchronisation beim App-Start}: Beim Starten der Android-App sendet sie einen "fetch"-Befehl über den Websocket, um sicherzustellen, dass sie sofort mit den aktuellen Profildaten synchronisiert ist. Der Smart Mirror antwortet daraufhin mit der aktuellen profiles.json-Datei.
+    \item \textbf{Synchronisation beim App-Start}: Beim Starten der Android-App sendet sie einen 'fetch'-Befehl über den Websocket, um sicherzustellen, dass sie sofort mit den aktuellen Profildaten synchronisiert wird. Der Smart Mirror antwortet daraufhin mit der aktuellen profiles.json-Datei.
 
-    \item \textbf{Automatische Updates bei Profiländerungen}: Die komplette profiles.json wird jedes Mal von dem Spiegel an den Websocket gesendet, wenn:
+    \item \textbf{Automatische Updates bei Profiländerungen}: Die profiles.json wird jedes Mal von dem Spiegel an den Websocket gesendet, wenn:
     \begin{itemize}
-        \item Ein neues Profil angelegt wurde (das neue Profil erhält automatisch das "isSelected"-Flag).
-        \item Ein neues, aber bereits bekanntes Gesicht erkannt wird und das "isSelected"-Flag entsprechend gesetzt wurde.
+        \item Ein neues Profil angelegt wurde (das neue Profil erhält automatisch das 'isSelected'-Flag).
+        \item Ein neues, aber bereits bekanntes Gesicht erkannt wird und das 'isSelected'-Flag entsprechend gesetzt wurde.
     \end{itemize}
 
-    \item \textbf{Updates von der Remote-App}: Wenn die Remote-App eine Änderung an einem Profil vornimmt, sendet sie die komplette profiles.json an den Websocket. Der Smart Mirror empfängt diese Nachricht und ersetzt die bestehende profiles.json mit den neuen Daten.
+    \item \textbf{Updates von der Remote-App}: Wenn die Remote-App eine Änderung an einem Profil vornimmt, sendet sie die profiles.json an den Websocket. Der Smart Mirror empfängt diese Nachricht und ersetzt die bestehende profiles.json mit den neuen Daten.
 \end{itemize}
 
 \section{Schlussfolgerung}
 
-\subsection{Zusammenfassung}
-Im Verlauf dieses Projekts habe ich eine fortschrittliche Gesichtserkennungslösung für einen Smart Mirror entwickelt. Der Übergang von herkömmlichen Haar-Cascades zu modernen Methoden wie Dlib und HOG führte zu einer signifikanten Verbesserung der Erkennungsgenauigkeit. Trotz der Performance-Probleme konnte eine zufriedenstellende Verarbeitungsgeschwindigkeit erreicht werden.
-
-Ein wichtiger Teil des Projekts war die Speicherung und Verwaltung der Profildaten sowie die Synchronisation mit einer Android-Remote-App über eine Websocket-Verbindung. Die Trennung der Face Embeddings von der profiles.json-Datei und die Implementierung eines robusten Synchronisationsmechanismus stellten sicher, dass die Daten auf beiden Seiten konsistent und aktuell blieben.
-
-Insgesamt konnte ich ein zuverlässiges und genaues System zur Gesichtserkennung und Profilverwaltung implementieren.
 
 
 \subsection{Ausblick}
-Die Entwicklung der Gesichtserkennungslösung hat eine solide Grundlage geschaffen, auf der zukünftige Erweiterungen und Verbesserungen aufbauen können. Obwohl einige vielversprechende Ideen aufgrund der  Stabilität des Systems nicht umgesetzt wurden, bieten sie spannende Möglichkeiten für zukünftige Arbeiten.
+Die Entwicklung der Gesichtserkennungslösung hat eine solide Grundlage geschaffen, auf der zukünftige Erweiterungen und Verbesserungen aufbauen können. Obwohl einige vielversprechende Ideen aufgrund der Stabilität des Systems nicht umgesetzt wurden, bieten sie spannende Möglichkeiten für zukünftige Arbeiten.
 
 \begin{itemize}
     \item \textbf{Age- und Gender-Classifier}: Die Dlib-Bibliothek bietet auch Age- und Gender-Classifier, die in Zusammenarbeit mit dem Widget-Team als eigenständiges Widget hätten angeboten werden können. Lokale Tests hatten dazu bereits funktioniert, und eine vollständige Implementierung könnte die Personalisierung des Smart Mirrors weiter verbessern.
@@ -194,9 +189,14 @@ Die Entwicklung der Gesichtserkennungslösung hat eine solide Grundlage geschaff
     
     \item \textbf{Flusskontrolle}: Eine weitere wichtige Verbesserung wäre die Einführung einer Flusskontrolle. Derzeit senden Spiegel und App Änderungen sofort, wenn bestimmte Ereignisse auftreten. Dies kann zu Konflikten und inkonsistenten Daten führen, wenn beide Seiten gleichzeitig senden. Eine Flusskontrolle könnte sicherstellen, dass nur eine Seite senden kann, während die andere Seite blockiert ist. Gesendete Änderungen während der Blockierphase würden in einem Puffer gespeichert und nach der Blockierung sofort gesendet.
     
-    \item \textbf{Optimierung des Schwellenwerts}: Mit mehr Zeit hätte man intensivere Tests zur Einstellung des Schwellenwerts des euklidischen Abstands durchgeführt, um Fehler wie bei der Produktpräsentation zu vermeiden. Ein genauer kalibrierter Schwellenwert könnte die Erkennungsgenauigkeit weiter verbessern und sicherstellen, dass neue Gesichter nicht fälschlicherweise als bekannte Profile erkannt werden.
+    \item \textbf{Optimierung des Schwellenwerts}: Mit mehr Zeit hätten intensivere Tests zur Einstellung des euklidischen Abstands durchgeführt werden können, um Fehler wie bei der Produktpräsentation zu vermeiden. Ein genauer kalibrierter Schwellenwert könnte die Erkennungsgenauigkeit weiter verbessern und sicherstellen, dass neue Gesichter nicht fälschlicherweise als bekannte Profile erkannt werden.
     
     \item \textbf{Datenbanksynchronisation}: Wenn wir vorher gewusst hätten, wie aufwändig die Synchronisation der Profile sein würde, hätten wir definitiv eine Datenbank verwendet , die die Synchronisation eigenständig durchführt. Eine Datenbank könnte viele der aktuellen Herausforderungen bei der Datenkonsistenz und -synchronisation lösen.
 \end{itemize}
 
-Die Umsetzung dieser Verbesserungen und Erweiterungen könnte die Funktionalität und Benutzerfreundlichkeit des Smart Mirrors erheblich steigern und bietet interessante Ansätze für zukünftige Projekte.
+\subsection{Zusammenfassung}
+Im Verlauf dieses Projekts wurde eine fortschrittliche Gesichtserkennungslösung für einen Smart Mirror entwickelt. Der Übergang von herkömmlichen Haar-Cascades zu modernen Methoden wie Dlib und HOG führte zu einer signifikanten Verbesserung der Erkennungsgenauigkeit. Trotz der Performance-Probleme konnte eine zufriedenstellende Verarbeitungsgeschwindigkeit erreicht werden.
+
+Ein wichtiger Teil des Projekts war die Speicherung und Verwaltung der Profildaten sowie die Synchronisation mit einer Android-Remote-App über eine Websocket-Verbindung. Die Trennung der Face Embeddings von der profiles.json-Datei und die Implementierung eines robusten Synchronisationsmechanismus stellten sicher, dass die Daten auf beiden Seiten konsistent und aktuell blieben.
+
+Insgesamt konnte eine zuverlässige Gesichtserkennung und Profilverwaltung implementiert werden.
