@@ -1,12 +1,31 @@
 \chapter{Display}
 
-In diesem Kapitel gehen wir auf das Display ein, das im \textbf{Spiegel AI} Projekt verwendet wird. Wir beschreiben die Spezifikationen, die Installation und die Anpassungen, die vorgenommen wurden.
+In diesem Kapitel gehen wir auf das Display ein, das im \textbf{Spiegel AI} Projekt verwendet wird. Wir beschreiben den Display Aufbau,  die Widgets und die Testverfahren.
 
-\section{Anordnung}
-HTML Anordnung
+\section{Display Aufbau}
+Erarbeitet von: Leon Kranner \\ \\
+
+\noindent
+Für das Display unseres Smart Mirrors haben wir verschiedene Technologien und Tools verwendet, um eine benutzerfreundliche und flexible Benutzeroberfläche zu gestalten. Die Logik der Widgets und deren Kommunikation mit der App wurden in JavaScript implementiert. HTML wurde für das Displaydesign und CSS für die Gestaltung der Widgets verwendet. Unsere Entwicklungsumgebung war Visual Studio Code. \\
+
+\noindent
+Der Displayaufbau folgt einem 3x3-Raster, wobei das mittlere Feld frei bleibt, um eine klare Spiegelreflexion zu ermöglichen. Die umgebenden Felder enthalten verschiedene Widgets. Aktuell stehen acht Widgets zur Auswahl, die dynamisch angeordnet werden können. Das bedeutet, dass der Benutzer die Widgets nach Belieben anordnen oder deaktivieren kann. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{pictures/display.png}
+  \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption[Display Layout]{Display Layout\\ Quelle: eigene Darstellung}
+\end{figure}
+
+\noindent
+Beim Erstellen des Layouts für den Display kam es zu Komplikationen. Bei den ersten Versuchen, ein 3x3 Raster zu erstellen, waren die einzelnen Felder dynamisch. Wenn das Displayteam also neue Widgets hinzugefügt hat, hat sich das jeweilige Feld an die Größe des Widgets angepasst. Dies ist natürlich nicht gewollt, denn die Felder sollten am besten eine statische Größe haben. Um dieses Problem zu lösen, haben wir die Felder mithilfe von CSS statisch gemacht. Dadurch konnten wir sicherstellen, dass alle Felder die gleiche Größe behalten, unabhängig von der Größe der Widgets, die sie enthalten. \\
+ Ein weiteres Problem war, dass einige Widgets an den Rändern abgeschnitten wurden, weil der Bildschirm größer war als der sichtbare Bereich des Rahmens. Um sicherzustellen, dass alle Widgets vollständig sichtbar sind, haben wir einen kleinen Abstand um alle Widgets herum eingebaut. Dadurch konnten wir garantieren, dass alle Widgets im Spiegel perfekt dargestellt werden.
 
 \section{Widgets}
-Erläutern Sie den Prozess der Installation des Displays.
+In diesem Abschnitt wird auf die einzelnen Widgets genauer eingegangen und zudem erläutert, wie und wann die einzelnen Widgets aktualisiert werden.
+
+
 
 \subsection{Widgets Aktualisierung}
 Erarbeitet von: Leon Kranner \\ \\
@@ -35,6 +54,8 @@ Alle Widgets müssen in regelmäßiger Zeit aktualisiert werden. Wie regelmäßi
  \item \textbf{Verkehrsinformationen:}
     Alle 5 Minuten
 \end{enumerate}
+
+\newpage
 
 \subsection{Termine Widget}
 Erarbeitet von: Leon Kranner \\ \\
@@ -133,6 +154,7 @@ Die Funktion \texttt{createCalendarWidget()} führt folgende Schritte aus:
 \noindent
 Das Kalender-Widget bietet eine einfache und effektive Lösung zur Anzeige der aktuellen und kommenden Monatskalender. Es lässt sich leicht in den Smart Mirror integrieren und an individuelle Bedürfnisse anpassen. Die Hervorhebung des aktuellen Tages erleichtert die Orientierung im Kalender.
 
+\newpage
 
 \subsection{Wettervorhersage Widget}
 Erarbeitet von: Leon Kranner \\ \\
@@ -248,6 +270,7 @@ Die Anwendung nutzt zwei Eventlistener:
 \noindent
 Das Notizen-Widget bietet eine einfache und effektive Lösung zur Erstellung und Speicherung von Notizen im lokalen Speicher des Browsers. Es lässt sich leicht in bestehende Webseiten integrieren und an individuelle Bedürfnisse anpassen. Die Nutzung des lokalen Speichers ermöglicht eine persistente Speicherung der Notizen, auch nach dem Schließen des Browsers.
 
+\newpage
 
 \subsection{Uhrzeit Widget}
 Erarbeitet von: Marcel Wagner \\ \\
@@ -299,7 +322,7 @@ Ein bedeutendes Potenzial für eine Weiterentwicklung des Verkehrs Widgets liegt
 Erarbeitet von: Marcel Wagner \\ \\
 \noindent
 Die Implementierung des Nachrichten Widgets für den Smart Mirror stellt einen wichtigen Schritt dar, um den Nutzern eine aktuelle und relevante Informationsquelle direkt auf seinem Smart Mirror zur Verfügung zu stellen. Das Widget wurde in JavaScript entwickelt und verwendet die 'RSS2JSON-API', um die neuesten Nachrichtenartikel eines ausgewählten RSS Feeds abzurufen und auf dem Smart Mirror anzuzeigen. Dies ermöglicht eine dynamische und automatische Aktualisierung der Nachrichteninhalte, sobald der Nutzer den Spiegel nutzt. In der nachfolgenden Abbildung kann das Funktionierende Widget entnommen werden.\\ \\
-\clearpage
+
 \noindent
 \begin{figure}[h]
     \centering
@@ -344,6 +367,8 @@ Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet.
 
 \subsection*{Potenzielle Erweiterung}
 Ein bedeutendes Potenzial für die Weiterentwicklung des Tankstellen-Widgets liegt in der dynamischen Anpassung der Widget Inhalte basierend auf Eingaben vom Smartphone der Nutzer. Diese Erweiterung würde eine noch individuellere und nutzerzentrierte Erfahrung ermöglichen, indem sowohl der bevorzugte Kraftstofftyp als auch der Standort der Nutzer flexibel konfiguriert werden können.
+
+\newpage
 
 \section{Test Verfahren}
 Erarbeitet von: Leon Kranner und Marcel Wagner \\ \\
