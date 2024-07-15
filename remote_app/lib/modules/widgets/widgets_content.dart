@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remote_app/modules/profile/profile.dart';
 import 'package:remote_app/shared/drawer.dart';
-import 'package:remote_app/services/profile_service.dart'; // Import your profile service
+import 'package:remote_app/services/profile_service.dart';
 
 class WidgetsContent extends StatefulWidget {
   const WidgetsContent({super.key});
@@ -25,8 +25,7 @@ class WidgetsContent extends StatefulWidget {
 
 class WidgetsContentState extends State<WidgetsContent> {
   List<Profile> profiles = [];
-  final ProfileService _profileService =
-      ProfileService(); // Initialize profile service
+  final ProfileService _profileService = ProfileService();
   List<bool> widgetSelected =
       List.filled(WidgetsContent.widgetNames.length, false);
   String _selectedProfileTitle = 'Widgets';
@@ -81,7 +80,7 @@ class WidgetsContentState extends State<WidgetsContent> {
       final selectedProfile = profiles.firstWhere(
           (profile) => profile.isSelected,
           orElse: () => Profile(id: '', name: ''));
-      // Don't allow slider to be used if no profile selected.
+      // Don't allow toggle to be used if no profile selected.
       if (selectedProfile.name.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
