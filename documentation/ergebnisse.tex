@@ -22,3 +22,19 @@ Die Herausforderungen, denen sich das Team während der Entwicklung des Projekts
 
 \subsection{Zukünftige Arbeiten}
 Für zukünftige Arbeiten und mögliche Erweiterungen des Projekts verweisen wir ebenfalls auf die detaillierten Ausführungen in den Dokumentationen der einzelnen Projektteilnehmer.
+
+\subsection{Betriebssetzung}
+Zum Verwenden des Spiegel AIs sind einige Schritte notwendig. Zuerst benötigen Sie eine Kamera und einen WLAN-Stick, da diese Komponenten Eigentum der Projektteilnehmer waren, welche sie wieder mitnahmen. Beim Verwenden eines WLAN-Sticks ist noch zu beachten, dass gegebenenfalls Treiber installiert werden müssen. Nachdem die Hardware bereit ist, sind die folgenden Schritte zur Betriebssetzung des Smart Mirrors nötig:
+\begin{enumerate}
+	\item Schließen Sie alle über USB zu verbindenden Komponenten, inklusive Tastatur und Maus, am Raspberry Pi an.
+	\item Schalten Sie den Raspberry Pi ein.
+	\item Öffnen Sie ein Terminal-Fenster und navigieren Sie zu \verb|~/Mirror/dt-g5/|.
+	\item Öffnen Sie zwei neue Tabs.
+	\item Navigieren Sie im ersten Tab zu \verb|~/Mirror/dt-g5/websocket_server| und starten Sie den Websocket mit \texttt{python websocket.py}.
+	\item Navigieren Sie im zweiten Tab zu \verb|~/Mirror/dt-g5/Display| und starten Sie einen HTTP-Server mit \texttt{python -m http.server 8001}.
+	\item Navigieren Sie im dritten Tab zu \\ \verb|~/Mirror/dt-g5/facialRec/facialRecReadability/mitWebsocket| und starten Sie die Gesichtserkennung mit \texttt{python main.py}
+	\item Öffnen Sie den Chromium Browser und rufen Sie \texttt{http://localhost:8001} auf.
+	\item Eventuell müssen Sie hier den Cache bereinigen, falls die Anzeige sich nicht ändert.
+	\item Installieren Sie die Android-APK auf einem Smartphone. Sie ist im GitLab-Repository im Verzeichnis \texttt{remote\_app} hinterlegt.
+	\item Starten Sie die Applikation auf dem Smartphone.
+\end{enumerate}

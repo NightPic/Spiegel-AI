@@ -1,17 +1,26 @@
-\chapter{Schnittstelle}
+\chapter{Schnittstellen}
+\textit{Erarbeitet von David Vollmer} \\
+In diesem Kapitel werden die Schnittstellen des \textbf{Spiegel AI} Projekts beschrieben. Im Verlauf der Entwicklung gab es mehrere Iterationen, welche das Handling der Kommunikation änderten.
 
-In diesem Kapitel wird die Schnittstelle des \textbf{Spiegel AI} Projekts beschrieben. Wir erläutern die verschiedenen Schnittstellen, die verwendet werden, sowie deren Implementierung und Nutzung.
+\section{Websocket zwischen Remote App und Display}
+Die erste Version war die Kommunikationsschnittstelle zwischen dem Spiegel AI Remote und der Anzeige des Spiegel AI. Sie wurde vor der Realisierung von Profilen implementiert. Dieser Schritt diente vor allem zum praktischen Test, ob Websockets sinnvoll anzuwenden sind und ob der Datentransfer problemlos funktioniert. Um eine Verbindung mit einem Websocket-Server aufzubauen, musste ich diesen zuerst implementieren. Dafür schrieb ich eine \texttt{websocket.py}, welche für die IP-Adresse des Hosts am Port 8000 Nachrichten empfängt. Da wir hier eine State-Änderung empfangen sollten, prüften wir zunächst, ob die Nachricht in einen JSON-Format konvertiert werden konnte. Falls dies erfolgreich war, wurden die empfangenen Daten als String an alle am Websocket verbundenen Clients versendet. Um zu testen, ob die Implementierung auch funktionierte, verwendete ich das Kommandozeilen-Tool wscat, welches erlaubt, sich in kurzer Zeit mit einem Websocket-Server zu verbinden und Nachrichten zu versenden. Nachdem die Funktionalität bestätigt wurde, schrieb ich den \texttt{WebsocketManager}, welche für das Verwalten des Websockets in der Remote App zuständig war. Da zu dem Zeitpunkt noch keine zu empfangenden Nachrichten erwartet waren, wurden hier nur die Websocket-Verbindung und das Senden der State-Änderungen realisiert. Bei jeder Änderung, welche in der Remote View stattfand, wurde eine \texttt{action} gesendet. Für die \texttt{action} gab es die Werte \texttt{swap} und \texttt{enable}. Bei \texttt{swap} wurden die \texttt{index} der zwei getauschten Widgets mitgesendet. In der \texttt{enable}-Aktion war nur der \texttt{index} des ein- oder auszublendenden Widgets angegeben. Damit diese Nachricht in der Anzeige-App ankommt, schrieb ich einen kleinen Websocket-Handler, welcher die Verbindung mit dem Websocket-Server aufbaut und auf neue Nachrichten wartet. Wird eine Nachricht empfangen, so wird diese an eine ältere Iteration der \texttt{updateState()}-Funktion weitergegeben, in der die Bildschirmanzeige entsprechen angepasst wird. \\
+Bei der Implementierung des Websockets gab es viele kleine Probleme. Eins, das heraussticht ist der Versuch, einen Secure Websocket zu realisieren. Hierbei erstellte ich ein sogenanntes self-signed certificate, welches zur Verschlüsselung der Kommunikation diente. Das Senden der Daten mit der Remote App lief hierbei tatsächlich problemlos, jedoch erlaubte der Chromium Browser, der als Web Browser am Raspberry Pi verwendet wird, keine Nachrichten mit selbstsignierten Zertifikaten zu empfangen. Da ich keine Möglichkeit hatte, ein Zertifikat einer \enquote{Certificate Authority} zu besorgen, entschloss ich mich dazu, die Kommunikation unverschlüsselt zu lassen.
 
-\section{Überblick}
-Geben Sie einen Überblick über die verwendeten Schnittstellen.
+\section{Senden und Empfangen von Profilen}
+Der nächste Schritt der Schnittstellenimplementierung war es, gespeicherte Profile zu senden und zu empfangen. Das war erst möglich, nachdem die Profilverwaltung, insbesondere das Speichern der Profile, in der Remote App abgeschlossen war. Hier wurde das Senden von Nachrichten so angepasst, dass bei jeder Änderung der Profile die Nachrichten geliefert werden und nicht nur bei der Änderung des States. Der Inhalt der Nachricht war diesmal die Liste der Profile als String. Dafür mussten auch der Server und die Display-App angepasst werden. Dies führte auch zur aktuellen Implementierung der \texttt{updateState()}-Funktion.
 
-\section{Implementierung}
-Beschreiben Sie die Implementierung der Schnittstellen.
+\section{Synchronisation der Profile}
+\textit{Erarbeitet von Marco Kuner und David Vollmer} \\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pictures/websocket_diagram.png}
+    \captionsetup{justification=centering, labelformat=simple, singlelinecheck=false}
+    \caption{Darstellung der aktuellen Schnittstellen}
+    \label{fig:websocket_diagram}
+\end{figure} \\
+Die finale Version der Schnittstellen wurde nach korrekter Profilverwaltung der Gesichtserkennung realisiert. Das Ziel war hier, die Websocket-Kommunikation zur Synchronisation der Profile zu nutzen, sodass das Display nicht mehr mit dem Server verbunden wird, sondern die Daten aus der lokalen \texttt{profiles.json}-Datei geladen werden. Um zu verstehen, wie eine Synchronisation erfolgreich implementiert werden kann, müssen einige Dinge berücksichtigt werden. Die Gesichtserkennung läuft dauerhaft und ist permanent mit dem Websocket verbunden. Die Remote App läuft auf einem Smartphone, welches die Verbindung beim Öffnen der App aufbaut, jedoch auch wieder trennt, wenn sie im Hintergrund läuft oder geschlossen wird. Das heißt, dass Änderungen des Profils am Spiegel AI stattfinden können, während die Remote App noch alte Profildaten enthält. Aus diesem Grund sendet die Spiegel AI Remote eine \texttt{fetch}-Nachricht an den Server, sobald eine Verbindung aufgebaut wird. Diese Nachricht wird von der Gesichtserkennung aufgenommen und löst das Senden der aktuellen Profile des Smart Mirrors aus. Somit läuft man nicht in Gefahr, dass die alten Profildaten im Smartphone die aktuellen Daten des Spiegels überschreiben. Eine weitere Änderung im Vergleich zur vorherigen Iteration war das Angeben eines \texttt{sender}. Diese stellt sicher, dass nur Nachrichten, welche nicht die eigens gesendeten sind, verarbeitet werden.
 
-\section{Nutzung}
-Erläutern Sie, wie die Schnittstellen genutzt werden.
-
-\subsection{Dynamische Widget Anordnung}
+\section{Dynamische Widget Anordnung}
 Erarbeitet von: Marcel Wagner \\ \\
 Die Entwicklung eines Smart Mirrors mit dynamisch anpassbarer Display Anordnung stellt eine technische Herausforderung dar. Das Ziel dieses Bereiches war es, eine benutzerfreundliche und flexible Oberfläche zu schaffen, die sich den individuellen Präferenzen der Benutzer anpasst. Dieser Abschnitt beschreibt ausführlich die Methodik der Implementierung der dynamischen Display Anordnung sowie die dabei aufgetretenen Probleme und deren Lösungen. \\ \\
 Ein essenzieller Bestandteil des Systems war die kontinuierliche Überwachung der 'profiles.json' Datei. Diese Datei wird von der Gesichtserkennung erstellt. Auf diesen Bereich wurde im vorherigen Kapitel bereits eingegangen. Hierzu wurde ein periodischer Abrufmechanismus implementiert, der alle 200 Millisekunden die Datei abfragt. Bei jeder Abfrage wurde der aktuelle Inhalt der Datei mit dem vorherigen Zustand verglichen, um Änderungen zu erkennen. Diese Methode stellte sicher, dass Anpassungen in den Benutzerprofilen zeitnah detektiert und umgesetzt wurden. \\ \\
