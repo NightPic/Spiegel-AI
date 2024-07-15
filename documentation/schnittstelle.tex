@@ -1,5 +1,5 @@
 \chapter{Schnittstellen}
-\textit{Erarbeitet von David Vollmer} \\
+\textit{Erarbeitet von David Vollmer.} \\
 In diesem Kapitel werden die Schnittstellen des \textbf{Spiegel AI} Projekts beschrieben. Im Verlauf der Entwicklung gab es mehrere Iterationen, welche das Handling der Kommunikation änderten.
 
 \section{Websocket zwischen Remote App und Display}
@@ -10,7 +10,7 @@ Bei der Implementierung des Websockets gab es viele kleine Probleme. Eins, das h
 Der nächste Schritt der Schnittstellenimplementierung war es, gespeicherte Profile zu senden und empfangen. Das war erst möglich, nachdem die Profilverwaltung, insbesondere das Speichern der Profile, in der Remote App abgeschlossen war. Hier wurde das Senden von Nachrichten so angepasst, dass bei jeder Änderung der Profile die Nachrichten geliefert werden und nicht nur bei der Änderung des States. Der Inhalt der Nachricht war diesmal die Liste der Profile als String. Dafür mussten auch der Server und die Display-App angepasst werden. Dies führte auch zur aktuellen Implementierung der \texttt{updateState()}-Funktion.
 
 \section{Synchronisation der Profile}
-\textit{Erarbeitet von Marco Kuner und David Vollmer} \\
+\textit{Erarbeitet von Marco Kuner und David Vollmer.} \\
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{pictures/websocket_diagram.png}
