@@ -14,6 +14,8 @@
 \usepackage{wrapfig}
 \usepackage{textcomp}
 \usepackage{csquotes}
+\usepackage{subcaption}
+\usepackage{float}
 
 \usepackage[backend=biber,style=ieee]{biblatex}
 \addbibresource{literaturverzeichnis.bib}
@@ -66,9 +68,9 @@
 
 \input{einleitung}
 
-\input{rahmen}
-
 \input{hardware}
+
+\input{rahmen}
 
 \input{display}
 
@@ -103,54 +105,96 @@
 \hline
 \endlastfoot
 
-12 & 3 & Einführungfsveranstaltung \\
+12 & 3 & Einführungsveranstaltung \\
+     & 3 Requirements + Materialliste \\
 \hline
 13 & 3 & GANNT Diagramm \\
-   & 3 & Teambesprechung \\
+   & 2 & Teambesprechung \\
 \hline
 14 & 2 & Planung mit Hardware-Team \\
    & 2 & Teambesprechung \\
+   & 1 & Requirements überarbeiten \\
+   & 3 & Planung Produkterstellung \\
 \hline
 15 & 3 & Postererstellung und Hw \\
-   & 1 & Displaymessung + postervorstellung \\
+   & 2 & Displaymessung + Postervorstellung \\
    & 2 & Teambesprechung \\
+   & 1 & Baumarkt \\
+   & 2 & Besprechung Spiegelrahmen \\
 \hline
 16 & 4 & Display-Projekt aufsetzen \\
-   & 2 & Baumarkt Materialien erkunden \\
+    & 2 & Baumarkt Materialien erkunden \\
+    & 2 & Planung/Besprechung Bilderrahmen \\
+    & 2 & Teambesprechung \\ 
 \hline
 17 & 2 & Umstrukturierung des Display-Projekts \\
    & 2 & Neues Widget erstellen \\
+    & 3 & Projektbesprechung und weitere Programmierung \\
+    & 2 & Teambesprechung \\
 \hline
 18 & 6 & Weitere Widgets und Änderungen an alten Widget \\
+     & 2 & Bugfixing beim Kalender \\
+     & 4 & Holz auf Maß schneiden und hobeln \\
+     & 3 & Vorbohren und Bilderrahmen zurechtlegen \\ 
 \hline
 19 & 3 & Einkerbungen fräsen \\
-   & 1 & MDF Platte auf Maß schneiden \\
+    & 1 & MDF Platte auf Maß schneiden \\
+    & 1 & Zwischenstücke vorne anschrauben \\
+    & 1 &  Teambesprechung \\
+    & 2 & Holz zusammenleimen und trocknen lassen \\
 \hline
 20 & 2 & Teambesprechung \\
-   & 1 & Umstrukturierung des Stundenplans \\
+    & 1 & Umstrukturierung des Stundenplans \\
 \hline
 21 & 2 & Teambesprechung \\
+     & 1 & Plexiglas auf Maß schneiden \\
 \hline
 22 & 2 & Teambesprechung \\
+     & 7 & Display dynamisch gestalten + Automatische Aktualisierung der Widgets \\
 \hline
 23 & 2 & Automatische Aktualisierung der Widgets \\
+     & 2 & Teambesprechung \\
 \hline
 24 & 2 & Teambesprechung \\
    & 2 & Besprechung Schnittstellen \\
+    & 2 & Bugfixing Kalender Widget (Anzeigen des aktuellen Tages) \\
 \hline
 25 & 2 & Teambesprechung \\
    & 1 & Plexiglas überarbeiten \\
+   & 2 & Löcher bohren und Plexiglas festschrauben \\
+   & 1 & Spiegelfolie aufbringen und Kabel-Loch bohren \\
+   & 3 & Fine tuning für Display (Anpassung Widget: Größe, Formatierung, Anordnung, etc.) \\
+   & 3 & Aufbau und Testen des Displays \\
 \hline
 26 & 2 & Teambesprechung \\
+     & 1 & Fehler korrigieren am Spiegel \\
    & 3 & Austausch der Spiegel Folie, Aufbau der Spiegels, Hardware installieren \\
    & 1 & Testen des Displays mit Aufgebauten Spiegels \\
+   & 1 & Besprechung Präsentation \\
+   & 2 & Vorbereitung Präsentation Bilder und Aufbau \\
+   & 2 & Raspberry Pi Gesichtserkennung testen \\
+   & 1 & Anpassung des Kalenders: Monate nebeneinander anzeigen statt untereinander \\
+   & 1 & Anpassung der Wettervorhersage: nur 3 Tage und nicht untereinander \\
 \hline
-27 & 2 & Powerpoint erstellung \\
-   & 3 & HMTL neu anordnen auf Basis von Json Datei \\
-   & 2 & Besprechung profiles sync \\
+27 & 2 &  Powerpoint vorbereiten \\
+     & 1 & Text für Präsentation vorbereiten \\
+     & 1 & Vorbereitung Präsentation \\
+     & 3 & Final Version von Projekt auf Raspberry spielen + Testen aller Funktionen \\
+     & 2 & Teambesprechung \\
+     & 1 & Stundenliste in Dokumentation eintragen \\
+     & 2 & Informieren über Mögliche Testvarianten für Widget \\     
+     & 1 & Einleitung der Dokumentation schreiben \\
+     & 3 & Verschieden Testvarianten bei den Widgets durchführen \\
+
+\hline
+28 & 2 & Dokumentation für Hardware schreiben \\
+     & 3 & Dokumentation für Widgets \\
+     & 3 & Dokumentation für Rahmen \\
+     & 2 & Dokumentation für Display-Aufbau schreiben + Kapitel formatieren in Latex\\
+     & 1 & Testverfahren für Doku schreiben
 \end{longtable}
 
-Gesamtstunden: 109
+Gesamtstunden: 148
 
 % Neue Seite für die nächste Tabelle
 \newpage
@@ -226,9 +270,12 @@ Gesamtstunden: 109
    & 2 & Verbessern der readability des Algorithmus \\
    & 8 & Implementation des Websockets mitsamt Logik für andauernder Synchronisation \\
    & 4 & Troubleshooting: Gesichtserkennung stürzt ab auf Raspi \\
+   & 3 & Testing \\
+   & 6 & Dokumentation Gesichtserkennung  \\
+   & 3 & Literatur+Abbildungsverzeichnis\\
 \end{longtable}
 
-Gesamtstunden: 130
+Gesamtstunden: 140
 
 % Neue Seite für die nächste Tabelle
 \newpage
@@ -320,10 +367,22 @@ Gesamtstunden: 130
    & 3 & Schreiben des Präsentationsskripts \\
    & 2 & Übung Präsentation \\
    & 5 & Testen der Gesichtserkennung am Websocket \\
-   & 3 & Testen und Korrigieren profiles sync \\
+   & 4 & Testen und Korrigieren profiles sync \\
+   & 2 & Überarbeitung Dokumentationslayout \\
+   & 5 & Implementierung und Testen selectedWidgets \\
+   & 1 & Kompilieren Remote App Release \\
+   & 2 & Dokumentation Remote App Views \\
+   & 2 & Anpassung des Literaturverzeichnisses in Dokumentation \\
+   & 1 & Dokumentation Flutter SDK \\
+   & 2 & Dokumentation Implementierung Websocket und Remote Content \\  
+\hline
+28 & 2 & Dokumentation Raspberry Pi Konfiguration \\
+   & 3 & Dokumentation Implementierung Widgets, Profile und Sonstiges \\
+   & 2 & Dokumentation Schnittstellen \\
+   & 1 & Dokumentation Fertigstellung \\
 \end{longtable}
 
-Gesamtstunden: 150
+Gesamtstunden: 174
 
 % Neue Seite für die nächste Tabelle
 \newpage
@@ -407,6 +466,7 @@ Gesamtstunden: 150
    & 2 & Löcher bohren und Plexiglas festschrauben \\
    & 1 & Spiegelfolie aufbringen und Kabel Loch bohren \\
    & 5 & Schnittstelle zwischen Gesichtserkennung und Display die Grundlagen auf Seite des Displays aufsetzen \\
+   & 2 & Bugfixing Schnittstellen Problem\\
 \hline
 26 & 2 & Teambesprechung \\
    & 1 & Fehler korrigieren am Spiegel \\
@@ -421,20 +481,28 @@ Gesamtstunden: 150
 \hline
 27 & 2 & Powerpoint erstellung \\
    & 3 & HMTL neu anordnen auf Basis von Json Datei\\
-   & 2 & Troubleshooting Chache Probleme \\
+   & 2 & Troubleshooting Cache Probleme \\
    & 1 & nicht ausgewählte Widgets ausblenden \\
    & 2 & Vorbereitung Präsentation \\
    & 3 & Schreiben des Präsentationsskripts \\
    & 2 & Teambespechung \\
-   & 1 &  Studenliste in Dokumentation eintragen \\
+   & 1 & Studenliste in Dokumentation eintragen \\
    & 4 & Dokumentation für Widgets schreiben \\
    & 1 & Dokumentation für Testverfahren schreiben \\
+   & 2 & Informieren über Mögliche Testvarianten für Widget / Schnittstelle \\
    & 3 & Verschieden Testvarianten bei den Widgets durchführen \\
    & 2 & Dokumentation der Dynamischen Widget Anordnung / Überarbeitung Layout \\
+   & 2 & Dokumentation für Hardware schreiben \\
+   & 3 & Dokumentation für Rahmen \\
+   & 1 & Quellen aktualisieren und kleine Fehlerbehebungen in der Dokumentation \\
+   & 3 & Final Version von Projekt auf Raspberry spielen und Testen aller Funktionen für die Vorstellung \\
+\hline
+28 & 1 &  Dokumentation der Fehler bei der Implementierung der Dynamischen Widget anordnung \\
+   & 1 & Korrektur der Fertigen Dokumentation \\
 
 \end{longtable}
 
-Gesamtstunden: 151
+Gesamtstunden: 166
 
 \newpage
 
