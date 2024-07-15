@@ -290,13 +290,13 @@ Die Implementierung des vorher gezeigten Widgets basierte auf der Nutzung von Ja
 Während der Entwicklung des Widgets traten mehrere Herausforderungen auf. Eine der größten Herausforderungen bestand darin, sicherzustellen, dass die Uhrzeit in Echtzeit und ohne Verzögerung aktualisiert wird. Dies war besonders wichtig, um die Genauigkeit der angezeigten Zeit zu gewährleisten. Die Verwendung der 'setTimeout' Funktion in JavaScript ermöglicht eine wiederholte Ausführung der Aktualisierungsfunktion in einem festgelegten Intervall von einer Sekunde, wodurch eine kontinuierliche und genaue Aktualisierung der Uhrzeit sichergestellt wurde.
 Eine weitere Herausforderung war die exakte Zeitanzeige, insbesondere hierbei ist wichtig die Erwähnung der Formatierung der Uhrzeit, um sicherzustellen, dass Stunden, Minuten und Sekunden stets zweistellig angezeigt werden. Durch die Verwendung der 'padStart' Methode konnten die Zahlen auf eine konstante Länge von zwei Stellen gebracht werden, indem bei Bedarf führende Nullen hinzugefügt werden. Dies gewährleistete eine konsistente und gut lesbare Anzeige.\\ \\
 \noindent
-Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3.11 genauer für alle Widget eingegangen.
+Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3 genauer für alle Widget eingegangen.
 
 
 \subsection{Verkehrsinformation}
 Erarbeitet von: Marcel Wagner \\ \\
 \noindent
-Die Implementierung des Stau Widgets auf dem Smart Mirror stellt einen wichtigen Schritt dar, um den Nutzern eine umfassende und zuverlässige Quelle für aktuelle Verkehrsinformationen zur Verfügung zu stellen. Das Widget wurde speziell entwickelt, um eine Echtzeitübersicht über die Verkehrslage in Regensburg zu bieten, was insbesonders für Pendler von großem Nutzen ist. Durch die Verwendung von JavaScript wurde eine nahtlose Integration mit der OpenStreetMap Overpass API realisiert, die als zuverlässige Datenquelle für Verkehrsdaten dient. Bevor die Vrogehensweise der Implementierung betrachtet wird kann der Nachfolgenden Abbildung nun das Implementierte Widget  für dem Fall das aktuelle Kein Stau in Regensburg vorhanden ist entnommen werden. \\ \\
+Die Implementierung des Stau Widgets auf dem Smart Mirror stellt einen wichtigen Schritt dar, um den Nutzern eine umfassende und zuverlässige Quelle für aktuelle Verkehrsinformationen zur Verfügung zu stellen. Das Widget wurde speziell entwickelt, um eine Echtzeitübersicht über die Verkehrslage in Regensburg zu bieten, was insbesonders für Pendler von großem Nutzen ist. Durch die Verwendung von JavaScript wurde eine nahtlose Integration mit der OpenStreetMap Overpass API realisiert, die als zuverlässige Datenquelle für Verkehrsdaten dient. Bevor die Vorgehensweise der Implementierung betrachtet wird kann der Nachfolgenden Abbildung nun das Implementierte Widget  für dem Fall das aktuelle Kein Stau in Regensburg vorhanden ist entnommen werden. \\ \\
 \noindent
 \begin{figure}[h]
     \centering
@@ -312,7 +312,7 @@ Während der Entwicklung wurden mehrere Herausforderungen gemeistert, darunter d
 \noindent
 Das Verkehrs Widget präsentiert die Verkehrslage in einer klaren und intuitiven Benutzeroberfläche. Es informiert die Nutzer klar verständlich darüber, ob derzeit ein Stau vorliegt oder nicht, und bietet gegebenenfalls zusätzliche Informationen über Verkehrshindernisse oder Verkehrswarnungen. Diese klare visuelle Darstellung hilft den Nutzern, schnell zu erfassen, wie die aktuelle Verkehrssituation ihre geplante Route beeinflussen ist. \\ \\
 \noindent
-Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3.11 genauer für alle Widget eingegangen.
+Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3 genauer für alle Widget eingegangen.
 
 \subsection*{Potenzielle Erweiterungen}
 Ein bedeutendes Potenzial für eine Weiterentwicklung des Verkehrs Widgets liegt in der Integration mit der bereits bestehenden Smartphone Schnittstellen, um eine dynamische Anpassung des Standorts zu ermöglichen. Diese Erweiterung würde es den Nutzern gestatten, die Verkehrsinformationen auf ihrem Smart Mirror basierend auf ihrem aktuellen Standort abzurufen. Dies ist besonders relevant für Pendler, die täglich unterschiedliche Routen verwenden oder deren Start- und Zielorte variieren.
@@ -336,11 +336,11 @@ Ein zentrales Element der Implementierung ist die Verwendung des 'DOMContentLoad
 \noindent
 Die Funktionalität des Widgets umfasst die Asynchronität der Datenabfrage über die Fetch API, die die RSS Feeds von Nachrichtenquellen in ein JSON Format umwandelt, das vom JavaScript Code weiterverarbeitet werden kann. Dies ermöglicht eine schnelle und effiziente Bereitstellung der neuesten Nachrichteninhalte direkt auf dem Smart Mirror, ohne dass der Nutzer zusätzliche Schritte unternehmen muss, um sich auf dem Laufenden zu halten. \\ \\
 \noindent
-Eine besondere Herausforderung während der Implementierung war die unterschiedliche Verfügbarkeit von RSS Feeds bei verschiedenen Nachrichtenseiten. Viele führende Nachrichtenagenturen und Zeitungen bieten zwar RSS Feeds an, einige jedoch nicht oder beschränken den Zugang zu ihren Inhalten über diese Schnittstelle. Dies erforderte eine sorgfältige Auswahl geeigneter RSS Feeds, die eine kontinuierliche und zuverlässige Datenversorgung gewährleisten konnten. Die Ausgegeben Nachrichten dieses Widget sind aus der Frankfurter Allgemeinen Zeitung \\ \\
+Eine besondere Herausforderung während der Implementierung war die unterschiedliche Verfügbarkeit von RSS Feeds bei verschiedenen Nachrichtenseiten. Viele führende Nachrichtenagenturen und Zeitungen bieten zwar RSS Feeds an, einige jedoch nicht oder beschränken den Zugang zu ihren Inhalten über diese Schnittstelle. Dies erforderte eine sorgfältige Auswahl geeigneter RSS Feeds, die eine kontinuierliche und zuverlässige Datenversorgung gewährleisten konnten. Die Ausgegeben Nachrichten dieses Widget sind aus der Frankfurter Allgemeinen Zeitung. \\ \\
 \noindent
 Um die Benutzerfreundlichkeit zu maximieren, wurde die Benutzeroberfläche des Widgets bewusst einfach und intuitiv gestaltet. Die angezeigten Nachrichten werden in einer geordneten Liste präsentiert.
 \noindent
-Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3.11 genauer für alle Widget eingegangen.
+Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3 genauer für alle Widget eingegangen.
 
 
 
@@ -363,10 +363,10 @@ Die Datenabfrage wird asynchron durchgeführt, um eine reibungslose Interaktion 
 \noindent
 Die Darstellung der Tankstelleninformationen auf dem Smart Mirror erfolgt in einer klar strukturierten Form. Dies umfasst den Namen der Tankstelle, die vollständige Adresse inklusive Straße, Hausnummer, Postleitzahl und Ort sowie den aktuellen Preis pro Liter Kraftstoff. Diese Informationen sind leicht zugänglich und ermöglichen es dem Nutzer, schnell die wichtigsten Details zu erfassen und eine informierte Entscheidung zu treffen. \\ \\
 \noindent
-Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3.11 genauer für alle Widget eingegangen.
+Das Implementiert Widget wurde im Anschluss auf ihre Funktionalitäten getestet. Auf diesen Bereich wird im Kapitel 3.3 genauer für alle Widget eingegangen.
 
 \subsection*{Potenzielle Erweiterung}
-Ein bedeutendes Potenzial für die Weiterentwicklung des Tankstellen-Widgets liegt in der dynamischen Anpassung der Widget Inhalte basierend auf Eingaben vom Smartphone der Nutzer. Diese Erweiterung würde eine noch individuellere und nutzerzentrierte Erfahrung ermöglichen, indem sowohl der bevorzugte Kraftstofftyp als auch der Standort der Nutzer flexibel konfiguriert werden können.
+Ein bedeutendes Potenzial für die Weiterentwicklung des Tankstellen Widgets liegt in der dynamischen Anpassung der Widget Inhalte basierend auf Eingaben vom Smartphone der Nutzer. Diese Erweiterung würde eine noch individuellere und nutzerzentrierte Erfahrung ermöglichen, indem sowohl der bevorzugte Kraftstofftyp als auch der Standort der Nutzer flexibel konfiguriert werden können.
 
 \newpage
 
