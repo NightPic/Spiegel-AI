@@ -15,7 +15,7 @@ detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 facerec = dlib.face_recognition_model_v1('dlib_face_recognition_resnet_model_v1.dat')
 
-# Initialize data storage for face descriptors and corresponding labels
+# Initialize data storage for face descriptors + labels 
 face_descriptors = []
 labels = []
 label_index = 0
@@ -39,7 +39,6 @@ while True:
         # Get the facial landmarks
         landmarks = predictor(gray, face)
 
-        # IMPORTANT: Use the original frame, not the gray frame, for feature extraction
         face_descriptor = np.array(facerec.compute_face_descriptor(frame, landmarks))
 
         # Try to recognize the face

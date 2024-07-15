@@ -26,7 +26,7 @@ def recognize_face(face_descriptor):
         return None
     distances = np.linalg.norm(np.array(face_descriptors) - face_descriptor, axis=1)
     min_distance = np.min(distances)
-    if min_distance < 0.6:  # Threshold for recognizing a face can be tuned
+    if min_distance < 0.6:  # Threshold for recognizing a face can be tuned (euklidischer Abstand)
         index = np.argmin(distances)
         return labels[index]
     else:

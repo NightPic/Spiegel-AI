@@ -3,7 +3,6 @@ import threading
 from websocket import create_connection, WebSocketApp
 from profile_utils import load_profiles
 
-ws_app = None
 
 def on_message(ws, message):
     if message == "fetch":
@@ -40,7 +39,6 @@ def send_profiles(profiles):
     if ws_app and ws_app.sock.connected:
         ws_app.send(json.dumps({"sender": "mirror", "profiles": profiles}))
 
-# Start WebSocket thread
 def initiate_websocket_connection():
     websocket_thread = threading.Thread(target=start_websocket)
     websocket_thread.start()
