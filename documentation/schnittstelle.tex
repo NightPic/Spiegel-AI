@@ -24,6 +24,7 @@ Abschließend mussten noch auf Basis dieser Daten eine Dynamische Anpassung der 
 \noindent
 \textbf{CORS Beschränkung:} Ein weiteres Problem, welches während der Implementierung aufgetreten ist, war im Zusammenhang mit der Same Origin Policy des Browsers. Diese Sicherheitsrichtlinie verhinderte den Abruf der profiles.json Datei von einem anderen Ursprung, was die Aktualisierung der Profile erschwerte. Um dieses Problem zu umgehen, wurde ein lokaler Server mit Python erstellt, der die Datei ausliefert. Dieser Server ermöglichte es, die Datei lokal zu hosten und somit die CORS Beschränkungen (Cross Origin Resource Sharing) zu umgehen. Durch den Zugriff auf diesen lokalen Server konnte die Datei problemlos und sicher abgerufen werden, was die zuverlässige Aktualisierung der Profile gewährleistet.
 \\ \\
-\\noindent
-\textbf{Script ausführung in der Update State:} Ein weiteres Hinderniss bei der Implementierung der Dynamischen Anordnung war in der updateState
+\noindent
+\textbf{Fehler bei der Skript ausführung:} Während der Implementierung der Dynamischen Widget Anordnung trat ein weitere Fehler auf, der verhinderte, dass das Skript in der 'updateState.js' Datei ausgeführt wurde. Um das Problem zu beheben war es für mich notwendig das Skript manuell in den code auszuführen. \\ \\
+Durch diese manuelle Einbindung konnte der Fehler erfolgreich behoben und die korrekte Funktion des Skriptes sichergestellt werden. Diese Fehlerbehebung war notwendig um den weiteren Verlauf der Widget Anordnung zu gewährleisten.
 
