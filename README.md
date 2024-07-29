@@ -2,7 +2,7 @@
 
 # Spiegel AI
 
-## Beispielnutzung
+## Beispielnutzung von git
 Ich hoffe, ihr habt git schon mal benutzt. Hier sind ein paar Refresher:
 
 1. Erstellt einen Ordner, in welches ihr das Repository klonen möchtet.
@@ -25,7 +25,7 @@ git pull
 
 7. Um eure Änderungen ins Repository zu pushen, müsst ihr diese zu erst adden:
 ```bash
-git add filename.text documentation/documentation.tex
+git add filename.txt documentation/documentation.tex
 ```
 oder
 ```bash
@@ -43,7 +43,7 @@ könnt ihr noch mal überprüfen, welche Änderungen hinzugefügt werden.
 ```bash
 git commit -m "Aussagekräftiger Kommentar, der kurz beschreibt, was geändert wurde"
 ```
-Wer keinen Kommentar schreibt, wird beim Metzner verpetzt (und von mir persönlich gehasst).
+Wer keinen Kommentar schreibt, wird von mir persönlich gehasst.
 Wenn ihr das erste mal commitet, werdet ihr vermutlich gefragt, wer ihr seid. Da einfach
 ```bash
 git config --global user.name "abc12345"
@@ -62,7 +62,7 @@ In der documentation directory bitte NUR die documentation.tex und documentation
 ## Organisation
 Bitte auf saubere directory-Strukturen achten, die Sinn ergeben. Bitte alles so intuitiv hinzufügen, dass man alles schnell finden kann. Keinen Sourcecode in documentations, etc.
 
-Auch darauf achten, dass directories und Dateinamen alle in englischer Sprache sind, damit es einheitlich bleibt. Falls wir in der Abgabe etwas umbenennen müssen, dann können wir das im Nachinein tun.
+Auch darauf achten, dass directories und Dateinamen alle in englischer Sprache sind, damit es einheitlich bleibt.
 
 Bitte bei JEDEM commit einen Kommentar hinzufügen. Deutsch oder Englisch ist egal. Ganze Sätze sind fast immer sinnvoll. Hier ein paar Beispiele:
 
